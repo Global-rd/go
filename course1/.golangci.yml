@@ -1,0 +1,45 @@
+# .golangci.yml
+run:
+  timeout: 5m
+  tests: true # Run linters on test files
+ 
+linters-settings:
+  govet:
+    check-shadowing: true
+ 
+  gocyclo:
+    min-complexity: 10 # Minimum complexity to report
+ 
+  ineffassign: # Detects assignments to variables that are never used
+    enabled: true
+ 
+  staticcheck:
+    checks:
+      - all
+ 
+  revive:
+    severity: warning # Define custom severity for revive
+ 
+linters:
+  enable:
+    - govet         # Reports suspicious constructs
+    - staticcheck   # Advanced static analysis
+    - gocyclo       # Reports high complexity functions
+    - gofmt         # Checks for gofmt issues
+    - ineffassign   # Detects ineffective assignments
+    - revive        # Replacement for golint
+  disable:
+    - errcheck      # Disable if you find it too verbose
+    - typecheck     # Disable type checking if it's already done elsewhere
+ 
+issues:
+  exclude-rules:
+    - path: ".*_test.go" # Exclude rules for test files
+      linters:
+        - gocyclo
+  max-issues-per-linter: 50
+  max-same-issues: 3
+ 
+output:
+  format: colored-line-number
+  print-issued-lines: true
