@@ -8,7 +8,7 @@ import (
 // Típusdefiníció, metódusok létrehozása lehetőségének biztosítására
 type Permutations []string
 
-// Typusmetódus az eredmény kiírására
+// Típusmetódus az eredmény kiírására
 func (p Permutations) show_permutations(stairs int) {
 	if stairs == 0 {
 		fmt.Println("0 lépcsőfokot nem tudok mászni!")
@@ -16,7 +16,7 @@ func (p Permutations) show_permutations(stairs int) {
 	}
 	fmt.Printf("%d lépcsőfokot %d féleképpen lehet megmászni:\n", stairs, len(p))
 	for i, perm := range p {
-		fmt.Printf("%d. - [%s]", i+1, perm)
+		fmt.Printf("%d. - [%s]\n", i+1, perm)
 	}
 }
 
@@ -45,7 +45,7 @@ func scan_input() int {
 	return scan_input()
 }
 
-// Intro, hogy a user tudja, mi a feladat
+// Intro, hogy a user tudja, mi a feladata
 func intro() int {
 
 	fmt.Println("Add meg, hány lépcsőfokot másszak, én pedig kiszámolom, hogy 1 vagy 2 lépcsőfokos\nlépésekkel hányféleképpen tudom megmászni!")
