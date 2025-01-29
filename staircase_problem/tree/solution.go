@@ -69,6 +69,7 @@ func worker(variation varia, p *permutations) {
 				{
 					worker(append(variation, 1), p)
 					worker(append(variation, 2), p)
+					return
 				}
 			}
 		}
