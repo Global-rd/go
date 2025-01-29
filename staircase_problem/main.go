@@ -48,13 +48,23 @@ func intro() int {
 
 func main() {
 	stairs := intro()
+	if stairs == 0 {
+		return
+	}
+	fmt.Println("")
 
 	// A variációk prezentálása rekurzív algoritmussal
+	fmt.Println("Egyszerű algoritmus:")
 	var now = time.Now()
 	fmt.Printf("A variációk száma %d lépcsőfokra: %d.\n", stairs, fibolike.Fibonacci_like(stairs))
 	Benchmark(now, "Egyszerű megoldás")
 
-	p := threaded.Permutations{Levels: stairs}
-	p.Calc_permutations()
+	fmt.Println("")
+	// A variációk prezentálása többszálas feldolgozással
+	fmt.Println("Variációk listázásával:")
+	now = time.Now()
+	p := threaded.NewPermutations(stairs)
+	elapsed := time.Since(now)
 	p.Show_permutations()
+	fmt.Printf("Bonyolult megoldás time cost: %s\n", elapsed)
 }
