@@ -16,13 +16,13 @@ func ValidateInput(numOfSteps int64) (bool, error) {
 	return true, nil
 }
 
-func CalculateWaysOfClimbing(numOfSteps int) int {
+func CalculateWaysOfClimbing(numOfSteps int) uint64 {
 	if numOfSteps <= 3 {
-		return numOfSteps
+		return uint64(numOfSteps)
 	}
-	oneStepLessWays := 3
-	twoStepsLessWays := 2
-	possibleWays := 0
+	var oneStepLessWays uint64 = 3
+	var twoStepsLessWays uint64 = 2
+	var possibleWays uint64 = 0
 	for i := 4; i <= numOfSteps; i++ {
 		possibleWays = oneStepLessWays + twoStepsLessWays
 		twoStepsLessWays = oneStepLessWays
