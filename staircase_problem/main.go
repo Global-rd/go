@@ -2,22 +2,15 @@ package main
 
 import (
 	"fmt"
+	fibolike "main/fibo_like"
+	"main/threaded"
 	"strconv"
+	"time"
 )
 
-// Típusdefiníció, metódusok létrehozása lehetőségének biztosítására
-type Permutations []string
-
-// Típusmetódus az eredmény kiírására
-func (p Permutations) show_permutations(stairs int) {
-	if stairs == 0 {
-		fmt.Println("0 lépcsőfokot nem tudok mászni!")
-		return
-	}
-	fmt.Printf("%d lépcsőfokot %d féleképpen lehet megmászni:\n", stairs, len(p))
-	for i, perm := range p {
-		fmt.Printf("%d. - [%s]\n", i+1, perm)
-	}
+func Benchmark(start time.Time, name string) {
+	elapsed := time.Since(start)
+	fmt.Printf("%s time cost: %s\n", name, elapsed)
 }
 
 // A kezdőfeltételen bekérése és parse-olása
@@ -53,13 +46,15 @@ func intro() int {
 	return scan_input()
 }
 
-func calc_permutations(permutations *Permutations, stairs int) {
-	fmt.Println("Calculating")
-}
-
 func main() {
-	p := new(Permutations)
 	stairs := intro()
-	calc_permutations(p, stairs)
-	p.show_permutations(stairs)
+
+	// A variációk prezentálása rekurzív algoritmussal
+	var now = time.Now()
+	fmt.Printf("A variációk száma %d lépcsőfokra: %d.\n", stairs, fibolike.Fibonacci_like(stairs))
+	Benchmark(now, "Egyszerű megoldás")
+
+	p := threaded.Permutations{Levels: stairs}
+	p.Calc_permutations()
+	p.Show_permutations()
 }
