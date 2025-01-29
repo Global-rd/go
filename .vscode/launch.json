@@ -16,6 +16,12 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/class2/main.go"
+        },{
+            "name": "3 class",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/class3/main.go"
         }
     ]
 }
