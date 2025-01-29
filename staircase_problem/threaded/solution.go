@@ -58,6 +58,7 @@ func (p permutations) calculate(variation []int) {
 	if p.check_if_on_top(variation) {
 		p.mu.Lock()
 		p.variations = append(p.variations, variation)
+		p.mu.Unlock()
 		p.wg.Done()
 		return
 	}
