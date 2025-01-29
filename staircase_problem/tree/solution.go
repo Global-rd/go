@@ -30,7 +30,9 @@ func (p *permutations) Show_permutations() {
 }
 
 func (p *permutations) append_variation(variation varia) {
-	p.variations = append(p.variations, variation)
+	var temp = make(varia, 0)
+	temp = append(temp, variation...)
+	p.variations = append(p.variations, temp)
 }
 
 // Inicializálás
@@ -52,31 +54,25 @@ func worker(variation varia, p *permutations) {
 
 	// 1. meghatározzuk, hol állunk
 	current_level := 0
-	//fmt.Println("VARIATION: ", variation)
 	for _, step := range variation {
 		current_level += step
 	}
 	leveling := current_level - p.levels
-	fmt.Println("LEVELING: ", leveling)
 
 	// 2. Ha "túlfutottunk" (nagyobb, mint 0), nem mentünk (hibás variáció)",
 	// és visszatérünk a másik ágra
 	if leveling > 0 {
-		fmt.Println("OVERRUN: ", variation)
 		return
 	}
 
 	// 3. Ha pont 0, azaz felértünk a tetejére, mentjünk a variációt, és visszatérünk a másik ágra
 	if leveling == 0 {
-		fmt.Println("<------ !!ON THE TOP: ", variation)
 		p.append_variation(variation)
-		fmt.Println("<-------!!CURRENT VARLIST:", p.variations)
 		return
 	}
 
 	// 4. Ha kevesebb, mint 0, akkor még nem értünk fel, újra hívjuk a két "lehetőséget" (ágat)
 	if leveling < 0 {
-		fmt.Println("UNDERRUN: ", variation)
 		worker(append(variation, 1), p)
 		worker(append(variation, 2), p)
 		return
