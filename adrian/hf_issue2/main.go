@@ -45,7 +45,7 @@ func CheckForEnvironmentVariable() (int64, bool) {
 
 func GetNumberOfStepsFromUserInput() int64 {
 	var numOfSteps int64
-	fmt.Print("Enter number of steps: ")
+	fmt.Print("Enter the number of steps: ")
 	_, err := fmt.Scanln(&numOfSteps)
 	if err != nil {
 		panic(fmt.Errorf("error reading number of steps from user input: %w", err))
