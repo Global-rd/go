@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	fibolike "main/fibo_like"
+	"main/tree"
 	"strconv"
 	"time"
 )
@@ -61,12 +62,12 @@ func main() {
 	fmt.Println("")
 	// A variációk prezentálása tree-like feldolgozással
 	// TODO fix bugs (number of variations passes, invalid variations)
-	/*
-		fmt.Println("Variációk listázásával:")
-		now = time.Now()
-		p := tree.NewPermutations(stairs)
-		elapsed := time.Since(now)
-		p.Show_permutations()
-		fmt.Printf("Bonyolult megoldás time cost: %s\n", elapsed)
-	*/
+
+	fmt.Println("Variációk listázásával:")
+	now = time.Now()
+	p := tree.NewPermutations(stairs)
+	elapsed := time.Since(now)
+	p.Show_permutations()
+	fmt.Printf("Bonyolult megoldás time cost: %s\n", elapsed)
+
 }

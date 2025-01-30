@@ -21,22 +21,32 @@ func (p *permutations) Show_permutations() {
 	}
 	fmt.Printf("%d lépcsőfokot %d féleképpen lehet megmászni:\n", p.levels, len(p.variations))
 	for i, variation := range p.variations {
-		fmt.Printf("%d. - %d\n", i+1, variation)
+		steps := 0
+		for _, s := range variation {
+			steps += s
+		}
+		fmt.Printf("%d. - %d - Összesen %d lépcsőfok.\n", i+1, variation, steps)
 	}
 }
 
+func (p *permutations) append_variation(variation varia) {
+	var temp = make(varia, 0)
+	temp = append(temp, variation...)
+	p.variations = append(p.variations, temp)
+}
+
 // Inicializálás
-func NewPermutations(levels int) *permutations {
+func NewPermutations(levels int) permutations {
 	p := new(permutations)
 	p.levels = levels
 	p.variations = make([]varia, 0)
 
-	var variation = make(varia, 0)
+	variation := make(varia, 0)
 
 	worker(append(variation, 1), p)
 	worker(append(variation, 2), p)
 
-	return p
+	return *p
 }
 
 // A rekurzív worker
@@ -49,29 +59,23 @@ func worker(variation varia, p *permutations) {
 	}
 	leveling := current_level - p.levels
 
-	switch leveling == 0 {
+	// 2. Ha "túlfutottunk" (nagyobb, mint 0), nem mentünk (hibás variáció)",
+	// és visszatérünk a másik ágra
+	if leveling > 0 {
+		return
+	}
 
-	// Ha éppen a tetején, akkor rögzítjük az aktuális variációt és kilépünk
-	case true:
-		{
-			p.variations = append(p.variations, variation)
-			return
-		}
-	case false:
-		// Ha nem pont a tetején tovább vizsgálódunk
-		{
-			switch leveling > 0 {
-			// Ha túlmentünk, biztosan rossz a variáció, kilépünk
-			case true:
-				return
-			// Ha túl alacsony, további variációkat generálunk, és új rekurzív worker-eket indítunk
-			case false:
-				{
-					worker(append(variation, 1), p)
-					worker(append(variation, 2), p)
-				}
-			}
-		}
+	// 3. Ha pont 0, azaz felértünk a tetejére, mentjünk a variációt, és visszatérünk a másik ágra
+	if leveling == 0 {
+		p.append_variation(variation)
+		return
+	}
+
+	// 4. Ha kevesebb, mint 0, akkor még nem értünk fel, újra hívjuk a két "lehetőséget" (ágat)
+	if leveling < 0 {
+		worker(append(variation, 1), p)
+		worker(append(variation, 2), p)
+		return
 	}
 
 }
