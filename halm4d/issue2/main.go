@@ -32,8 +32,7 @@ func solveStaircase(n int) int {
 }
 
 func readSteps() (int, error) {
-	stepsEnv := os.Getenv("STEPS")
-	if stepsEnv != "" {
+	if stepsEnv := os.Getenv("STEPS"); stepsEnv != "" {
 		steps, err := strconv.Atoi(stepsEnv)
 		if err != nil {
 			fmt.Println("Invalid input from environment variable:", err)
