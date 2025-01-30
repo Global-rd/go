@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"math/big"
 	"os"
 	"strconv"
 )
@@ -16,19 +17,20 @@ func ValidateInput(numOfSteps int64) (bool, error) {
 	return true, nil
 }
 
-func CalculateWaysOfClimbing(numOfSteps int) uint64 {
+func CalculateWaysOfClimbing(numOfSteps int) string {
 	if numOfSteps <= 3 {
-		return uint64(numOfSteps)
+		return strconv.Itoa(numOfSteps)
 	}
-	var oneStepLessWays uint64 = 3
-	var twoStepsLessWays uint64 = 2
-	var possibleWays uint64 = 0
+	oneStepLessWays := big.NewInt(3)
+	twoStepsLessWays := big.NewInt(2)
+	possibleWays := new(big.Int)
+
 	for i := 4; i <= numOfSteps; i++ {
-		possibleWays = oneStepLessWays + twoStepsLessWays
-		twoStepsLessWays = oneStepLessWays
-		oneStepLessWays = possibleWays
+		possibleWays.Add(oneStepLessWays, twoStepsLessWays)
+		twoStepsLessWays.Set(oneStepLessWays)
+		oneStepLessWays.Set(possibleWays)
 	}
-	return possibleWays
+	return possibleWays.String()
 }
 
 func CheckForEnvironmentVariable() (int64, bool) {
@@ -64,6 +66,6 @@ func main() {
 	}
 	if isValid {
 		waysOfClimbing := CalculateWaysOfClimbing(int(numOfSteps))
-		fmt.Printf("There are %d ways to climb %d steps\n", waysOfClimbing, numOfSteps)
+		fmt.Printf("There are %s ways to climb %d steps\n", waysOfClimbing, numOfSteps)
 	}
 }
