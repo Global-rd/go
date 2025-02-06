@@ -1,26 +1,24 @@
 package main
 
 import (
-	"bufio"
 	"errors"
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
 
-	stringsToCompare, err := readStringToCompare()
+	firstString, secondString, err := readStringToCompare()
 	if err != nil {
-		fmt.Println("Error reading input: ", err)
+		fmt.Println("Error reading input:", err)
 		os.Exit(1)
 	}
 
-	longestCommonSubString := findLongestCommonSubString(stringsToCompare[0], stringsToCompare[1])
+	longestCommonSubString := findLongestCommonSubString(firstString, secondString)
 	if longestCommonSubString == "" {
 		fmt.Println("No common substring found")
 	} else {
-		fmt.Println("Longest common substring: ", longestCommonSubString)
+		fmt.Println("Longest common substring:", longestCommonSubString)
 	}
 
 }
@@ -51,29 +49,32 @@ func findSubString(a, b string, i, j int) string {
 	return subString
 }
 
-func readStringToCompare() ([]string, error) {
-	if stringsToCompareEnv := os.Getenv("STRINGS_TO_COMPARE"); stringsToCompareEnv != "" {
-		split := strings.Split(stringsToCompareEnv, " ")
-		if len(split) != 2 {
-			fmt.Println("Invalid input from environment variable: expected 2 strings separated by a space")
-		} else {
-			return split, nil
-		}
+func readStringToCompare() (string, string, error) {
+	var firstStringToCompare string
+	var secondStringToCompare string
+
+	if stringsToCompareEnv := os.Getenv("FIRST_STRINGS_TO_COMPARE"); stringsToCompareEnv != "" {
+		firstStringToCompare = stringsToCompareEnv
+	}
+	if stringsToCompareEnv := os.Getenv("SECOND_STRINGS_TO_COMPARE"); stringsToCompareEnv != "" {
+		secondStringToCompare = stringsToCompareEnv
 	}
 
-	fmt.Print("Enter strings to compare: ")
-	scanner := bufio.NewScanner(os.Stdin)
-	if scanner.Scan() {
-		split := strings.Split(scanner.Text(), " ")
-		if len(split) != 2 {
-			return nil, errors.New("invalid input expected 2 strings separated by a space")
-		}
-		return split, nil
+	if firstStringToCompare != "" && secondStringToCompare != "" {
+		return firstStringToCompare, secondStringToCompare, nil
 	}
 
-	if err := scanner.Err(); err != nil {
-		return nil, err
+	fmt.Print("Enter first strings to compare: ")
+	if _, err := fmt.Scanln(&firstStringToCompare); err != nil {
+		return "", "", err
+	}
+	fmt.Print("Enter second strings to compare: ")
+	if _, err := fmt.Scanln(&secondStringToCompare); err != nil {
+		return "", "", err
 	}
 
-	return nil, errors.New("no input provided")
+	if firstStringToCompare == "" || secondStringToCompare == "" {
+		return "", "", errors.New("no input provided")
+	}
+	return firstStringToCompare, secondStringToCompare, nil
 }
