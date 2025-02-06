@@ -21,13 +21,11 @@ func calculateSteps(n int) int {
 			Your task is to determine the total number of distinct ways you can climb to the top of the staircase.
 	*/
 
-	fmt.Println(n)
-
 	if n <= 0 {
 		return 0
 	} else if n <= 2 {
 		return n
 	} else {
-		return ((n - 1) + (n - 2))
+		return (calculateSteps(n-1) + calculateSteps(n-2))
 	}
 }
