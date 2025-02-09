@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"log"
 )
 
 func main() {
-	os.Setenv("STRING_A", "asdfghjzu")
-	os.Setenv("STRING_B", "qwefghjtz")
+	var defaultString1 string = "asdfghjzu"
+	var defaultString2 string = "qwefghjtz"
 
 	var str1 string
 	var str2 string
@@ -20,8 +19,8 @@ func main() {
 		msg = "User defined two strings to get common chars."
 	} else {
 		msg = "User not defined strings to compare gathering default values from env!!"
-		str1 = os.Getenv("STRING_A")
-		str2 = os.Getenv("STRING_B")
+		str1 = defaultString1
+		str2 = defaultString2
 	}
 
 	calculateCommonChars(str1, str2, msg)
@@ -57,16 +56,16 @@ func calculateCommonChars(str1 string, str2 string, msg string) {
 		}
 	}
 
-/*	 a s d f g h j z u
-q   [0 0 0 0 0 0 0 0 0] 
-w	[0 0 0 0 0 0 0 0 0]  
-e	[0 0 0 0 0 0 0 0 0] 
-f	[0 0 0 0 0 0 0 0 0] 
-g	[0 0 0 0 1 0 0 0 0]
-h	[0 0 0 0 0 2 0 0 0] 
-j	[0 0 0 0 0 0 3 0 0] 
-t	[0 0 0 0 0 0 0 4 0] 
-z	[0 0 0 0 0 0 0 0 0] */
+	/*	 a s d f g h j z u
+	q   [0 0 0 0 0 0 0 0 0]
+	w	[0 0 0 0 0 0 0 0 0]
+	e	[0 0 0 0 0 0 0 0 0]
+	f	[0 0 0 0 0 0 0 0 0]
+	g	[0 0 0 0 1 0 0 0 0]
+	h	[0 0 0 0 0 2 0 0 0]
+	j	[0 0 0 0 0 0 3 0 0]
+	t	[0 0 0 0 0 0 0 4 0]
+	z	[0 0 0 0 0 0 0 0 0] */
 	fmt.Println("The common chars and length are: ")
 	fmt.Println(str1[end-maxLength+1 : end+1], maxLength)
 }
@@ -79,4 +78,4 @@ func readChars(str1 string, str2 string) (string, string) {
 	fmt.Scanln(&str2)
 
 	return str1, str2
-} 
+}
