@@ -5,12 +5,14 @@ import (
 )
 
 func main() {
-	var string1 = []rune("abcdefghij")
+	var string1 = []rune("a4bcdefghij")
 	var string2 = []rune("1234a4bc5678")
-	lcs(string1, string2, 0, 0)
+
+	var longestFound string
+	fmt.Println(lcs(string1, string2, longestFound, 0, 0))
 }
 
-func lcs(str1 []rune, str2 []rune, indexi int, indexj int) {
+func lcs(str1 []rune, str2 []rune, longestFound string, indexi int, indexj int) string {
 
 	var commonStr string = ""
 
@@ -36,7 +38,9 @@ func lcs(str1 []rune, str2 []rune, indexi int, indexj int) {
 						} else if commonStr != "" {
 							i2 = len(str1)
 							j2 = len(str2)
-							fmt.Println(commonStr)
+							if len(longestFound) <= len(commonStr) {
+								longestFound = commonStr
+							}
 							commonStr = ""
 						}
 					}
@@ -44,9 +48,12 @@ func lcs(str1 []rune, str2 []rune, indexi int, indexj int) {
 			}
 
 			if commonStr != "" {
-				fmt.Println(commonStr)
+				if len(longestFound) <= len(commonStr) {
+					longestFound = commonStr
+				}
 			}
 			commonStr = ""
 		}
 	}
+	return longestFound
 }
