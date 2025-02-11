@@ -2,7 +2,7 @@
 
 ```go
 type StructWithSlice struct {
-    A []
+    A []string
 }
 ```
 
