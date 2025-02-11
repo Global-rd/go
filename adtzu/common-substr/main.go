@@ -5,14 +5,14 @@ import (
 )
 
 func main() {
-	var string1 = []rune("a4bcdefghij")
-	var string2 = []rune("1234a4bc5678")
+	var string1 = "a4bcdefghij"
+	var string2 = "1234a4bc5678"
 
 	var longestFound string
 	fmt.Println(lcs(string1, string2, longestFound, 0, 0))
 }
 
-func lcs(str1 []rune, str2 []rune, longestFound string, indexi int, indexj int) string {
+func lcs(str1 string, str2 string, longestFound string, indexi int, indexj int) string {
 
 	var commonStr string = ""
 
