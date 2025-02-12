@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/classes/class6"
+            "program": "${workspaceFolder}/classes/class7"
         }
     ]
 }
