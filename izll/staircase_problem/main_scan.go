@@ -19,7 +19,7 @@ func readStairs() int {
 	var input string
 	fmt.Print("Enter your input: ")
 	fmt.Scanln(&input)
-	n, err := strconv.ParseInt(input, 10, 32)
+	n, err := strconv.Atoi(input)
 	if err != nil {
 		fmt.Println("Invalid input. Please enter a number.")
 		return readStairs()
@@ -29,5 +29,5 @@ func readStairs() int {
 		return readStairs()
 	}
 	fmt.Println("You entered:", n)
-	return int(n)
+	return n
 }
