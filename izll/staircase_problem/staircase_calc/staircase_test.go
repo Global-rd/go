@@ -1,4 +1,4 @@
-package staircase
+package staircase_calc
 
 import "testing"
 

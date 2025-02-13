@@ -1,4 +1,4 @@
-package staircase
+package staircase_calc
 
 // CalcWays calculates the number of ways to climb n stairs.
 func CalcWays(n int) int {

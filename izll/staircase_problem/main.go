@@ -4,7 +4,9 @@ import (
 	"fmt"
 	tm "github.com/buger/goterm"
 	"os"
-	"os/exec"
+	"staircase_problem/staircase_env"
+	"staircase_problem/staircase_hardcoded"
+	"staircase_problem/staircase_scan"
 )
 
 func main() {
@@ -62,37 +64,33 @@ func printTitle(title string) {
 
 func runHardcoded() {
 	printTitle("Run hardcoded")
-	runProgram("main_hardcoded.go")
+	staircase_hardcoded.Run()
+
+	pause()
 }
 
 func runEnv() {
 	printTitle("Run env")
-	runProgram("main_env.go")
+	staircase_env.Run()
+
+	pause()
 }
 
 func runScan() {
 	printTitle("Run scan")
-	runProgram("main_scan.go")
+	staircase_scan.Run()
+
+	pause()
+}
+
+func pause() {
+	fmt.Println()
+	fmt.Println("Press enter to continue")
+	fmt.Scanln()
 }
 
 func exit() {
 	fmt.Println("Exit")
 	tm.Flush()
 	os.Exit(0)
-}
-
-func runProgram(path string) {
-	cmd := exec.Command("go", "run", path)
-
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	err := cmd.Run()
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println("\nPress enter to continue")
-	fmt.Scanln()
 }

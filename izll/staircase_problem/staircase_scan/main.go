@@ -1,18 +1,18 @@
-package main
+package staircase_scan
 
 import (
 	"fmt"
-	"staircase_problem/staircase"
+	"staircase_problem/staircase_calc"
 	"strconv"
 )
 
-func main() {
+func Run() {
 	calcWaysInput()
 }
 
 func calcWaysInput() {
 	stairs := readStairs()
-	fmt.Println("All possible ways to climb the staircase:", staircase.CalcWays(stairs))
+	fmt.Println("All possible ways to climb the staircase:", staircase_calc.CalcWays(stairs))
 }
 
 func readStairs() int {

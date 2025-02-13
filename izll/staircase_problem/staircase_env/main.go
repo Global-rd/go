@@ -1,21 +1,21 @@
-package main
+package staircase_env
 
 import (
 	"fmt"
 	"os"
-	"staircase_problem/staircase"
+	"staircase_problem/staircase_calc"
 	"strconv"
 )
 
 const StaircaseEnv = "STAIRCASE_COUNT"
 
-func main() {
+func Run() {
 	calcWaysEnv()
 }
 
 func calcWaysEnv() {
 	if n, err := stairsCount(); err == nil {
-		fmt.Printf("All possible ways to climb %d stairs: %d\n", n, staircase.CalcWays(n))
+		fmt.Printf("All possible ways to climb %d stairs: %d\n", n, staircase_calc.CalcWays(n))
 	} else {
 		fmt.Println(err)
 	}
