@@ -5,11 +5,6 @@ import (
 	"slices"
 )
 
-// Struct declaration to store the comparables
-type Tuple struct {
-	shortest, longest string
-}
-
 // Show user interface intro
 func PrintIntro() {
 	fmt.Println(" _______________________________________________________________________________________ ")
@@ -27,9 +22,7 @@ func PrintIntro() {
 }
 
 // Get user input for strings to compare
-func GetStrings() (Tuple, int) {
-	// Instantiate struct to return
-	strings := Tuple{}
+func GetStrings() (string, string, int) {
 
 	// Declare temporary variables to hold the user inputs
 	var str1 string
@@ -45,7 +38,7 @@ func GetStrings() (Tuple, int) {
 		}
 		// In case of user uit, return a negative integer to caller
 		if str1 == "q" || str1 == "Q" {
-			return strings, -1
+			return str1, str2, -1
 		}
 		break
 	}
@@ -60,7 +53,7 @@ func GetStrings() (Tuple, int) {
 		}
 		// In case of user uit, return a negative integer to caller
 		if str2 == "q" || str2 == "Q" {
-			return strings, -1
+			return str1, str2, -1
 		}
 
 		break
@@ -69,32 +62,29 @@ func GetStrings() (Tuple, int) {
 	// Sort user inputs by length
 	// In case of equality,  add an extra whitespace to the second input
 	if len(str1) == len(str2) {
-		strings.shortest = str1
-		strings.longest = str2 + " "
+		return str1, str2 + "", 1
 	}
 
 	if len(str1) < len(str2) {
-		strings.shortest = str1
-		strings.longest = str2
+		return str1, str2, 1
 	}
 
 	if len(str2) < len(str1) {
-		strings.shortest = str2
-		strings.longest = str1
+		return str2, str1, 1
 	}
 
-	// return the user input in the defined struct and a positive integer
-	return strings, 1
+	return str1, str2, 1
+
 }
 
 // Business logic
-func FindLongestCommon(strings Tuple) string {
+func FindLongestCommon(shortest_string, longest_string string) string {
 	// Temporary slice of runes to store the longest match
 	longest := []rune{}
 	// Iterate over the shortest string
-	for i, _ := range strings.shortest {
+	for i, _ := range shortest_string {
 		// Iterate iver the longest string
-		for j, _ := range strings.longest {
+		for j, _ := range longest_string {
 
 			// Temporary variables
 			temp_match := []rune{0}
@@ -103,17 +93,17 @@ func FindLongestCommon(strings Tuple) string {
 
 			for {
 				// If overrun any of the strings, to prevent error, break the loop
-				if temp_idx > len(strings.shortest)-1 || temp_jdx > len(strings.longest)-1 {
+				if temp_idx > len(shortest_string)-1 || temp_jdx > len(longest_string)-1 {
 					break
 				}
 				// If the current characters doesn't match, break the loop
-				if strings.shortest[temp_idx] != strings.longest[temp_jdx] {
+				if shortest_string[temp_idx] != longest_string[temp_jdx] {
 					break
 				}
 				// If current characters (runes) matches, append current char to the temporary
 				// container
-				if strings.shortest[temp_idx] == strings.longest[temp_jdx] {
-					temp_match = append(temp_match, []rune(strings.shortest)[temp_idx])
+				if shortest_string[temp_idx] == longest_string[temp_jdx] {
+					temp_match = append(temp_match, []rune(shortest_string)[temp_idx])
 				}
 				// Increment temporary counters
 				temp_idx += 1
@@ -143,14 +133,14 @@ func main() {
 	// Repeat logic until user quit
 	for {
 		// Get user inputs
-		strings, status := GetStrings()
+		shortest_string, longest_string, status := GetStrings()
 		// In case of user want too quit, break the loop
 		if status < 0 {
 			break
 		}
 		// Calculate and show the first longest common substring to the user
 		// The loop restarts
-		longest_common := FindLongestCommon(strings)
+		longest_common := FindLongestCommon(shortest_string, longest_string)
 		fmt.Println("The longest common string: ", longest_common)
 	}
 	// Exit program
