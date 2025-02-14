@@ -9,12 +9,13 @@ import (
 )
 
 const (
-	API         = "http://localhost:5000/"
-	MAX_RESULTS = 50
+	// Hardcoded API endpoint for fet randon strings
+	API = "http://localhost:5000/"
 )
 
 func ReadApi(w writer.Writer) {
-	for range MAX_RESULTS {
+	// Reads API, and registers strings endlessly
+	for {
 		response, err := http.Get(API)
 
 		if err != nil {
@@ -26,21 +27,23 @@ func ReadApi(w writer.Writer) {
 			panic(err.Error())
 		}
 
+		// Buffers incoming strings
 		err = w.Write(string(responseData))
 		if err != nil {
 			if errors.Is(err, writer.BufferFullError) {
-				w.Flush()
+				// Panic event when buffer is full (should be handled differently!)
+				panic(err.Error())
 			} else if errors.Is(err, writer.ContainsInvalidCharacterError) {
+				// Panics when the input is corrupted (contains an invalid xharaxter)
 				panic(err.Error())
 			} else {
+				// Panics also at any other unexpepcted error,
+				// besides closes the writer
 				w.Close()
 				panic(errors.New("unexpected error"))
 			}
-
 		}
 	}
-
-	w.Close()
 }
 
 func main() {
@@ -48,8 +51,8 @@ func main() {
 	writer := writer.NewWriter()
 
 	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("Recovered. Error:\n", r)
+		if err := recover(); err != nil {
+			fmt.Println("Recovered. Error:\n", err)
 			writer.Flush()
 		}
 	}()
