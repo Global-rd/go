@@ -1,26 +1,35 @@
 package main
 
 import (
-	"fmt"
+	"client/writer"
 	"io"
-	"log"
 	"net/http"
-	"os"
+)
+
+const (
+	API = "http://localhost:5000/"
 )
 
 func main() {
-	log.Println("Hello woorld from client!")
 
-	response, err := http.Get("http://localhost:5000/")
+	writer := writer.NewWriter()
 
-	if err != nil {
-		fmt.Print(err.Error())
-		os.Exit(1)
+	for {
+		response, err := http.Get(API)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		responseData, err := io.ReadAll(response.Body)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		err = writer.Write(string(responseData))
+		if err != nil {
+			panic(err.Error())
+		}
 	}
 
-	responseData, err := io.ReadAll(response.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(string(responseData))
 }

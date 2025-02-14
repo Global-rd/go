@@ -7,12 +7,19 @@ import (
 )
 
 const (
-	RANDCHARS = "0123456789A"
+	RANDCHARS     = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxxyz"
+	RANDOM_LENGHT = 10
 )
 
 func random_selection() string {
-	randomIndex := rand.Intn(len(RANDCHARS))
-	return string(RANDCHARS[randomIndex])
+	buff := []byte{}
+	i := 0
+	for i < RANDOM_LENGHT {
+		randomIndex := rand.Intn(len(RANDCHARS))
+		buff = append(buff, []byte(RANDCHARS)[randomIndex])
+		i++
+	}
+	return string(buff)
 }
 
 func main() {
