@@ -2,19 +2,18 @@ package main
 
 import (
 	"client/writer"
+	"fmt"
 	"io"
 	"net/http"
 )
 
 const (
-	API = "http://localhost:5000/"
+	API         = "http://localhost:5000/"
+	MAX_RESULTS = 50
 )
 
-func main() {
-
-	writer := writer.NewWriter()
-
-	for {
+func ReadApi(w writer.Writer) {
+	for range MAX_RESULTS {
 		response, err := http.Get(API)
 
 		if err != nil {
@@ -26,10 +25,25 @@ func main() {
 			panic(err.Error())
 		}
 
-		err = writer.Write(string(responseData))
+		err = w.Write(string(responseData))
 		if err != nil {
 			panic(err.Error())
 		}
 	}
+	w.Close()
+}
+
+func main() {
+
+	writer := writer.NewWriter()
+
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered. Error:\n", r)
+			writer.Flush()
+		}
+	}()
+
+	ReadApi(writer)
 
 }
