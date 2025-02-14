@@ -3,16 +3,17 @@ package writer
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
 )
 
 const (
 	MAX_BUFFERSIZE = 15
 	FILEPATH       = "./results.txt"
+	INVALID_CHAR   = "A"
 )
 
 var BufferFullError = errors.New("buffer full")
+var ContainsInvalidCharacterError = errors.New("invalid character")
 
 type Writer interface {
 	Write(string) error
@@ -27,6 +28,10 @@ type BatchWriter struct {
 
 // Panic occurs here, when buffer is full!
 func (b *BatchWriter) Write(s string) error {
+	if !CheckIfValid(s) {
+		return ContainsInvalidCharacterError
+	}
+
 	if len(b.buffer) >= b.max_buffersize {
 		return BufferFullError
 	}
@@ -43,7 +48,7 @@ func (b *BatchWriter) Flush() error {
 	defer f.Close()
 
 	for i, entry := range b.buffer {
-		_, err := f.Write([]byte(fmt.Sprintf("#%d ENTRY: %s\n", i+1, entry)))
+		_, err := f.WriteString(fmt.Sprintf("#%d ENTRY: %s\n", i+1, entry))
 		if err != nil {
 			return err
 		}
@@ -57,12 +62,19 @@ func (b *BatchWriter) Close() error {
 	return err
 }
 
-func (b *BatchWriter) Display() {
-	log.Println(b.buffer)
-}
-
 func NewWriter() *BatchWriter {
 	writer := BatchWriter{}
 	writer.max_buffersize = MAX_BUFFERSIZE
 	return &writer
+}
+
+func CheckIfValid(s string) bool {
+	// If passed String has an appercase A, return false
+	// as is invalid!
+	for _, b := range s {
+		if string(b) == INVALID_CHAR {
+			return false
+		}
+	}
+	return true
 }

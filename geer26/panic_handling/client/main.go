@@ -2,6 +2,7 @@ package main
 
 import (
 	"client/writer"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -27,9 +28,18 @@ func ReadApi(w writer.Writer) {
 
 		err = w.Write(string(responseData))
 		if err != nil {
-			panic(err.Error())
+			if errors.Is(err, writer.BufferFullError) {
+				w.Flush()
+			} else if errors.Is(err, writer.ContainsInvalidCharacterError) {
+				panic(err.Error())
+			} else {
+				w.Close()
+				panic(errors.New("unexpected error"))
+			}
+
 		}
 	}
+
 	w.Close()
 }
 
