@@ -97,7 +97,7 @@ func NewBatchWriter(filename string, pufferSize int) (*BatchWriter, error) {
 // Write hozzáad egy országot a pufferhez és kiírja ha a puffer megtelt.
 func (bw *BatchWriter) Write(country Country) error {
 
-	fmt.Printf("#%v/%v - Ország irása pufferbe: %+v\n", bw.lineCount, bw.puffercount, country.Name.Common)
+	fmt.Printf("#%d/%d - Ország irása pufferbe: %s - %s\n", bw.lineCount, bw.puffercount, country.CCA2, country.Name.Common)
 	bw.puffercount++
 	bw.lineCount++
 
