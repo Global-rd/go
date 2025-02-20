@@ -42,17 +42,17 @@ func (bw *BatchWriter) Write(text string) error {
 	return nil
 }
 
-func NewBatchWriter() *BatchWriter {
+func NewBatchWriter() (*BatchWriter, error) {
 	output, err := os.OpenFile(OutputFileName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	batchWriter := BatchWriter{
 		WriteSuccess: 0,
 		OutputFile:   *output,
 	}
 	batchWriter.Buffer = make([]Quote, 0)
-	return &batchWriter
+	return &batchWriter, nil
 }
 
 func (bw *BatchWriter) Flush() error {
@@ -132,7 +132,11 @@ func fetchAndWritesQuotes(writer Writer) error {
 
 func main() {
 	fmt.Printf("Application starting, trying to get %d quotes\n", QuotesToGet)
-	batchWriter := NewBatchWriter()
+	batchWriter, err := NewBatchWriter()
+	if err != nil {
+		fmt.Printf("Error initializing batch writer: %v\n", err)
+		return
+	}
 
 	defer func() {
 		closeErr := batchWriter.Close()
@@ -140,7 +144,7 @@ func main() {
 			fmt.Printf("Error closing output file: %v\n", closeErr)
 		}
 	}()
-	err := fetchAndWritesQuotes(batchWriter)
+	err = fetchAndWritesQuotes(batchWriter)
 	if err != nil {
 		fmt.Printf("Error occured while fetching quotes: %v\n", err)
 	}
