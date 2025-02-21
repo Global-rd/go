@@ -18,6 +18,12 @@ func TestNewBatchWriter(t *testing.T) {
 
 	// Create a new BatchWriter with a buffer size of 3
 	bw := NewBatchWriter(3, temp.Name(), true)
+	defer func() {
+		err := bw.outputFile.Close()
+		if err != nil {
+			t.Errorf("Error closing temp file: %v", err)
+		}
+	}()
 
 	// Write 2 strings to buffer to test if buffer is written
 	err := bw.Write("test1")
@@ -64,6 +70,12 @@ func TestBatchWriter_Write(t *testing.T) {
 
 	// Create a new BatchWriter with a buffer size of 3
 	bw := NewBatchWriter(3, temp.Name(), true)
+	defer func() {
+		err := bw.outputFile.Close()
+		if err != nil {
+			t.Errorf("Error closing temp file: %v", err)
+		}
+	}()
 
 	// Write to buffer and check if buffer length is 1
 	err := bw.Write("test1")
@@ -96,6 +108,12 @@ func TestBatchWriter_Flush(t *testing.T) {
 
 	// Create a new BatchWriter with a buffer size of 3
 	bw := NewBatchWriter(3, temp.Name(), true)
+	defer func() {
+		err := bw.outputFile.Close()
+		if err != nil {
+			t.Errorf("Error closing temp file: %v", err)
+		}
+	}()
 
 	// Write to buffer
 	err := bw.Write("test1")
@@ -125,6 +143,12 @@ func TestBatchWriter_Close(t *testing.T) {
 
 	// Create a new BatchWriter with a buffer size of 3
 	bw := NewBatchWriter(3, temp.Name(), true)
+	defer func() {
+		err := bw.outputFile.Close()
+		if err != nil {
+			t.Errorf("Error closing temp file: %v", err)
+		}
+	}()
 
 	// Write to buffer
 	err := bw.Write("test1")

@@ -8,33 +8,29 @@ import (
 type BatchWriter struct {
 	buffer       []string
 	maxBatchSize int
-	outputFile   string
+	outputFile   *os.File
 	writtenLines int
 }
 
-func removeAndCreateFile(outputFile string) error {
+func removeAndCreateFile(outputFile string) (file *os.File, err error) {
 	if _, err := os.Stat(outputFile); err == nil {
 		err := os.Remove(outputFile)
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
-	file, err := os.Create(outputFile)
-	defer func() {
-		err := file.Close()
-		if err != nil {
-			log.Fatalln(err)
-		}
-	}()
+	file, err = os.Create(outputFile)
 	if err != nil {
-		return err
+		return file, err
 	}
-	return err
+	return file, err
 }
 
-func NewBatchWriter(maxBatchSize int, outputFile string, reCreateOutputFile bool) *BatchWriter {
+func NewBatchWriter(maxBatchSize int, outputFilePath string, reCreateOutputFile bool) *BatchWriter {
+	var outputFile *os.File
 	if reCreateOutputFile {
-		err := removeAndCreateFile(outputFile)
+		var err error
+		outputFile, err = removeAndCreateFile(outputFilePath)
 		if err != nil {
 			log.Fatalln("Error recreating output file:", err)
 		}
@@ -54,26 +50,23 @@ func (bw *BatchWriter) Write(s string) error {
 	return nil
 }
 
-func (bw *BatchWriter) Flush() error {
-	file, err := os.OpenFile(bw.outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 06666)
+func (bw *BatchWriter) Flush() (err error) {
+	file, err := os.OpenFile(bw.outputFile.Name(), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 06666)
 	if err != nil {
 		return err
 	}
 	defer func() {
-		err := file.Close()
-		if err != nil {
-			log.Fatalln(err)
-		}
+		err = file.Close()
 	}()
 	for _, s := range bw.buffer {
 		_, err = file.WriteString(s + "\n")
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 		bw.writtenLines++
 	}
 	bw.buffer = make([]string, 0)
-	return nil
+	return err
 }
 
 func (bw *BatchWriter) Close() error {

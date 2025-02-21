@@ -4,8 +4,10 @@ import (
 	"batchwriter/client"
 	"batchwriter/writer"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -50,10 +52,22 @@ func main() {
 		fmt.Println("PANIC_RATE environment variable not set, applying default value: 10")
 		panicRate = 10
 	}
-	panickingClient := client.NewPanickingClient(serverUrl, panicRate)
+	panickingClient := client.NewPanickingClient(serverUrl)
 	for i := 0; i < 10; i++ {
-		bodyString := panickingClient.Get()
-		err := batchWriter.Write(bodyString)
+		bodyString, err := panickingClient.Get()
+		if err != nil {
+			log.Fatalln("Error getting response from server:", err)
+		}
+
+		requestCount, err := strconv.Atoi(strings.Split(bodyString, ": ")[1])
+		if err != nil {
+			log.Fatalln("Error parsing request count:", err)
+		}
+
+		if requestCount%panicRate == 0 {
+			panic("Panic!")
+		}
+		err = batchWriter.Write(bodyString)
 		if err != nil {
 			fmt.Println("Error writing to file:", err)
 		}

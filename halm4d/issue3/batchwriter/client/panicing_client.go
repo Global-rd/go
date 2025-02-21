@@ -2,48 +2,31 @@ package client
 
 import (
 	"io"
-	"log"
 	"net/http"
-	"strconv"
-	"strings"
 )
 
 type PanickingClient struct {
-	url       string
-	panicRate int
+	url string
 }
 
-func NewPanickingClient(serverUrl string, panicRate int) *PanickingClient {
+func NewPanickingClient(serverUrl string) *PanickingClient {
 	return &PanickingClient{
-		url:       serverUrl,
-		panicRate: panicRate,
+		url: serverUrl,
 	}
 }
 
-func (c *PanickingClient) Get() (bodyString string) {
+func (c *PanickingClient) Get() (bodyString string, err error) {
 	resp, err := http.Get(c.url)
 	if err != nil {
-		log.Fatalln(err)
+		return bodyString, err
 	}
 	defer func() {
-		err := resp.Body.Close()
-		if err != nil {
-			log.Fatalln(err)
-		}
+		err = resp.Body.Close()
 	}()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalln(err)
+		return bodyString, err
 	}
-
-	bodyString = string(body)
-	requestCount, err := strconv.Atoi(strings.Split(bodyString, ": ")[1])
-	if err != nil {
-		log.Fatalln(err)
-	}
-	if requestCount%c.panicRate == 0 {
-		panic("Panic!")
-	}
-	return bodyString
+	return string(body), err
 }
