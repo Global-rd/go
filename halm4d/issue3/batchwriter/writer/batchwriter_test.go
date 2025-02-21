@@ -143,12 +143,6 @@ func TestBatchWriter_Close(t *testing.T) {
 
 	// Create a new BatchWriter with a buffer size of 3
 	bw := NewBatchWriter(3, temp.Name(), true)
-	defer func() {
-		err := bw.outputFile.Close()
-		if err != nil {
-			t.Errorf("Error closing temp file: %v", err)
-		}
-	}()
 
 	// Write to buffer
 	err := bw.Write("test1")

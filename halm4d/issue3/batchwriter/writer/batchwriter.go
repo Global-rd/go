@@ -69,7 +69,10 @@ func (bw *BatchWriter) Flush() (err error) {
 	return err
 }
 
-func (bw *BatchWriter) Close() error {
+func (bw *BatchWriter) Close() (err error) {
+	defer func() {
+		err = bw.outputFile.Close()
+	}()
 	return bw.Flush()
 }
 
