@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"sync"
@@ -55,13 +56,14 @@ type BatchWriter struct {
 	mutex       sync.Mutex
 	isFirst     bool // első írás-e
 	puffercount int  // pufferelt sorok száma
-	lineCount   int  // összzes kiírt sorok száma
 }
+
+var logger *slog.Logger
 
 // NewBatchWriter létrehoz és inicializál egy új BatchWriter-t
 func NewBatchWriter(filename string, pufferSize int) (*BatchWriter, error) {
 
-	fmt.Printf("BatchWriter létrehozása... (fájl: %s; pufferméret: %d)\n", filename, pufferSize)
+	logger.Info("BatchWriter létrehozása...", "fájl", filename, "pufferméret", pufferSize)
 
 	// Puffer méretének ellenőrzése
 	if pufferSize < 1 {
@@ -80,26 +82,20 @@ func NewBatchWriter(filename string, pufferSize int) (*BatchWriter, error) {
 		file.Close()
 		return nil, fmt.Errorf("kezdő zárójel írása sikertelen: %v", err)
 	}
-	defer func() {
-		fmt.Println(" - BatchWriter létrehozva")
-		fmt.Println()
-	}()
 
 	return &BatchWriter{
 		pufferSize:  pufferSize,
 		file:        file,
 		isFirst:     true,
 		puffercount: 1,
-		lineCount:   1,
 	}, nil
 }
 
 // Write hozzáad egy országot a pufferhez és kiírja ha a puffer megtelt.
 func (bw *BatchWriter) Write(country Country) error {
 
-	fmt.Printf("#%d/%d - Ország irása pufferbe: %s - %s\n", bw.lineCount, bw.puffercount, country.CCA2, country.Name.Common)
+	fmt.Printf("#%d/%d - Ország irása pufferbe: %s - %s\n", len(bw.puffer)+1, bw.puffercount, country.CCA2, country.Name.Common)
 	bw.puffercount++
-	bw.lineCount++
 
 	bw.mutex.Lock()
 	bw.puffer = append(bw.puffer, country)
@@ -121,7 +117,8 @@ func (bw *BatchWriter) Flush() error {
 		return nil
 	}
 
-	println("\nPuffer kiírása...\n")
+	fmt.Println("\nPuffer kiírása...")
+	fmt.Println()
 
 	// Minden országot külön írunk ki
 	for _, country := range bw.puffer {
@@ -150,7 +147,6 @@ func (bw *BatchWriter) Flush() error {
 
 	// Puffer ürítése
 	bw.puffer = nil
-	bw.lineCount = 1
 
 	return nil
 }
@@ -200,17 +196,21 @@ func FetchCountries() ([]Country, error) {
 }
 
 func main() {
+	logger = slog.New(slog.NewTextHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
+
 	bw, err := NewBatchWriter(jsonFile, defaultPufferSize)
 	if err != nil {
-		fmt.Println("Hiba a batch writer létrehozásakor:", err)
-		return
+		logger.Error("Hiba a batch writer létrehozásakor", "error", err)
+		os.Exit(1)
 	}
 	defer bw.Close()
+	slog.Info("Batch writer létrehozva", "fájl", jsonFile, "pufferméret", defaultPufferSize)
 
 	countries, err := FetchCountries()
 	if err != nil {
-		fmt.Println("Hiba az országok lekérésekor:", err)
-		return
+		logger.Error("Hiba a batch writer létrehozásakor", "error", err)
+		os.Exit(1)
 	}
 
 	defer func() {

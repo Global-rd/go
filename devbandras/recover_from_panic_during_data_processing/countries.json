@@ -1,0 +1,3277 @@
+[
+{
+    "name": {
+      "common": "South Georgia",
+      "official": "South Georgia and the South Sandwich Islands"
+    },
+    "cca2": "GS",
+    "cca3": "SGS",
+    "capital": [
+      "King Edward Point"
+    ],
+    "region": "Antarctic",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mJzdaBwKBbm2B81q9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1983629"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gs.svg",
+      "png": "https://flagcdn.com/w320/gs.png"
+    }
+  },
+{
+    "name": {
+      "common": "Grenada",
+      "official": "Grenada"
+    },
+    "cca2": "GD",
+    "cca3": "GRD",
+    "capital": [
+      "St. George's"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/rqWyfUAt4xhvk1Zy9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/550727"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gd.svg",
+      "png": "https://flagcdn.com/w320/gd.png"
+    }
+  },
+{
+    "name": {
+      "common": "Switzerland",
+      "official": "Swiss Confederation"
+    },
+    "cca2": "CH",
+    "cca3": "CHE",
+    "capital": [
+      "Bern"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/uVuZcXaxSx5jLyEC9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/51701"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ch.svg",
+      "png": "https://flagcdn.com/w320/ch.png"
+    }
+  },
+{
+    "name": {
+      "common": "Sierra Leone",
+      "official": "Republic of Sierra Leone"
+    },
+    "cca2": "SL",
+    "cca3": "SLE",
+    "capital": [
+      "Freetown"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/jhacar85oq9QaeKB7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192777"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sl.svg",
+      "png": "https://flagcdn.com/w320/sl.png"
+    }
+  },
+{
+    "name": {
+      "common": "Hungary",
+      "official": "Hungary"
+    },
+    "cca2": "HU",
+    "cca3": "HUN",
+    "capital": [
+      "Budapest"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/9gfPupm5bffixiFJ6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/21335"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/hu.svg",
+      "png": "https://flagcdn.com/w320/hu.png"
+    }
+  },
+{
+    "name": {
+      "common": "Taiwan",
+      "official": "Republic of China (Taiwan)"
+    },
+    "cca2": "TW",
+    "cca3": "TWN",
+    "capital": [
+      "Taipei"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/HgMKFQjNadF3Wa6B6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/449220"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tw.svg",
+      "png": "https://flagcdn.com/w320/tw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Wallis and Futuna",
+      "official": "Territory of the Wallis and Futuna Islands"
+    },
+    "cca2": "WF",
+    "cca3": "WLF",
+    "capital": [
+      "Mata-Utu"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/CzVqK74QYtbHv65r5",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/3412448"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/wf.svg",
+      "png": "https://flagcdn.com/w320/wf.png"
+    }
+  },
+{
+    "name": {
+      "common": "Barbados",
+      "official": "Barbados"
+    },
+    "cca2": "BB",
+    "cca3": "BRB",
+    "capital": [
+      "Bridgetown"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/2m36v8STvbGAWd9c7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/547511"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bb.svg",
+      "png": "https://flagcdn.com/w320/bb.png"
+    }
+  },
+{
+    "name": {
+      "common": "Pitcairn Islands",
+      "official": "Pitcairn Group of Islands"
+    },
+    "cca2": "PN",
+    "cca3": "PCN",
+    "capital": [
+      "Adamstown"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/XGJMnMAigXjXcxSa7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2185375"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pn.svg",
+      "png": "https://flagcdn.com/w320/pn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Ivory Coast",
+      "official": "Republic of Côte d'Ivoire"
+    },
+    "cca2": "CI",
+    "cca3": "CIV",
+    "capital": [
+      "Yamoussoukro"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/wKsmN7f5qAeNtGjP6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192779"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ci.svg",
+      "png": "https://flagcdn.com/w320/ci.png"
+    }
+  },
+{
+    "name": {
+      "common": "Tunisia",
+      "official": "Tunisian Republic"
+    },
+    "cca2": "TN",
+    "cca3": "TUN",
+    "capital": [
+      "Tunis"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/KgUmpZdUuNRaougs8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192757"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tn.svg",
+      "png": "https://flagcdn.com/w320/tn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Italy",
+      "official": "Italian Republic"
+    },
+    "cca2": "IT",
+    "cca3": "ITA",
+    "capital": [
+      "Rome"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/8M1K27TDj7StTRTq8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/365331"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/it.svg",
+      "png": "https://flagcdn.com/w320/it.png"
+    }
+  },
+{
+    "name": {
+      "common": "Benin",
+      "official": "Republic of Benin"
+    },
+    "cca2": "BJ",
+    "cca3": "BEN",
+    "capital": [
+      "Porto-Novo"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/uMw1BsHEXQYgVFFu6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192784"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bj.svg",
+      "png": "https://flagcdn.com/w320/bj.png"
+    }
+  },
+{
+    "name": {
+      "common": "Indonesia",
+      "official": "Republic of Indonesia"
+    },
+    "cca2": "ID",
+    "cca3": "IDN",
+    "capital": [
+      "Jakarta"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/9gfPupm5bffixiFJ6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/21335"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/id.svg",
+      "png": "https://flagcdn.com/w320/id.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cape Verde",
+      "official": "Republic of Cabo Verde"
+    },
+    "cca2": "CV",
+    "cca3": "CPV",
+    "capital": [
+      "Praia"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Kc9vy5ChjuiAgMfXA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/535774"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cv.svg",
+      "png": "https://flagcdn.com/w320/cv.png"
+    }
+  },
+{
+    "name": {
+      "common": "Saint Kitts and Nevis",
+      "official": "Federation of Saint Christopher and Nevis"
+    },
+    "cca2": "KN",
+    "cca3": "KNA",
+    "capital": [
+      "Basseterre"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/qiaVwcLVTXX3eoTNA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/536899"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/kn.svg",
+      "png": "https://flagcdn.com/w320/kn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Laos",
+      "official": "Lao People's Democratic Republic"
+    },
+    "cca2": "LA",
+    "cca3": "LAO",
+    "capital": [
+      "Vientiane"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/F3asVB7sRKgSnwbE7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/49903"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/la.svg",
+      "png": "https://flagcdn.com/w320/la.png"
+    }
+  },
+{
+    "name": {
+      "common": "Caribbean Netherlands",
+      "official": "Bonaire, Sint Eustatius and Saba"
+    },
+    "cca2": "BQ",
+    "cca3": "BES",
+    "capital": [
+      "Kralendijk"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4XVes1P6uEDTz77WA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1216720"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bq.svg",
+      "png": "https://flagcdn.com/w320/bq.png"
+    }
+  },
+{
+    "name": {
+      "common": "Uganda",
+      "official": "Republic of Uganda"
+    },
+    "cca2": "UG",
+    "cca3": "UGA",
+    "capital": [
+      "Kampala"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Y7812hFiGa8LD9N68",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192796"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ug.svg",
+      "png": "https://flagcdn.com/w320/ug.png"
+    }
+  },
+{
+    "name": {
+      "common": "Andorra",
+      "official": "Principality of Andorra"
+    },
+    "cca2": "AD",
+    "cca3": "AND",
+    "capital": [
+      "Andorra la Vella"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/JqAnacWE2qEznKgw7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/9407"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ad.svg",
+      "png": "https://flagcdn.com/w320/ad.png"
+    }
+  },
+{
+    "name": {
+      "common": "Burundi",
+      "official": "Republic of Burundi"
+    },
+    "cca2": "BI",
+    "cca3": "BDI",
+    "capital": [
+      "Gitega"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/RXPWoRrB9tfrJpUG7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/195269"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bi.svg",
+      "png": "https://flagcdn.com/w320/bi.png"
+    }
+  },
+{
+    "name": {
+      "common": "South Africa",
+      "official": "Republic of South Africa"
+    },
+    "cca2": "ZA",
+    "cca3": "ZAF",
+    "capital": [
+      "Pretoria",
+      "Bloemfontein",
+      "Cape Town"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/CLCZ1R8Uz1KpYhRv6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/87565"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/za.svg",
+      "png": "https://flagcdn.com/w320/za.png"
+    }
+  },
+{
+    "name": {
+      "common": "France",
+      "official": "French Republic"
+    },
+    "cca2": "FR",
+    "cca3": "FRA",
+    "capital": [
+      "Paris"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/g7QxxSFsWyTPKuzd7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1403916"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/fr.svg",
+      "png": "https://flagcdn.com/w320/fr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Libya",
+      "official": "State of Libya"
+    },
+    "cca2": "LY",
+    "cca3": "LBY",
+    "capital": [
+      "Tripoli"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/eLgGnaQWcJEdYRMy5",
+      "openStreetmaps": "openstreetmap.org/relation/192758"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ly.svg",
+      "png": "https://flagcdn.com/w320/ly.png"
+    }
+  },
+{
+    "name": {
+      "common": "Mexico",
+      "official": "United Mexican States"
+    },
+    "cca2": "MX",
+    "cca3": "MEX",
+    "capital": [
+      "Mexico City"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/s5g7imNPMDEePxzbA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/114686"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mx.svg",
+      "png": "https://flagcdn.com/w320/mx.png"
+    }
+  },
+{
+    "name": {
+      "common": "Gabon",
+      "official": "Gabonese Republic"
+    },
+    "cca2": "GA",
+    "cca3": "GAB",
+    "capital": [
+      "Libreville"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/vyRSkqw1H1fnq4ry6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192793"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ga.svg",
+      "png": "https://flagcdn.com/w320/ga.png"
+    }
+  },
+{
+    "name": {
+      "common": "Northern Mariana Islands",
+      "official": "Commonwealth of the Northern Mariana Islands"
+    },
+    "cca2": "MP",
+    "cca3": "MNP",
+    "capital": [
+      "Saipan"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/cpZ67knoRAcfu1417",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/306004"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mp.svg",
+      "png": "https://flagcdn.com/w320/mp.png"
+    }
+  },
+{
+    "name": {
+      "common": "North Macedonia",
+      "official": "Republic of North Macedonia"
+    },
+    "cca2": "MK",
+    "cca3": "MKD",
+    "capital": [
+      "Skopje"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/55Q8MEnF6ACdu3q79",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/53293"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mk.svg",
+      "png": "https://flagcdn.com/w320/mk.png"
+    }
+  },
+{
+    "name": {
+      "common": "China",
+      "official": "People's Republic of China"
+    },
+    "cca2": "CN",
+    "cca3": "CHN",
+    "capital": [
+      "Beijing"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/p9qC6vgiFRRXzvGi7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/270056"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cn.svg",
+      "png": "https://flagcdn.com/w320/cn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Yemen",
+      "official": "Republic of Yemen"
+    },
+    "cca2": "YE",
+    "cca3": "YEM",
+    "capital": [
+      "Sana'a"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/WCmE76HKcLideQQw7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/305092"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ye.svg",
+      "png": "https://flagcdn.com/w320/ye.png"
+    }
+  },
+{
+    "name": {
+      "common": "Saint Barthélemy",
+      "official": "Collectivity of Saint Barthélemy"
+    },
+    "cca2": "BL",
+    "cca3": "BLM",
+    "capital": [
+      "Gustavia"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Mc7GqH466S7AAk297",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/7552779"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bl.svg",
+      "png": "https://flagcdn.com/w320/bl.png"
+    }
+  },
+{
+    "name": {
+      "common": "Guernsey",
+      "official": "Bailiwick of Guernsey"
+    },
+    "cca2": "GG",
+    "cca3": "GGY",
+    "capital": [
+      "St. Peter Port"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/6kXnQU5QvEZMD9VB7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/270009"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gg.svg",
+      "png": "https://flagcdn.com/w320/gg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Solomon Islands",
+      "official": "Solomon Islands"
+    },
+    "cca2": "SB",
+    "cca3": "SLB",
+    "capital": [
+      "Honiara"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/JbPkx86Ywjv8C1n8A",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1857436"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sb.svg",
+      "png": "https://flagcdn.com/w320/sb.png"
+    }
+  },
+{
+    "name": {
+      "common": "Svalbard and Jan Mayen",
+      "official": "Svalbard og Jan Mayen"
+    },
+    "cca2": "SJ",
+    "cca3": "SJM",
+    "capital": [
+      "Longyearbyen"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/L2wyyn3cQ16PzQ5J8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1337397"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sj.svg",
+      "png": "https://flagcdn.com/w320/sj.png"
+    }
+  },
+{
+    "name": {
+      "common": "Faroe Islands",
+      "official": "Faroe Islands"
+    },
+    "cca2": "FO",
+    "cca3": "FRO",
+    "capital": [
+      "Tórshavn"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/6sTru4SmHdEVcNkM6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/52939"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/fo.svg",
+      "png": "https://flagcdn.com/w320/fo.png"
+    }
+  },
+{
+    "name": {
+      "common": "Uzbekistan",
+      "official": "Republic of Uzbekistan"
+    },
+    "cca2": "UZ",
+    "cca3": "UZB",
+    "capital": [
+      "Tashkent"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/AJpo6MjMx23qSWCz8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/196240"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/uz.svg",
+      "png": "https://flagcdn.com/w320/uz.png"
+    }
+  },
+{
+    "name": {
+      "common": "Egypt",
+      "official": "Arab Republic of Egypt"
+    },
+    "cca2": "EG",
+    "cca3": "EGY",
+    "capital": [
+      "Cairo"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/uoDRhXbsqjG6L7VG7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1473947"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/eg.svg",
+      "png": "https://flagcdn.com/w320/eg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Senegal",
+      "official": "Republic of Senegal"
+    },
+    "cca2": "SN",
+    "cca3": "SEN",
+    "capital": [
+      "Dakar"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/o5f1uD5nyihCL3HCA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192775"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sn.svg",
+      "png": "https://flagcdn.com/w320/sn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Sri Lanka",
+      "official": "Democratic Socialist Republic of Sri Lanka"
+    },
+    "cca2": "LK",
+    "cca3": "LKA",
+    "capital": [
+      "Sri Jayawardenepura Kotte"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/VkPHoeFSfgzRQCDv8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/536807"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/lk.svg",
+      "png": "https://flagcdn.com/w320/lk.png"
+    }
+  },
+{
+    "name": {
+      "common": "Palestine",
+      "official": "State of Palestine"
+    },
+    "cca2": "PS",
+    "cca3": "PSE",
+    "capital": [
+      "Ramallah",
+      "Jerusalem"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/QvTbkRdmdWEoYAmt5",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1703814"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ps.svg",
+      "png": "https://flagcdn.com/w320/ps.png"
+    }
+  },
+{
+    "name": {
+      "common": "Bangladesh",
+      "official": "People's Republic of Bangladesh"
+    },
+    "cca2": "BD",
+    "cca3": "BGD",
+    "capital": [
+      "Dhaka"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/op6gmLbHcvv6rLhH6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/184640"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bd.svg",
+      "png": "https://flagcdn.com/w320/bd.png"
+    }
+  },
+{
+    "name": {
+      "common": "Peru",
+      "official": "Republic of Peru"
+    },
+    "cca2": "PE",
+    "cca3": "PER",
+    "capital": [
+      "Lima"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/uDWEUaXNcZTng1fP6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/288247"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pe.svg",
+      "png": "https://flagcdn.com/w320/pe.png"
+    }
+  },
+{
+    "name": {
+      "common": "Singapore",
+      "official": "Republic of Singapore"
+    },
+    "cca2": "SG",
+    "cca3": "SGP",
+    "capital": [
+      "Singapore"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/QbQt9Y9b5KFzsahV6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/536780"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sg.svg",
+      "png": "https://flagcdn.com/w320/sg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Turkey",
+      "official": "Republic of Turkey"
+    },
+    "cca2": "TR",
+    "cca3": "TUR",
+    "capital": [
+      "Ankara"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/dXFFraiUDfcB6Quk6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/174737"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tr.svg",
+      "png": "https://flagcdn.com/w320/tr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Afghanistan",
+      "official": "Islamic Republic of Afghanistan"
+    },
+    "cca2": "AF",
+    "cca3": "AFG",
+    "capital": [
+      "Kabul"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/BXBGw7yUUFknCfva9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/303427"
+    },
+    "flags": {
+      "svg": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg",
+      "png": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Aruba",
+      "official": "Aruba"
+    },
+    "cca2": "AW",
+    "cca3": "ABW",
+    "capital": [
+      "Oranjestad"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/8hopbQqifHAgyZyg8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1231749"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/aw.svg",
+      "png": "https://flagcdn.com/w320/aw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cook Islands",
+      "official": "Cook Islands"
+    },
+    "cca2": "CK",
+    "cca3": "COK",
+    "capital": [
+      "Avarua"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/nrGZrvWRGB4WHgDC9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2184233"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ck.svg",
+      "png": "https://flagcdn.com/w320/ck.png"
+    }
+  },
+{
+    "name": {
+      "common": "United Kingdom",
+      "official": "United Kingdom of Great Britain and Northern Ireland"
+    },
+    "cca2": "GB",
+    "cca3": "GBR",
+    "capital": [
+      "London"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/FoDtc3UKMkFsXAjHA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/62149"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gb.svg",
+      "png": "https://flagcdn.com/w320/gb.png"
+    }
+  },
+{
+    "name": {
+      "common": "Zambia",
+      "official": "Republic of Zambia"
+    },
+    "cca2": "ZM",
+    "cca3": "ZMB",
+    "capital": [
+      "Lusaka"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mweBcqvW8TppZW6q9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/195271"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/zm.svg",
+      "png": "https://flagcdn.com/w320/zm.png"
+    }
+  },
+{
+    "name": {
+      "common": "Finland",
+      "official": "Republic of Finland"
+    },
+    "cca2": "FI",
+    "cca3": "FIN",
+    "capital": [
+      "Helsinki"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/HjgWDCNKRAYHrkMn8",
+      "openStreetmaps": "openstreetmap.org/relation/54224"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/fi.svg",
+      "png": "https://flagcdn.com/w320/fi.png"
+    }
+  },
+{
+    "name": {
+      "common": "Niger",
+      "official": "Republic of Niger"
+    },
+    "cca2": "NE",
+    "cca3": "NER",
+    "capital": [
+      "Niamey"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/VKNU2TLsZcgxM49c8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192786"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ne.svg",
+      "png": "https://flagcdn.com/w320/ne.png"
+    }
+  },
+{
+    "name": {
+      "common": "Christmas Island",
+      "official": "Territory of Christmas Island"
+    },
+    "cca2": "CX",
+    "cca3": "CXR",
+    "capital": [
+      "Flying Fish Cove"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ZC17hHsQZpShN5wk9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/6365444"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cx.svg",
+      "png": "https://flagcdn.com/w320/cx.png"
+    }
+  },
+{
+    "name": {
+      "common": "Tokelau",
+      "official": "Tokelau"
+    },
+    "cca2": "TK",
+    "cca3": "TKL",
+    "capital": [
+      "Fakaofo"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Ap5qN8qien6pT9UN6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2186600"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tk.svg",
+      "png": "https://flagcdn.com/w320/tk.png"
+    }
+  },
+{
+    "name": {
+      "common": "Guinea-Bissau",
+      "official": "Republic of Guinea-Bissau"
+    },
+    "cca2": "GW",
+    "cca3": "GNB",
+    "capital": [
+      "Bissau"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/5Wyaz17miUc1zLc67",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192776"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gw.svg",
+      "png": "https://flagcdn.com/w320/gw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Azerbaijan",
+      "official": "Republic of Azerbaijan"
+    },
+    "cca2": "AZ",
+    "cca3": "AZE",
+    "capital": [
+      "Baku"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/az3Zz7ar2aoB9AUc6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/364110"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/az.svg",
+      "png": "https://flagcdn.com/w320/az.png"
+    }
+  },
+{
+    "name": {
+      "common": "Réunion",
+      "official": "Réunion Island"
+    },
+    "cca2": "RE",
+    "cca3": "REU",
+    "capital": [
+      "Saint-Denis"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/wWpBrXsp8UHVbah29",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1785276"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/re.svg",
+      "png": "https://flagcdn.com/w320/re.png"
+    }
+  },
+{
+    "name": {
+      "common": "Djibouti",
+      "official": "Republic of Djibouti"
+    },
+    "cca2": "DJ",
+    "cca3": "DJI",
+    "capital": [
+      "Djibouti"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/V1HWfzN3bS1kwf4C6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192801"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/dj.svg",
+      "png": "https://flagcdn.com/w320/dj.png"
+    }
+  },
+{
+    "name": {
+      "common": "North Korea",
+      "official": "Democratic People's Republic of Korea"
+    },
+    "cca2": "KP",
+    "cca3": "PRK",
+    "capital": [
+      "Pyongyang"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/9q5T2DMeH5JL7Tky6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192734"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/kp.svg",
+      "png": "https://flagcdn.com/w320/kp.png"
+    }
+  },
+{
+    "name": {
+      "common": "Mauritius",
+      "official": "Republic of Mauritius"
+    },
+    "cca2": "MU",
+    "cca3": "MUS",
+    "capital": [
+      "Port Louis"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/PpKtZ4W3tir5iGrz7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/535828"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mu.svg",
+      "png": "https://flagcdn.com/w320/mu.png"
+    }
+  },
+{
+    "name": {
+      "common": "Montserrat",
+      "official": "Montserrat"
+    },
+    "cca2": "MS",
+    "cca3": "MSR",
+    "capital": [
+      "Plymouth"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/CSbe7UmxPmiwQB7GA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/537257"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ms.svg",
+      "png": "https://flagcdn.com/w320/ms.png"
+    }
+  },
+{
+    "name": {
+      "common": "United States Virgin Islands",
+      "official": "Virgin Islands of the United States"
+    },
+    "cca2": "VI",
+    "cca3": "VIR",
+    "capital": [
+      "Charlotte Amalie"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mBfreywj8dor6q4m9",
+      "openStreetmaps": "openstreetmap.org/relation/286898"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/vi.svg",
+      "png": "https://flagcdn.com/w320/vi.png"
+    }
+  },
+{
+    "name": {
+      "common": "Colombia",
+      "official": "Republic of Colombia"
+    },
+    "cca2": "CO",
+    "cca3": "COL",
+    "capital": [
+      "Bogotá"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/zix9qNFX69E9yZ2M6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/120027"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/co.svg",
+      "png": "https://flagcdn.com/w320/co.png"
+    }
+  },
+{
+    "name": {
+      "common": "Greece",
+      "official": "Hellenic Republic"
+    },
+    "cca2": "GR",
+    "cca3": "GRC",
+    "capital": [
+      "Athens"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/LHGcAvuRyD2iKECC6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192307"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gr.svg",
+      "png": "https://flagcdn.com/w320/gr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Croatia",
+      "official": "Republic of Croatia"
+    },
+    "cca2": "HR",
+    "cca3": "HRV",
+    "capital": [
+      "Zagreb"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/qSG6xTKUmrYpwmGQ6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/214885"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/hr.svg",
+      "png": "https://flagcdn.com/w320/hr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Morocco",
+      "official": "Kingdom of Morocco"
+    },
+    "cca2": "MA",
+    "cca3": "MAR",
+    "capital": [
+      "Rabat"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/6oMv3dyBZg3iaXQ5A",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/3630439"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ma.svg",
+      "png": "https://flagcdn.com/w320/ma.png"
+    }
+  },
+{
+    "name": {
+      "common": "Algeria",
+      "official": "People's Democratic Republic of Algeria"
+    },
+    "cca2": "DZ",
+    "cca3": "DZA",
+    "capital": [
+      "Algiers"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/RsAyAfyaiNVb8DpW8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192756"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/dz.svg",
+      "png": "https://flagcdn.com/w320/dz.png"
+    }
+  },
+{
+    "name": {
+      "common": "Antarctica",
+      "official": "Antarctica"
+    },
+    "cca2": "AQ",
+    "cca3": "ATA",
+    "capital": null,
+    "region": "Antarctic",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/kyBuJriu4itiXank7",
+      "openStreetmaps": "https://www.openstreetmap.org/node/36966060"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/aq.svg",
+      "png": "https://flagcdn.com/w320/aq.png"
+    }
+  },
+{
+    "name": {
+      "common": "Netherlands",
+      "official": "Kingdom of the Netherlands"
+    },
+    "cca2": "NL",
+    "cca3": "NLD",
+    "capital": [
+      "Amsterdam"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Hv6zQswGhFxoVVBm6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/47796"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/nl.svg",
+      "png": "https://flagcdn.com/w320/nl.png"
+    }
+  },
+{
+    "name": {
+      "common": "Sudan",
+      "official": "Republic of the Sudan"
+    },
+    "cca2": "SD",
+    "cca3": "SDN",
+    "capital": [
+      "Khartoum"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/bNW7YUJCaqR8zcXn7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192789"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sd.svg",
+      "png": "https://flagcdn.com/w320/sd.png"
+    }
+  },
+{
+    "name": {
+      "common": "Fiji",
+      "official": "Republic of Fiji"
+    },
+    "cca2": "FJ",
+    "cca3": "FJI",
+    "capital": [
+      "Suva"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/r9fhDqoLZdg1zmE99",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/571747"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/fj.svg",
+      "png": "https://flagcdn.com/w320/fj.png"
+    }
+  },
+{
+    "name": {
+      "common": "Liechtenstein",
+      "official": "Principality of Liechtenstein"
+    },
+    "cca2": "LI",
+    "cca3": "LIE",
+    "capital": [
+      "Vaduz"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/KNuHeiJzAPodwM7y6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1155955"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/li.svg",
+      "png": "https://flagcdn.com/w320/li.png"
+    }
+  },
+{
+    "name": {
+      "common": "Nepal",
+      "official": "Federal Democratic Republic of Nepal"
+    },
+    "cca2": "NP",
+    "cca3": "NPL",
+    "capital": [
+      "Kathmandu"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/UMj2zpbQp7B5c3yT7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/184633"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/np.svg",
+      "png": "https://flagcdn.com/w320/np.png"
+    }
+  },
+{
+    "name": {
+      "common": "Puerto Rico",
+      "official": "Commonwealth of Puerto Rico"
+    },
+    "cca2": "PR",
+    "cca3": "PRI",
+    "capital": [
+      "San Juan"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/sygfDbtwn389wu8x5",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/4422604"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pr.svg",
+      "png": "https://flagcdn.com/w320/pr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Georgia",
+      "official": "Georgia"
+    },
+    "cca2": "GE",
+    "cca3": "GEO",
+    "capital": [
+      "Tbilisi"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/bvCaGBePR1ZEDK5cA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/28699"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ge.svg",
+      "png": "https://flagcdn.com/w320/ge.png"
+    }
+  },
+{
+    "name": {
+      "common": "Pakistan",
+      "official": "Islamic Republic of Pakistan"
+    },
+    "cca2": "PK",
+    "cca3": "PAK",
+    "capital": [
+      "Islamabad"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/5LYujdfR5yLUXoERA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307573"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pk.svg",
+      "png": "https://flagcdn.com/w320/pk.png"
+    }
+  },
+{
+    "name": {
+      "common": "Monaco",
+      "official": "Principality of Monaco"
+    },
+    "cca2": "MC",
+    "cca3": "MCO",
+    "capital": [
+      "Monaco"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DGpndDot28bYdXYn7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1124039"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mc.svg",
+      "png": "https://flagcdn.com/w320/mc.png"
+    }
+  },
+{
+    "name": {
+      "common": "Botswana",
+      "official": "Republic of Botswana"
+    },
+    "cca2": "BW",
+    "cca3": "BWA",
+    "capital": [
+      "Gaborone"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/E364KeLy6N4JwxwQ8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1889339"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bw.svg",
+      "png": "https://flagcdn.com/w320/bw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Lebanon",
+      "official": "Lebanese Republic"
+    },
+    "cca2": "LB",
+    "cca3": "LBN",
+    "capital": [
+      "Beirut"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Sz5VCU8UFBqMyTdc9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/184843"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/lb.svg",
+      "png": "https://flagcdn.com/w320/lb.png"
+    }
+  },
+{
+    "name": {
+      "common": "Papua New Guinea",
+      "official": "Independent State of Papua New Guinea"
+    },
+    "cca2": "PG",
+    "cca3": "PNG",
+    "capital": [
+      "Port Moresby"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ChGmzZBjZ3vnBwR2A",
+      "openStreetmaps": "https://goo.gl/maps/ChGmzZBjZ3vnBwR2A"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pg.svg",
+      "png": "https://flagcdn.com/w320/pg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Mayotte",
+      "official": "Department of Mayotte"
+    },
+    "cca2": "YT",
+    "cca3": "MYT",
+    "capital": [
+      "Mamoudzou"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/1e7MXmfBwQv3TQGF7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1259885"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/yt.svg",
+      "png": "https://flagcdn.com/w320/yt.png"
+    }
+  },
+{
+    "name": {
+      "common": "Dominican Republic",
+      "official": "Dominican Republic"
+    },
+    "cca2": "DO",
+    "cca3": "DOM",
+    "capital": [
+      "Santo Domingo"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/soxooTHxEeiAbn3UA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307828"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/do.svg",
+      "png": "https://flagcdn.com/w320/do.png"
+    }
+  },
+{
+    "name": {
+      "common": "Norfolk Island",
+      "official": "Territory of Norfolk Island"
+    },
+    "cca2": "NF",
+    "cca3": "NFK",
+    "capital": [
+      "Kingston"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/pbvtm6XYd1iZbjky5",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2574988"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/nf.svg",
+      "png": "https://flagcdn.com/w320/nf.png"
+    }
+  },
+{
+    "name": {
+      "common": "Bouvet Island",
+      "official": "Bouvet Island"
+    },
+    "cca2": "BV",
+    "cca3": "BVT",
+    "capital": null,
+    "region": "Antarctic",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/7WRQAEKZb4uK36yi9",
+      "openStreetmaps": "https://www.openstreetmap.org/way/174996681"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bv.svg",
+      "png": "https://flagcdn.com/w320/bv.png"
+    }
+  },
+{
+    "name": {
+      "common": "Qatar",
+      "official": "State of Qatar"
+    },
+    "cca2": "QA",
+    "cca3": "QAT",
+    "capital": [
+      "Doha"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ZV76Y49z7LLUZ2KQ6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/305095"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/qa.svg",
+      "png": "https://flagcdn.com/w320/qa.png"
+    }
+  },
+{
+    "name": {
+      "common": "Madagascar",
+      "official": "Republic of Madagascar"
+    },
+    "cca2": "MG",
+    "cca3": "MDG",
+    "capital": [
+      "Antananarivo"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/AHQh2ABBaFW6Ngj26",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/447325"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mg.svg",
+      "png": "https://flagcdn.com/w320/mg.png"
+    }
+  },
+{
+    "name": {
+      "common": "India",
+      "official": "Republic of India"
+    },
+    "cca2": "IN",
+    "cca3": "IND",
+    "capital": [
+      "New Delhi"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/WSk3fLwG4vtPQetp7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/304716"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/in.svg",
+      "png": "https://flagcdn.com/w320/in.png"
+    }
+  },
+{
+    "name": {
+      "common": "Syria",
+      "official": "Syrian Arab Republic"
+    },
+    "cca2": "SY",
+    "cca3": "SYR",
+    "capital": [
+      "Damascus"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Xe3VnFbwdb4nv2SM9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/184840"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sy.svg",
+      "png": "https://flagcdn.com/w320/sy.png"
+    }
+  },
+{
+    "name": {
+      "common": "Montenegro",
+      "official": "Montenegro"
+    },
+    "cca2": "ME",
+    "cca3": "MNE",
+    "capital": [
+      "Podgorica"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4THX1fM7WqANuPbB8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/53296"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/me.svg",
+      "png": "https://flagcdn.com/w320/me.png"
+    }
+  },
+{
+    "name": {
+      "common": "Eswatini",
+      "official": "Kingdom of Eswatini"
+    },
+    "cca2": "SZ",
+    "cca3": "SWZ",
+    "capital": [
+      "Mbabane"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/cUY79eqQihFSE8hV6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/88210"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sz.svg",
+      "png": "https://flagcdn.com/w320/sz.png"
+    }
+  },
+{
+    "name": {
+      "common": "Paraguay",
+      "official": "Republic of Paraguay"
+    },
+    "cca2": "PY",
+    "cca3": "PRY",
+    "capital": [
+      "Asunción"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/JtnqG73WJn1Gx6mz6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/287077"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/py.svg",
+      "png": "https://flagcdn.com/w320/py.png"
+    }
+  },
+{
+    "name": {
+      "common": "El Salvador",
+      "official": "Republic of El Salvador"
+    },
+    "cca2": "SV",
+    "cca3": "SLV",
+    "capital": [
+      "San Salvador"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/cZnCEi5sEMQtKKcB7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1520612"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sv.svg",
+      "png": "https://flagcdn.com/w320/sv.png"
+    }
+  },
+{
+    "name": {
+      "common": "Ukraine",
+      "official": "Ukraine"
+    },
+    "cca2": "UA",
+    "cca3": "UKR",
+    "capital": [
+      "Kyiv"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DvgJMiPJ7aozKFZv7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/60199"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ua.svg",
+      "png": "https://flagcdn.com/w320/ua.png"
+    }
+  },
+{
+    "name": {
+      "common": "Isle of Man",
+      "official": "Isle of Man"
+    },
+    "cca2": "IM",
+    "cca3": "IMN",
+    "capital": [
+      "Douglas"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4DqVHDgVaFgnh8ZV8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/62269"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/im.svg",
+      "png": "https://flagcdn.com/w320/im.png"
+    }
+  },
+{
+    "name": {
+      "common": "Namibia",
+      "official": "Republic of Namibia"
+    },
+    "cca2": "NA",
+    "cca3": "NAM",
+    "capital": [
+      "Windhoek"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/oR1i8BFEYX3EY83WA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/195266"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/na.svg",
+      "png": "https://flagcdn.com/w320/na.png"
+    }
+  },
+{
+    "name": {
+      "common": "United Arab Emirates",
+      "official": "United Arab Emirates"
+    },
+    "cca2": "AE",
+    "cca3": "ARE",
+    "capital": [
+      "Abu Dhabi"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/AZZTDA6GzVAnKMVd8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307763"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ae.svg",
+      "png": "https://flagcdn.com/w320/ae.png"
+    }
+  },
+{
+    "name": {
+      "common": "Bulgaria",
+      "official": "Republic of Bulgaria"
+    },
+    "cca2": "BG",
+    "cca3": "BGR",
+    "capital": [
+      "Sofia"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/F5uAhDGWzc3BrHfm9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/186382"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bg.svg",
+      "png": "https://flagcdn.com/w320/bg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Greenland",
+      "official": "Greenland"
+    },
+    "cca2": "GL",
+    "cca3": "GRL",
+    "capital": [
+      "Nuuk"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/j3289UPEQXt1ceSy8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2184073"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gl.svg",
+      "png": "https://flagcdn.com/w320/gl.png"
+    }
+  },
+{
+    "name": {
+      "common": "Germany",
+      "official": "Federal Republic of Germany"
+    },
+    "cca2": "DE",
+    "cca3": "DEU",
+    "capital": [
+      "Berlin"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mD9FBMq1nvXUBrkv6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/51477"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/de.svg",
+      "png": "https://flagcdn.com/w320/de.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cambodia",
+      "official": "Kingdom of Cambodia"
+    },
+    "cca2": "KH",
+    "cca3": "KHM",
+    "capital": [
+      "Phnom Penh"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/nztQtFSrUXZymJaW8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/49898"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/kh.svg",
+      "png": "https://flagcdn.com/w320/kh.png"
+    }
+  },
+{
+    "name": {
+      "common": "Iraq",
+      "official": "Republic of Iraq"
+    },
+    "cca2": "IQ",
+    "cca3": "IRQ",
+    "capital": [
+      "Baghdad"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/iL8Bmy1sUCW9fUk18",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/304934"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/iq.svg",
+      "png": "https://flagcdn.com/w320/iq.png"
+    }
+  },
+{
+    "name": {
+      "common": "French Southern and Antarctic Lands",
+      "official": "Territory of the French Southern and Antarctic Lands"
+    },
+    "cca2": "TF",
+    "cca3": "ATF",
+    "capital": [
+      "Port-aux-Français"
+    ],
+    "region": "Antarctic",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/6ua6CX1m4w1xF2Em7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2186658"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tf.svg",
+      "png": "https://flagcdn.com/w320/tf.png"
+    }
+  },
+{
+    "name": {
+      "common": "Sweden",
+      "official": "Kingdom of Sweden"
+    },
+    "cca2": "SE",
+    "cca3": "SWE",
+    "capital": [
+      "Stockholm"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/iqygE491ADVgnBW39",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/52822"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/se.svg",
+      "png": "https://flagcdn.com/w320/se.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cuba",
+      "official": "Republic of Cuba"
+    },
+    "cca2": "CU",
+    "cca3": "CUB",
+    "capital": [
+      "Havana"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/1dDw1QfZspfMUTm99",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307833"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cu.svg",
+      "png": "https://flagcdn.com/w320/cu.png"
+    }
+  },
+{
+    "name": {
+      "common": "Kyrgyzstan",
+      "official": "Kyrgyz Republic"
+    },
+    "cca2": "KG",
+    "cca3": "KGZ",
+    "capital": [
+      "Bishkek"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/SKG8BSMMQVvxkRkB7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/178009"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/kg.svg",
+      "png": "https://flagcdn.com/w320/kg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Russia",
+      "official": "Russian Federation"
+    },
+    "cca2": "RU",
+    "cca3": "RUS",
+    "capital": [
+      "Moscow"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4F4PpDhGJgVvLby57",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/60189#map=3/65.15/105.29"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ru.svg",
+      "png": "https://flagcdn.com/w320/ru.png"
+    }
+  },
+{
+    "name": {
+      "common": "Malaysia",
+      "official": "Malaysia"
+    },
+    "cca2": "MY",
+    "cca3": "MYS",
+    "capital": [
+      "Kuala Lumpur"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/qrY1PNeUXGyXDcPy6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2108121"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/my.svg",
+      "png": "https://flagcdn.com/w320/my.png"
+    }
+  },
+{
+    "name": {
+      "common": "São Tomé and Príncipe",
+      "official": "Democratic Republic of São Tomé and Príncipe"
+    },
+    "cca2": "ST",
+    "cca3": "STP",
+    "capital": [
+      "São Tomé"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/9EUppm13RtPX9oF46",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/535880"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/st.svg",
+      "png": "https://flagcdn.com/w320/st.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cyprus",
+      "official": "Republic of Cyprus"
+    },
+    "cca2": "CY",
+    "cca3": "CYP",
+    "capital": [
+      "Nicosia"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/77hPBRdLid8yD5Bm7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307787"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cy.svg",
+      "png": "https://flagcdn.com/w320/cy.png"
+    }
+  },
+{
+    "name": {
+      "common": "Canada",
+      "official": "Canada"
+    },
+    "cca2": "CA",
+    "cca3": "CAN",
+    "capital": [
+      "Ottawa"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/jmEVLugreeqiZXxbA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1428125"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ca.svg",
+      "png": "https://flagcdn.com/w320/ca.png"
+    }
+  },
+{
+    "name": {
+      "common": "Malawi",
+      "official": "Republic of Malawi"
+    },
+    "cca2": "MW",
+    "cca3": "MWI",
+    "capital": [
+      "Lilongwe"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mc6z83pW9m98X2Ef6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/195290"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mw.svg",
+      "png": "https://flagcdn.com/w320/mw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Saudi Arabia",
+      "official": "Kingdom of Saudi Arabia"
+    },
+    "cca2": "SA",
+    "cca3": "SAU",
+    "capital": [
+      "Riyadh"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/5PSjvdJ1AyaLFRrG9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307584"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sa.svg",
+      "png": "https://flagcdn.com/w320/sa.png"
+    }
+  },
+{
+    "name": {
+      "common": "Bosnia and Herzegovina",
+      "official": "Bosnia and Herzegovina"
+    },
+    "cca2": "BA",
+    "cca3": "BIH",
+    "capital": [
+      "Sarajevo"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://www.google.com/maps/place/Bosnia+and+Herzegovina",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2528142"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ba.svg",
+      "png": "https://flagcdn.com/w320/ba.png"
+    }
+  },
+{
+    "name": {
+      "common": "Ethiopia",
+      "official": "Federal Democratic Republic of Ethiopia"
+    },
+    "cca2": "ET",
+    "cca3": "ETH",
+    "capital": [
+      "Addis Ababa"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/2Q4hQWCbhuZLj3fG6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192800"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/et.svg",
+      "png": "https://flagcdn.com/w320/et.png"
+    }
+  },
+{
+    "name": {
+      "common": "Spain",
+      "official": "Kingdom of Spain"
+    },
+    "cca2": "ES",
+    "cca3": "ESP",
+    "capital": [
+      "Madrid"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/138JaXW8EZzRVitY9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1311341"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/es.svg",
+      "png": "https://flagcdn.com/w320/es.png"
+    }
+  },
+{
+    "name": {
+      "common": "Slovenia",
+      "official": "Republic of Slovenia"
+    },
+    "cca2": "SI",
+    "cca3": "SVN",
+    "capital": [
+      "Ljubljana"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/7zgFmswcCJh5L5D49",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/218657"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/si.svg",
+      "png": "https://flagcdn.com/w320/si.png"
+    }
+  },
+{
+    "name": {
+      "common": "Oman",
+      "official": "Sultanate of Oman"
+    },
+    "cca2": "OM",
+    "cca3": "OMN",
+    "capital": [
+      "Muscat"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/L2BoXoAwDDwWecnw5",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/305138"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/om.svg",
+      "png": "https://flagcdn.com/w320/om.png"
+    }
+  },
+{
+    "name": {
+      "common": "Saint Pierre and Miquelon",
+      "official": "Saint Pierre and Miquelon"
+    },
+    "cca2": "PM",
+    "cca3": "SPM",
+    "capital": [
+      "Saint-Pierre"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/bUM8Yc8pA8ghyhmt6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/3406826"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pm.svg",
+      "png": "https://flagcdn.com/w320/pm.png"
+    }
+  },
+{
+    "name": {
+      "common": "Macau",
+      "official": "Macao Special Administrative Region of the People's Republic of China"
+    },
+    "cca2": "MO",
+    "cca3": "MAC",
+    "capital": null,
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/whymRdk3dZFfAAs4A",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1867188"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mo.svg",
+      "png": "https://flagcdn.com/w320/mo.png"
+    }
+  },
+{
+    "name": {
+      "common": "San Marino",
+      "official": "Republic of San Marino"
+    },
+    "cca2": "SM",
+    "cca3": "SMR",
+    "capital": [
+      "City of San Marino"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/rxCVJjm8dVY93RPY8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/54624"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sm.svg",
+      "png": "https://flagcdn.com/w320/sm.png"
+    }
+  },
+{
+    "name": {
+      "common": "Lesotho",
+      "official": "Kingdom of Lesotho"
+    },
+    "cca2": "LS",
+    "cca3": "LSO",
+    "capital": [
+      "Maseru"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/H8gJi5mL4Cmd1SF28",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2093234"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ls.svg",
+      "png": "https://flagcdn.com/w320/ls.png"
+    }
+  },
+{
+    "name": {
+      "common": "Marshall Islands",
+      "official": "Republic of the Marshall Islands"
+    },
+    "cca2": "MH",
+    "cca3": "MHL",
+    "capital": [
+      "Majuro"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/A4xLi1XvcX88gi3W8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/571771"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/mh.svg",
+      "png": "https://flagcdn.com/w320/mh.png"
+    }
+  },
+{
+    "name": {
+      "common": "Sint Maarten",
+      "official": "Sint Maarten"
+    },
+    "cca2": "SX",
+    "cca3": "SXM",
+    "capital": [
+      "Philipsburg"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DjvcESy1a1oGEZuNA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1231790"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sx.svg",
+      "png": "https://flagcdn.com/w320/sx.png"
+    }
+  },
+{
+    "name": {
+      "common": "Iceland",
+      "official": "Iceland"
+    },
+    "cca2": "IS",
+    "cca3": "ISL",
+    "capital": [
+      "Reykjavik"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/WxFWSQuc3oamNxoE6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/299133"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/is.svg",
+      "png": "https://flagcdn.com/w320/is.png"
+    }
+  },
+{
+    "name": {
+      "common": "Luxembourg",
+      "official": "Grand Duchy of Luxembourg"
+    },
+    "cca2": "LU",
+    "cca3": "LUX",
+    "capital": [
+      "Luxembourg"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/L6b2AgndgHprt2Ko9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2171347#map=10/49.8167/6.1335"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/lu.svg",
+      "png": "https://flagcdn.com/w320/lu.png"
+    }
+  },
+{
+    "name": {
+      "common": "Argentina",
+      "official": "Argentine Republic"
+    },
+    "cca2": "AR",
+    "cca3": "ARG",
+    "capital": [
+      "Buenos Aires"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Z9DXNxhf2o93kvyc6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/286393"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ar.svg",
+      "png": "https://flagcdn.com/w320/ar.png"
+    }
+  },
+{
+    "name": {
+      "common": "Turks and Caicos Islands",
+      "official": "Turks and Caicos Islands"
+    },
+    "cca2": "TC",
+    "cca3": "TCA",
+    "capital": [
+      "Cockburn Town"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/R8VUDQfwZiFtvmyn8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/547479"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tc.svg",
+      "png": "https://flagcdn.com/w320/tc.png"
+    }
+  },
+{
+    "name": {
+      "common": "Nauru",
+      "official": "Republic of Nauru"
+    },
+    "cca2": "NR",
+    "cca3": "NRU",
+    "capital": [
+      "Yaren"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/kyAGw6XEJgjSMsTK7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/571804"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/nr.svg",
+      "png": "https://flagcdn.com/w320/nr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cocos (Keeling) Islands",
+      "official": "Territory of the Cocos (Keeling) Islands"
+    },
+    "cca2": "CC",
+    "cca3": "CCK",
+    "capital": [
+      "West Island"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/3eCdKVpVfMcZyKcK6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/82636"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cc.svg",
+      "png": "https://flagcdn.com/w320/cc.png"
+    }
+  },
+{
+    "name": {
+      "common": "Western Sahara",
+      "official": "Sahrawi Arab Democratic Republic"
+    },
+    "cca2": "EH",
+    "cca3": "ESH",
+    "capital": [
+      "El Aaiún"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/7nU3mB69vP6zQp7A8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/5441968"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/eh.svg",
+      "png": "https://flagcdn.com/w320/eh.png"
+    }
+  },
+{
+    "name": {
+      "common": "Dominica",
+      "official": "Commonwealth of Dominica"
+    },
+    "cca2": "DM",
+    "cca3": "DMA",
+    "capital": [
+      "Roseau"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/HSKdHYpFC8oHHuyV7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307823"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/dm.svg",
+      "png": "https://flagcdn.com/w320/dm.png"
+    }
+  },
+{
+    "name": {
+      "common": "Costa Rica",
+      "official": "Republic of Costa Rica"
+    },
+    "cca2": "CR",
+    "cca3": "CRI",
+    "capital": [
+      "San José"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/RFiwytjvNrpfKN7k6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/287667"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cr.svg",
+      "png": "https://flagcdn.com/w320/cr.png"
+    }
+  },
+{
+    "name": {
+      "common": "Australia",
+      "official": "Commonwealth of Australia"
+    },
+    "cca2": "AU",
+    "cca3": "AUS",
+    "capital": [
+      "Canberra"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DcjaDa7UbhnZTndH6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/80500"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/au.svg",
+      "png": "https://flagcdn.com/w320/au.png"
+    }
+  },
+{
+    "name": {
+      "common": "Thailand",
+      "official": "Kingdom of Thailand"
+    },
+    "cca2": "TH",
+    "cca3": "THA",
+    "capital": [
+      "Bangkok"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/qeU6uqsfW4nCCwzw9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2067731"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/th.svg",
+      "png": "https://flagcdn.com/w320/th.png"
+    }
+  },
+{
+    "name": {
+      "common": "Haiti",
+      "official": "Republic of Haiti"
+    },
+    "cca2": "HT",
+    "cca3": "HTI",
+    "capital": [
+      "Port-au-Prince"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/9o13xtjuUdqFnHbn9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/307829"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ht.svg",
+      "png": "https://flagcdn.com/w320/ht.png"
+    }
+  },
+{
+    "name": {
+      "common": "Tuvalu",
+      "official": "Tuvalu"
+    },
+    "cca2": "TV",
+    "cca3": "TUV",
+    "capital": [
+      "Funafuti"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/LbuUxtkgm1dfN1Pn6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2177266"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tv.svg",
+      "png": "https://flagcdn.com/w320/tv.png"
+    }
+  },
+{
+    "name": {
+      "common": "Honduras",
+      "official": "Republic of Honduras"
+    },
+    "cca2": "HN",
+    "cca3": "HND",
+    "capital": [
+      "Tegucigalpa"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/BbeJK8Sk2VkMHbdF8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/287670"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/hn.svg",
+      "png": "https://flagcdn.com/w320/hn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Equatorial Guinea",
+      "official": "Republic of Equatorial Guinea"
+    },
+    "cca2": "GQ",
+    "cca3": "GNQ",
+    "capital": [
+      "Malabo"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ucWfFd8aW1FbGMva9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192791"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gq.svg",
+      "png": "https://flagcdn.com/w320/gq.png"
+    }
+  },
+{
+    "name": {
+      "common": "Saint Lucia",
+      "official": "Saint Lucia"
+    },
+    "cca2": "LC",
+    "cca3": "LCA",
+    "capital": [
+      "Castries"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4HhJ2jkPdSL9BPRcA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/550728"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/lc.svg",
+      "png": "https://flagcdn.com/w320/lc.png"
+    }
+  },
+{
+    "name": {
+      "common": "French Polynesia",
+      "official": "French Polynesia"
+    },
+    "cca2": "PF",
+    "cca3": "PYF",
+    "capital": [
+      "Papeetē"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/xgg6BQTRyeQg4e1m6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/3412620"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pf.svg",
+      "png": "https://flagcdn.com/w320/pf.png"
+    }
+  },
+{
+    "name": {
+      "common": "Belarus",
+      "official": "Republic of Belarus"
+    },
+    "cca2": "BY",
+    "cca3": "BLR",
+    "capital": [
+      "Minsk"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/PJUDU3EBPSszCQcu6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/59065"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/by.svg",
+      "png": "https://flagcdn.com/w320/by.png"
+    }
+  },
+{
+    "name": {
+      "common": "Latvia",
+      "official": "Republic of Latvia"
+    },
+    "cca2": "LV",
+    "cca3": "LVA",
+    "capital": [
+      "Riga"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/iQpUkH7ghq31ZtXe9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/72594"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/lv.svg",
+      "png": "https://flagcdn.com/w320/lv.png"
+    }
+  },
+{
+    "name": {
+      "common": "Palau",
+      "official": "Republic of Palau"
+    },
+    "cca2": "PW",
+    "cca3": "PLW",
+    "capital": [
+      "Ngerulmud"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/MVasQBbUkQP7qQDR9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/571805"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/pw.svg",
+      "png": "https://flagcdn.com/w320/pw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Guadeloupe",
+      "official": "Guadeloupe"
+    },
+    "cca2": "GP",
+    "cca3": "GLP",
+    "capital": [
+      "Basse-Terre"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Dy9R2EufJtoWm8UN9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/7109289"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gp.svg",
+      "png": "https://flagcdn.com/w320/gp.png"
+    }
+  },
+{
+    "name": {
+      "common": "Philippines",
+      "official": "Republic of the Philippines"
+    },
+    "cca2": "PH",
+    "cca3": "PHL",
+    "capital": [
+      "Manila"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/k8T2fb5VMUfsWFX6A",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/443174"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ph.svg",
+      "png": "https://flagcdn.com/w320/ph.png"
+    }
+  },
+{
+    "name": {
+      "common": "Gibraltar",
+      "official": "Gibraltar"
+    },
+    "cca2": "GI",
+    "cca3": "GIB",
+    "capital": [
+      "Gibraltar"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/CEoHAs1t6byCBhHFA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1278736"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gi.svg",
+      "png": "https://flagcdn.com/w320/gi.png"
+    }
+  },
+{
+    "name": {
+      "common": "Denmark",
+      "official": "Kingdom of Denmark"
+    },
+    "cca2": "DK",
+    "cca3": "DNK",
+    "capital": [
+      "Copenhagen"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/UddGPN7hAyrtpFiT6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/50046"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/dk.svg",
+      "png": "https://flagcdn.com/w320/dk.png"
+    }
+  },
+{
+    "name": {
+      "common": "Cameroon",
+      "official": "Republic of Cameroon"
+    },
+    "cca2": "CM",
+    "cca3": "CMR",
+    "capital": [
+      "Yaoundé"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/JqiipHgFboG3rBJh9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192830"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cm.svg",
+      "png": "https://flagcdn.com/w320/cm.png"
+    }
+  },
+{
+    "name": {
+      "common": "Guinea",
+      "official": "Republic of Guinea"
+    },
+    "cca2": "GN",
+    "cca3": "GIN",
+    "capital": [
+      "Conakry"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/8J5oM5sA4Ayr1ZYGA",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192778"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/gn.svg",
+      "png": "https://flagcdn.com/w320/gn.png"
+    }
+  },
+{
+    "name": {
+      "common": "Bahrain",
+      "official": "Kingdom of Bahrain"
+    },
+    "cca2": "BH",
+    "cca3": "BHR",
+    "capital": [
+      "Manama"
+    ],
+    "region": "Asia",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/5Zue99Zc6vFBHxzJ7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/378734"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/bh.svg",
+      "png": "https://flagcdn.com/w320/bh.png"
+    }
+  },
+{
+    "name": {
+      "common": "Suriname",
+      "official": "Republic of Suriname"
+    },
+    "cca2": "SR",
+    "cca3": "SUR",
+    "capital": [
+      "Paramaribo"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/iy7TuQLSi4qgoBoG7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/287082"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sr.svg",
+      "png": "https://flagcdn.com/w320/sr.png"
+    }
+  },
+{
+    "name": {
+      "common": "DR Congo",
+      "official": "Democratic Republic of the Congo"
+    },
+    "cca2": "CD",
+    "cca3": "COD",
+    "capital": [
+      "Kinshasa"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/KfhNVn6VqdZXWu8n9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192795"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cd.svg",
+      "png": "https://flagcdn.com/w320/cd.png"
+    }
+  },
+{
+    "name": {
+      "common": "Somalia",
+      "official": "Federal Republic of Somalia"
+    },
+    "cca2": "SO",
+    "cca3": "SOM",
+    "capital": [
+      "Mogadishu"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/8of8q7D1a8p7R6Fc9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192799"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/so.svg",
+      "png": "https://flagcdn.com/w320/so.png"
+    }
+  },
+{
+    "name": {
+      "common": "Czechia",
+      "official": "Czech Republic"
+    },
+    "cca2": "CZ",
+    "cca3": "CZE",
+    "capital": [
+      "Prague"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/47dmgeXMZyhDHyQW8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/51684"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/cz.svg",
+      "png": "https://flagcdn.com/w320/cz.png"
+    }
+  },
+{
+    "name": {
+      "common": "New Caledonia",
+      "official": "New Caledonia"
+    },
+    "cca2": "NC",
+    "cca3": "NCL",
+    "capital": [
+      "Nouméa"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/cBhtCeMdob4U7FRU9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/3407643"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/nc.svg",
+      "png": "https://flagcdn.com/w320/nc.png"
+    }
+  },
+{
+    "name": {
+      "common": "Vanuatu",
+      "official": "Republic of Vanuatu"
+    },
+    "cca2": "VU",
+    "cca3": "VUT",
+    "capital": [
+      "Port Vila"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/hwAjehcT7VfvP5zJ8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2177246"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/vu.svg",
+      "png": "https://flagcdn.com/w320/vu.png"
+    }
+  },
+{
+    "name": {
+      "common": "Saint Helena, Ascension and Tristan da Cunha",
+      "official": "Saint Helena, Ascension and Tristan da Cunha"
+    },
+    "cca2": "SH",
+    "cca3": "SHN",
+    "capital": [
+      "Jamestown"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/iv4VxnPzHkjLCJuc6",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/4868269#map=13/-15.9657/-5.7120"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/sh.svg",
+      "png": "https://flagcdn.com/w320/sh.png"
+    }
+  },
+{
+    "name": {
+      "common": "Togo",
+      "official": "Togolese Republic"
+    },
+    "cca2": "TG",
+    "cca3": "TGO",
+    "capital": [
+      "Lomé"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/jzAa9feXuXPrKVb89",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192782"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/tg.svg",
+      "png": "https://flagcdn.com/w320/tg.png"
+    }
+  },
+{
+    "name": {
+      "common": "British Virgin Islands",
+      "official": "Virgin Islands"
+    },
+    "cca2": "VG",
+    "cca3": "VGB",
+    "capital": [
+      "Road Town"
+    ],
+    "region": "Americas",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/49C9cSesNVAR9DQk8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/285454"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/vg.svg",
+      "png": "https://flagcdn.com/w320/vg.png"
+    }
+  },
+{
+    "name": {
+      "common": "Kenya",
+      "official": "Republic of Kenya"
+    },
+    "cca2": "KE",
+    "cca3": "KEN",
+    "capital": [
+      "Nairobi"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Ni9M7wcCxf8bJHLX8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/192798"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ke.svg",
+      "png": "https://flagcdn.com/w320/ke.png"
+    }
+  },
+{
+    "name": {
+      "common": "Niue",
+      "official": "Niue"
+    },
+    "cca2": "NU",
+    "cca3": "NIU",
+    "capital": [
+      "Alofi"
+    ],
+    "region": "Oceania",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/xFgdzs3E55Rk1y8P9",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/1558556"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/nu.svg",
+      "png": "https://flagcdn.com/w320/nu.png"
+    }
+  },
+{
+    "name": {
+      "common": "Heard Island and McDonald Islands",
+      "official": "Heard Island and McDonald Islands"
+    },
+    "cca2": "HM",
+    "cca3": "HMD",
+    "capital": null,
+    "region": "Antarctic",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/k5FBAiVaVyozuYeA7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/2177227"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/hm.svg",
+      "png": "https://flagcdn.com/w320/hm.png"
+    }
+  },
+{
+    "name": {
+      "common": "Rwanda",
+      "official": "Republic of Rwanda"
+    },
+    "cca2": "RW",
+    "cca3": "RWA",
+    "capital": [
+      "Kigali"
+    ],
+    "region": "Africa",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/j5xb5r7CLqjYbyP86",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/171496"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/rw.svg",
+      "png": "https://flagcdn.com/w320/rw.png"
+    }
+  },
+{
+    "name": {
+      "common": "Estonia",
+      "official": "Republic of Estonia"
+    },
+    "cca2": "EE",
+    "cca3": "EST",
+    "capital": [
+      "Tallinn"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/6SsynwGUodL1sDvq8",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/79510"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ee.svg",
+      "png": "https://flagcdn.com/w320/ee.png"
+    }
+  },
+{
+    "name": {
+      "common": "Romania",
+      "official": "Romania"
+    },
+    "cca2": "RO",
+    "cca3": "ROU",
+    "capital": [
+      "Bucharest"
+    ],
+    "region": "Europe",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/845hAgCf1mDkN3vr7",
+      "openStreetmaps": "https://www.openstreetmap.org/relation/90689"
+    },
+    "flags": {
+      "svg": "https://flagcdn.com/ro.svg",
+      "png": "https://flagcdn.com/w320/ro.png"
+    }
+  }
+]
