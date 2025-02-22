@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
@@ -71,22 +72,25 @@ func main() {
 		fmt.Println("Error opening file")
 	}
 
-	file.Close()
-	file, err = os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
 	if err != nil {
 		fmt.Println("Error opening file")
 	}
 
 	batchWriter := NewBatchWriter(file, 1024)
 
-	writeFile(batchWriter)
+	err = writeFile(batchWriter)
+
+	if err != nil {
+		fmt.Println("An error occured: ", err)
+	}
+
 }
 
-func writeFile(writer Writer) {
+func writeFile(writer Writer) (err error) {
 	defer func() {
 		a := recover()
 		if a != nil {
-			fmt.Println("Recovered from panic, Flush and close writer")
+			err = errors.New("recovered from panic, flush and close writer")
 		}
 		writer.Flush()
 		writer.Close()
@@ -100,18 +104,16 @@ func writeFile(writer Writer) {
 		if i != random {
 			resp, err := http.Get(jokeUrl)
 			if err != nil {
-				fmt.Println("Error getting joke")
-				return
+				return errors.New("error getting joke")
 			}
 
 			body, err := io.ReadAll(resp.Body)
 			if err != nil {
-				fmt.Println("Error reading response body")
-				return
+				return errors.New("error reading response body")
 			}
 			err = json.Unmarshal(body, &joke)
 			if err != nil {
-				fmt.Println("Error occured")
+				return errors.New("unmarshalling json run into an error")
 			}
 
 			writer.Write(joke.Value)
@@ -122,7 +124,17 @@ func writeFile(writer Writer) {
 		}
 	}
 	fmt.Println("If you see this line, it means i'm not panicking")
-	writer.Flush()
-	writer.Close()
+	err = writer.Flush()
+	if err != nil {
+		return errors.New("error happened when flush data")
+	}
+	err = writer.Close()
+	if err != nil {
+		return errors.New("error happened when close the file")
+	}
 
+	if err != nil {
+		return err
+	}
+	return nil
 }
