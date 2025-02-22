@@ -80,9 +80,12 @@ type Quote struct {
 	Author string
 }
 
-func getQuote() string {
-	resp, err := http.Get(QuoteUrl)
-	if err != nil || resp.StatusCode != 200 {
+func getQuote() (quote string, err error) {
+	var resp *http.Response
+	resp, err = http.Get(QuoteUrl)
+	if err != nil || resp.StatusCode != http.StatusOK {
+		// The server can randomly return 404 not found
+		// This will simulate the panic in that case, so we can recover from it in the caller
 		panic("Quote fetch failed")
 	}
 	defer func() {
@@ -91,24 +94,24 @@ func getQuote() string {
 			fmt.Printf("Error closing response body: %v", err)
 		}
 	}()
-	body, err := io.ReadAll(resp.Body)
-	return string(body)
+	var body []byte
+	body, err = io.ReadAll(resp.Body)
+	quote = string(body)
+	return quote, err
 }
 
-func fetchAndWritesQuotes(writer Writer) error {
+func fetchAndWriteQuotes(writer Writer) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("Panic occured: %v\n", r)
 			fmt.Printf("So far %d quotes written. Flushing remaining quotes from bufer\n", writer.GetSuccessCount())
-			err2 := writer.Flush()
-			if err2 != nil {
-				fmt.Printf("Error flushing quotes: %v", err2)
-			}
+			err = writer.Flush()
 		}
 	}()
 	for i := 0; i < QuotesToGet; i++ {
-		quote := getQuote()
-		err := writer.Write(quote)
+		var quote string
+		quote, err = getQuote()
+		err = writer.Write(quote)
 		if err != nil {
 			fmt.Printf("Error writing quote: %v\n", err)
 			return err
@@ -122,12 +125,12 @@ func fetchAndWritesQuotes(writer Writer) error {
 			fmt.Printf("So far %d quotes written\n", writer.GetSuccessCount())
 		}
 	}
-	err := writer.Flush()
+	err = writer.Flush()
 	if err != nil {
 		fmt.Printf("Error flushing quotes: %v\n", err)
 		return err
 	}
-	return nil
+	return err
 }
 
 func main() {
@@ -135,7 +138,7 @@ func main() {
 	batchWriter, err := NewBatchWriter()
 	if err != nil {
 		fmt.Printf("Error initializing batch writer: %v\n", err)
-		return
+		os.Exit(1)
 	}
 
 	defer func() {
@@ -144,9 +147,10 @@ func main() {
 			fmt.Printf("Error closing output file: %v\n", closeErr)
 		}
 	}()
-	err = fetchAndWritesQuotes(batchWriter)
+	err = fetchAndWriteQuotes(batchWriter)
 	if err != nil {
-		fmt.Printf("Error occured while fetching quotes: %v\n", err)
+		fmt.Printf("Error occured while fetching quotes: %v\nWritten quotes: %d\n,", err, batchWriter.WriteSuccess)
+		os.Exit(1)
 	}
 	fmt.Printf("Application finished, wrote %d quotes\n", batchWriter.WriteSuccess)
 }
