@@ -1,6 +1,7 @@
 package client
 
 import (
+	"errors"
 	"io"
 	"net/http"
 )
@@ -21,7 +22,7 @@ func (c *PanickingClient) Get() (bodyString string, err error) {
 		return bodyString, err
 	}
 	defer func() {
-		err = resp.Body.Close()
+		errors.Join(err, resp.Body.Close())
 	}()
 
 	body, err := io.ReadAll(resp.Body)
