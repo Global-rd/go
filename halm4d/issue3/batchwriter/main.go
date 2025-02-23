@@ -2,6 +2,7 @@ package main
 
 import (
 	"batchwriter/client"
+	"batchwriter/config"
 	"batchwriter/writer"
 	"fmt"
 	"log"
@@ -12,47 +13,48 @@ import (
 
 func main() {
 	// Setup batch writer
-	outputFile := os.Getenv("OUTPUT_FILE")
-	if outputFile == "" {
-		fmt.Println("OUTPUT_FILE environment variable not set, applying default value: output.txt")
-		outputFile = "output.txt"
+	conf := config.NewConfig()
+
+	var err error
+	var outputFile *os.File
+	if conf.ReCreateOutputFile() {
+		outputFile, err = removeAndCreateFile(conf.OutputFileName())
+		if err != nil {
+			log.Fatalln("Error re creating file:", err)
+		}
+	} else {
+		outputFile, err = os.OpenFile(conf.OutputFileName(), os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			log.Fatalln("Error opening file:", err)
+		}
 	}
 
-	reCreateOutputFile, err := strconv.ParseBool(os.Getenv("RECREATE_OUTPUT_FILE"))
-	if err != nil {
-		fmt.Println("Error parsing RECREATE_OUTPUT_FILE environment variable, applying default value:", err)
-		reCreateOutputFile = true
-	}
+	defer func() {
+		err = outputFile.Close()
+		if err != nil {
+			fmt.Println("Error closing file:", err)
+		} else {
+			fmt.Println("Output file closed successfully.")
+		}
+	}()
 
-	maxBatchSize, err := strconv.Atoi(os.Getenv("MAX_BATCH_SIZE"))
-	if err != nil {
-		fmt.Println("Error parsing MAX_BATCH_SIZE environment variable, applying default value:", err)
-		maxBatchSize = 3
-	}
-
-	batchWriter := writer.NewBatchWriter(maxBatchSize, outputFile, reCreateOutputFile)
+	batchWriter := writer.NewBatchWriter(conf.MaxBatchSize(), outputFile)
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Recovered from panic:", r)
-			closeBatchWriter(batchWriter)
-			os.Exit(1)
 		}
-		closeBatchWriter(batchWriter)
+		if batchWriter != nil {
+			err = batchWriter.Close()
+			if err != nil {
+				fmt.Println("Error closing batch writer:", err)
+			} else {
+				fmt.Println("Batch writer closed successfully. Lines written:", batchWriter.WrittenLines())
+			}
+		}
 	}()
 
 	// Setup panicking client
-	serverUrl := os.Getenv("SERVER_URL")
-	if serverUrl == "" {
-		fmt.Println("SERVER_URL environment variable not set, applying default value: http://localhost:8080")
-		serverUrl = "http://localhost:8080"
-	}
-
-	panicRate, err := strconv.Atoi(os.Getenv("PANIC_RATE"))
-	if err != nil {
-		fmt.Println("PANIC_RATE environment variable not set, applying default value: 10")
-		panicRate = 10
-	}
-	panickingClient := client.NewPanickingClient(serverUrl)
+	panickingClient := client.NewPanickingClient(conf.ServerUrl())
 	for i := 0; i < 10; i++ {
 		bodyString, err := panickingClient.Get()
 		if err != nil {
@@ -64,7 +66,7 @@ func main() {
 			log.Fatalln("Error parsing request count:", err)
 		}
 
-		if requestCount%panicRate == 0 {
+		if requestCount%conf.PanicRate() == 0 {
 			panic("Panic!")
 		}
 		err = batchWriter.Write(bodyString)
@@ -75,10 +77,16 @@ func main() {
 
 }
 
-func closeBatchWriter(bw *writer.BatchWriter) {
-	err := bw.Close()
-	if err != nil {
-		fmt.Println("Error closing batch writer:", err)
+func removeAndCreateFile(outputFile string) (file *os.File, err error) {
+	if _, err := os.Stat(outputFile); err == nil {
+		err := os.Remove(outputFile)
+		if err != nil {
+			return nil, err
+		}
 	}
-	fmt.Println("Batch writer closed successfully. Lines written:", bw.WrittenLines())
+	file, err = os.Create(outputFile)
+	if err != nil {
+		return file, err
+	}
+	return file, err
 }

@@ -1,44 +1,21 @@
 package writer
 
 import (
-	"log"
-	"os"
+	"io"
 )
 
 type BatchWriter struct {
 	buffer       []string
 	maxBatchSize int
-	outputFile   *os.File
+	writer       io.Writer
 	writtenLines int
 }
 
-func removeAndCreateFile(outputFile string) (file *os.File, err error) {
-	if _, err := os.Stat(outputFile); err == nil {
-		err := os.Remove(outputFile)
-		if err != nil {
-			return nil, err
-		}
-	}
-	file, err = os.Create(outputFile)
-	if err != nil {
-		return file, err
-	}
-	return file, err
-}
-
-func NewBatchWriter(maxBatchSize int, outputFilePath string, reCreateOutputFile bool) *BatchWriter {
-	var outputFile *os.File
-	if reCreateOutputFile {
-		var err error
-		outputFile, err = removeAndCreateFile(outputFilePath)
-		if err != nil {
-			log.Fatalln("Error recreating output file:", err)
-		}
-	}
+func NewBatchWriter(maxBatchSize int, writer io.Writer) *BatchWriter {
 	return &BatchWriter{
 		buffer:       make([]string, 0),
 		maxBatchSize: maxBatchSize,
-		outputFile:   outputFile,
+		writer:       writer,
 	}
 }
 
@@ -51,28 +28,18 @@ func (bw *BatchWriter) Write(s string) error {
 }
 
 func (bw *BatchWriter) Flush() (err error) {
-	file, err := os.OpenFile(bw.outputFile.Name(), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 06666)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		err = file.Close()
-	}()
 	for _, s := range bw.buffer {
-		_, err = file.WriteString(s + "\n")
+		_, err = bw.writer.Write([]byte(s + "\n"))
 		if err != nil {
 			return err
 		}
 		bw.writtenLines++
 	}
 	bw.buffer = make([]string, 0)
-	return err
+	return nil
 }
 
 func (bw *BatchWriter) Close() (err error) {
-	defer func() {
-		err = bw.outputFile.Close()
-	}()
 	return bw.Flush()
 }
 

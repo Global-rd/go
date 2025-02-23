@@ -1,30 +1,15 @@
 package writer
 
 import (
-	"io"
-	"os"
+	"bytes"
 	"testing"
 )
 
 func TestNewBatchWriter(t *testing.T) {
-	// Create a temp file to write to and remove it after the test is done
-	temp := createTempFile(t)
-	defer func() {
-		err := os.Remove(temp.Name())
-		if err != nil {
-			t.Errorf("Error removing temp file: %v", err)
-		}
-	}()
+	var buf bytes.Buffer
 
 	// Create a new BatchWriter with a buffer size of 3
-	bw := NewBatchWriter(3, temp.Name(), true)
-	defer func() {
-		err := bw.outputFile.Close()
-		if err != nil {
-			t.Errorf("Error closing temp file: %v", err)
-		}
-	}()
-
+	bw := NewBatchWriter(3, &buf)
 	// Write 2 strings to buffer to test if buffer is written
 	err := bw.Write("test1")
 	err = bw.Write("test2")
@@ -36,7 +21,7 @@ func TestNewBatchWriter(t *testing.T) {
 	}
 
 	// After 2 writes, should not have written to file yet
-	actualFileContent := readFile(t, temp.Name())
+	actualFileContent := buf.String()
 	if actualFileContent != "" {
 		t.Errorf("Expected file contents to be '', got %s", actualFileContent)
 	}
@@ -51,7 +36,7 @@ func TestNewBatchWriter(t *testing.T) {
 	}
 
 	// Check if the file was written to output file correctly after flush
-	actualFileContent = readFile(t, temp.Name())
+	actualFileContent = buf.String()
 	if actualFileContent != "test1\ntest2\ntest3\n" {
 		t.Errorf("Expected file contents to be 'test1\ntest2\ntest3\n', got %s", actualFileContent)
 	}
@@ -59,23 +44,9 @@ func TestNewBatchWriter(t *testing.T) {
 }
 
 func TestBatchWriter_Write(t *testing.T) {
-	// Create a temp file to write to and remove it after the test is done
-	temp := createTempFile(t)
-	defer func() {
-		err := os.Remove(temp.Name())
-		if err != nil {
-			t.Errorf("Error removing temp file: %v", err)
-		}
-	}()
-
+	var buf bytes.Buffer
 	// Create a new BatchWriter with a buffer size of 3
-	bw := NewBatchWriter(3, temp.Name(), true)
-	defer func() {
-		err := bw.outputFile.Close()
-		if err != nil {
-			t.Errorf("Error closing temp file: %v", err)
-		}
-	}()
+	bw := NewBatchWriter(3, &buf)
 
 	// Write to buffer and check if buffer length is 1
 	err := bw.Write("test1")
@@ -97,23 +68,10 @@ func TestBatchWriter_Write(t *testing.T) {
 }
 
 func TestBatchWriter_Flush(t *testing.T) {
-	// Create a temp file to write to and remove it after the test is done
-	temp := createTempFile(t)
-	defer func() {
-		err := os.Remove(temp.Name())
-		if err != nil {
-			t.Errorf("Error removing temp file: %v", err)
-		}
-	}()
+	var buf bytes.Buffer
 
 	// Create a new BatchWriter with a buffer size of 3
-	bw := NewBatchWriter(3, temp.Name(), true)
-	defer func() {
-		err := bw.outputFile.Close()
-		if err != nil {
-			t.Errorf("Error closing temp file: %v", err)
-		}
-	}()
+	bw := NewBatchWriter(3, &buf)
 
 	// Write to buffer
 	err := bw.Write("test1")
@@ -125,24 +83,17 @@ func TestBatchWriter_Flush(t *testing.T) {
 	}
 
 	// Check if the file was written to output file correctly
-	actualFileContent := readFile(t, temp.Name())
+	actualFileContent := buf.String()
 	if actualFileContent != "test1\n" {
 		t.Errorf("Expected file contents to be 'test1\n', got %s", actualFileContent)
 	}
 }
 
 func TestBatchWriter_Close(t *testing.T) {
-	// Create a temp file to write to and remove it after the test is done
-	temp := createTempFile(t)
-	defer func() {
-		err := os.Remove(temp.Name())
-		if err != nil {
-			t.Errorf("Error removing temp file: %v", err)
-		}
-	}()
+	var buf bytes.Buffer
 
 	// Create a new BatchWriter with a buffer size of 3
-	bw := NewBatchWriter(3, temp.Name(), true)
+	bw := NewBatchWriter(3, &buf)
 
 	// Write to buffer
 	err := bw.Write("test1")
@@ -160,40 +111,8 @@ func TestBatchWriter_Close(t *testing.T) {
 	}
 
 	// Check if the file was written to output file correctly
-	actualFileContent := readFile(t, temp.Name())
+	actualFileContent := buf.String()
 	if actualFileContent != "test1\n" {
 		t.Errorf("Expected file contents to be 'test1\n', got %s", actualFileContent)
 	}
-}
-
-func readFile(t *testing.T, filename string) string {
-	file, err := os.Open(filename)
-	if err != nil {
-		t.Errorf("Error opening file: %v", err)
-	}
-	all, err := io.ReadAll(file)
-	if err != nil {
-		t.Errorf("Error reading file: %v", err)
-	}
-	defer func() {
-		err := file.Close()
-		if err != nil {
-			t.Errorf("Error closing file: %v", err)
-		}
-	}()
-	return string(all)
-}
-
-func createTempFile(t *testing.T) *os.File {
-	temp, err := os.CreateTemp("", "output.txt")
-	if err != nil {
-		t.Errorf("Error creating temp file: %v", err)
-	}
-	defer func() {
-		err := temp.Close()
-		if err != nil {
-			t.Errorf("Error closing temp file: %v", err)
-		}
-	}()
-	return temp
 }
