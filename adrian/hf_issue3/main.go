@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"os"
 	"strings"
@@ -14,6 +15,8 @@ const (
 	OutputFileName = "quotes_output.txt"
 	QuotesToGet    = 50
 	FlushInterval  = 5
+	RndMin         = 3
+	RndMax         = 5
 )
 
 type Writer interface {
@@ -84,9 +87,7 @@ func getQuote() (quote string, err error) {
 	var resp *http.Response
 	resp, err = http.Get(QuoteUrl)
 	if err != nil || resp.StatusCode != http.StatusOK {
-		// The server can randomly return 404 not found
-		// This will simulate the panic in that case, so we can recover from it in the caller
-		panic("Quote fetch failed")
+		return "", errors.New("Quote fetch failed")
 	}
 	defer func() {
 		err = resp.Body.Close()
@@ -98,6 +99,14 @@ func getQuote() (quote string, err error) {
 	body, err = io.ReadAll(resp.Body)
 	quote = string(body)
 	return quote, err
+}
+
+func shouldSimulatePanic(idx int) bool {
+	// Checks randomly if the bits 3-5 are set in the loop index
+	// if yes, a panic should be simulated
+	bitIdx := rand.Intn(RndMax-RndMin+1) + RndMin
+	checkBit := 1 << bitIdx
+	return (checkBit & idx) != 0
 }
 
 func fetchAndWriteQuotes(writer Writer) (err error) {
@@ -115,6 +124,9 @@ func fetchAndWriteQuotes(writer Writer) (err error) {
 		if err != nil {
 			fmt.Printf("Error writing quote: %v\n", err)
 			return err
+		}
+		if shouldSimulatePanic(i) {
+			panic("Simulated panic")
 		}
 		if (i+1)%FlushInterval == 0 {
 			err = writer.Flush()
