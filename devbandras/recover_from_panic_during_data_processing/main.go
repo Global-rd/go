@@ -205,7 +205,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer bw.Close()
-	slog.Info("Batch writer létrehozva", "fájl", jsonFile, "pufferméret", defaultPufferSize)
+	logger.Info("Batch writer létrehozva", "fájl", jsonFile, "pufferméret", defaultPufferSize)
 
 	countries, err := FetchCountries()
 	if err != nil {
