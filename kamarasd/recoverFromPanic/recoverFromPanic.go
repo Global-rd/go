@@ -72,10 +72,6 @@ func main() {
 		fmt.Println("Error opening file")
 	}
 
-	if err != nil {
-		fmt.Println("Error opening file")
-	}
-
 	batchWriter := NewBatchWriter(file, 1024)
 
 	err = writeFile(batchWriter)
@@ -104,7 +100,7 @@ func writeFile(writer Writer) (err error) {
 		if i != random {
 			resp, err := http.Get(jokeUrl)
 			if err != nil {
-				return errors.New("error getting joke")
+				return fmt.Errorf("error getting joke: %w", err)
 			}
 
 			body, err := io.ReadAll(resp.Body)
@@ -133,8 +129,5 @@ func writeFile(writer Writer) (err error) {
 		return errors.New("error happened when close the file")
 	}
 
-	if err != nil {
-		return err
-	}
 	return nil
 }
