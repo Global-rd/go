@@ -105,11 +105,11 @@ func writeFile(writer Writer) (err error) {
 
 			body, err := io.ReadAll(resp.Body)
 			if err != nil {
-				return errors.New("error reading response body")
+				return fmt.Errorf("error reading response body: %w", err)
 			}
 			err = json.Unmarshal(body, &joke)
 			if err != nil {
-				return errors.New("unmarshalling json run into an error")
+				return fmt.Errorf("unmarshalling json run into an error: %w", err)
 			}
 
 			writer.Write(joke.Value)
