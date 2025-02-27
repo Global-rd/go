@@ -1,9 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"math/rand"
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
+	"golang.org/x/exp/rand"
 )
 
 const (
@@ -11,22 +18,47 @@ const (
 	RANDOM_LENGHT = 10
 )
 
-func random_selection() string {
+func RandomSelect() string {
 	buff := []byte{}
-	i := 0
-	for i < RANDOM_LENGHT {
+	for {
 		randomIndex := rand.Intn(len(RANDCHARS))
 		buff = append(buff, []byte(RANDCHARS)[randomIndex])
-		i++
+		if len(buff) >= RANDOM_LENGHT {
+			break
+		}
 	}
 	return string(buff)
 }
 
 func main() {
 
+	apiserver := &http.Server{
+		Addr: ":5000",
+	}
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, fmt.Sprintf("%s", random_selection()))
+		fmt.Fprintf(w, "%s", RandomSelect())
 	})
 
-	http.ListenAndServe(":5000", nil)
+	go func() {
+		sigChan := make(chan os.Signal, 1)
+		signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+		<-sigChan
+
+		shutdownCtx, shutdownRelease := context.WithTimeout(context.Background(), 10*time.Second)
+		defer shutdownRelease()
+		defer func() {
+			log.Println("API shut down...")
+		}()
+
+		if err := apiserver.Shutdown(shutdownCtx); err != nil {
+			log.Fatalf("API shutdown error: %v", err)
+		}
+	}()
+
+	log.Println("API is listening on port 5000...")
+
+	if err := apiserver.ListenAndServe(); err != nil {
+		log.Fatalln("Error at serving API endpoints: ", err)
+	}
 }
