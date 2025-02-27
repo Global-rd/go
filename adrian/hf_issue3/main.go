@@ -114,7 +114,12 @@ func fetchAndWriteQuotes(writer Writer) (err error) {
 		if r := recover(); r != nil {
 			fmt.Printf("Panic occured: %v\n", r)
 			fmt.Printf("So far %d quotes written. Flushing remaining quotes from bufer\n", writer.GetSuccessCount())
-			err = writer.Flush()
+			err2 := writer.Flush()
+			if err2 != nil {
+				err = fmt.Errorf("panic: %v, followed by flush error: %v\n", r.(error), err2)
+			} else {
+				err = fmt.Errorf("panic occured: %v\n", r.(error))
+			}
 		}
 	}()
 	for i := 0; i < QuotesToGet; i++ {
