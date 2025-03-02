@@ -18,16 +18,13 @@ func ReadApi(w writer.Writer) error {
 	// Reads API, and registers strings endlessly
 	for {
 		response, err := http.Get(API)
-
 		if err != nil {
 			return err
 		}
-
 		responseData, err := io.ReadAll(response.Body)
 		if err != nil {
 			return err
 		}
-
 		// Buffers incoming strings
 		err = w.Write(string(responseData))
 		if err != nil {
@@ -45,21 +42,17 @@ func ReadApi(w writer.Writer) error {
 }
 
 func main() {
-
 	writer := writer.NewWriter()
-
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("Recovered. Error:\n", err)
 			writer.Flush()
 		}
 	}()
-
 	err := ReadApi(writer)
 	if err != nil {
 		log.Println("Error occured: ", err)
 	} else {
 		log.Println("All string read without error!")
 	}
-
 }
