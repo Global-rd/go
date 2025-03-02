@@ -158,13 +158,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	defer func() {
-		closeErr := batchWriter.Close()
-		if closeErr != nil {
-			fmt.Printf("Error closing output file: %v\n", closeErr)
-		}
-	}()
 	err = fetchAndWriteQuotes(batchWriter)
+	closeErr := batchWriter.Close()
+	if closeErr != nil {
+		fmt.Printf("Error closing output file: %v\n", closeErr)
+	}
 	if err != nil {
 		fmt.Printf("Error occured while fetching quotes: %v\nWritten quotes: %d\n,", err, batchWriter.WriteSuccess)
 		os.Exit(1)
