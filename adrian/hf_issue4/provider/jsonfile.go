@@ -32,11 +32,13 @@ func (j *JsonFileReader) CheckSource() error {
 }
 
 func (j *JsonFileReader) GetData() (string, error) {
+	f, err := os.Open(j.FileName)
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+
 	return "", nil
-}
-
-func (j *JsonFileReader) Close() {
-
 }
 
 func NewJsonFileReader(fileName string) *JsonFileReader {

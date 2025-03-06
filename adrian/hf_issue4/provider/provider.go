@@ -8,7 +8,6 @@ import (
 type DataProvider interface {
 	GetData() (string, error)
 	CheckSource() error
-	Close()
 }
 
 func NewProvider(source string) (DataProvider, error) {
