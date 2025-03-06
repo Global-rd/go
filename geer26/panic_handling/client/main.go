@@ -35,7 +35,7 @@ func ReadApi(w writer.Writer) error {
 				panic(err.Error())
 			} else {
 				w.Close()
-				return errors.New("unexpected error")
+				return fmt.Errorf("unexpected error: %w", err)
 			}
 		}
 	}
