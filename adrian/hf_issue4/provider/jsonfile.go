@@ -1,8 +1,10 @@
 package provider
 
 import (
+	"csv-writer/model"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -31,14 +33,24 @@ func (j *JsonFileReader) CheckSource() error {
 	return nil
 }
 
-func (j *JsonFileReader) GetData() (string, error) {
+func (j *JsonFileReader) GetData() ([]model.JsonData, error) {
 	f, err := os.Open(j.FileName)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	defer f.Close()
+	var fileContent []byte
 
-	return "", nil
+	fileContent, err = io.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+	var data []model.JsonData
+	data, err = model.ParseJsonData(string(fileContent))
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 func NewJsonFileReader(fileName string) *JsonFileReader {

@@ -1,12 +1,13 @@
 package provider
 
 import (
+	"csv-writer/model"
 	"errors"
 	"strings"
 )
 
 type DataProvider interface {
-	GetData() (string, error)
+	GetData() ([]model.JsonData, error)
 	CheckSource() error
 }
 

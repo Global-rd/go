@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"csv-writer/model"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,6 +15,7 @@ const (
 	USE_STREAM     = false
 	CHECK_REQ      = "who wrote the Hitchhiker's Guide to the Galaxy?"
 	CHECK_EXPECTED = "Douglas Adams"
+	DATA_REQUEST   = "generate a json list of 21 elements, each containing a field firstName, lastNAme, userName, phone and email. return only the generated json nothing else"
 )
 
 type OllamaProvider struct {
@@ -37,12 +39,23 @@ func (o *OllamaProvider) CheckSource() error {
 	return nil
 }
 
-func (o *OllamaProvider) GetData() (string, error) {
-	return "", nil
+func convertToSafeJsonString(str string) string {
+	str = strings.ReplaceAll(str, "\n", "")
+	return strings.ReplaceAll(str, "\"", `"`)
 }
 
-func (o *OllamaProvider) Close() {
-	return
+func (o *OllamaProvider) GetData() ([]model.JsonData, error) {
+	respStr, err := o.sendRequest(DATA_REQUEST)
+	if err != nil {
+		return nil, err
+	}
+	respStr = convertToSafeJsonString(respStr)
+	var data []model.JsonData
+	data, err = model.ParseJsonData(respStr)
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 func (o *OllamaProvider) sendRequest(question string) (string, error) {
@@ -70,7 +83,16 @@ func (o *OllamaProvider) sendRequest(question string) (string, error) {
 	if err != nil {
 		return "", errors.Join(fmt.Errorf("failed to read response from ollama"), err)
 	}
-	return string(respBody), nil
+	var respJsonBody map[string]interface{}
+	err = json.Unmarshal(respBody, &respJsonBody)
+	if err != nil {
+		return "", err
+	}
+	ollamaRespStr, ok := respJsonBody["response"].(string)
+	if !ok {
+		return "", errors.New("failed to parse answer from ollama")
+	}
+	return ollamaRespStr, nil
 }
 
 func NewOllamaProvider(url string) *OllamaProvider {

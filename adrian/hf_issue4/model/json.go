@@ -1,4 +1,4 @@
-package parsing
+package model
 
 import "encoding/json"
 
@@ -10,7 +10,7 @@ type JsonData struct {
 	EmailAddress string `json:"email"`
 }
 
-func parseJsonData(data string) ([]JsonData, error) {
+func ParseJsonData(data string) ([]JsonData, error) {
 	var jsonData []JsonData
 	err := json.Unmarshal([]byte(data), &jsonData)
 	if err != nil {
