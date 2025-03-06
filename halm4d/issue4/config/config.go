@@ -6,7 +6,8 @@ type Config struct {
 	verbose     bool
 	help        bool
 	zip         bool
-	source      string
+	sourceType  string
+	sourceFile  string
 	output      string
 	ollamaUrl   string
 	ollamaModel string
@@ -20,11 +21,14 @@ func (c *Config) Parse() *Config {
 	flag.BoolVar(&c.help, "help", false, "show help")
 	flag.BoolVar(&c.help, "h", false, "show help")
 
-	flag.BoolVar(&c.zip, "zip", false, "zip the output")
-	flag.BoolVar(&c.zip, "z", false, "zip the output")
+	flag.BoolVar(&c.zip, "zip", true, "zip the output")
+	flag.BoolVar(&c.zip, "z", true, "zip the output")
 
-	flag.StringVar(&c.source, "source", "ollama", "source file")
-	flag.StringVar(&c.source, "s", "ollama", "source file")
+	flag.StringVar(&c.sourceType, "source-type", "ollama", "source type can be 'ollama' or 'file'")
+	flag.StringVar(&c.sourceType, "st", "ollama", "source type can be 'ollama' or 'file'")
+
+	flag.StringVar(&c.sourceFile, "source", "source.json", "source file")
+	flag.StringVar(&c.sourceFile, "s", "source.json", "source file")
 
 	flag.StringVar(&c.output, "output", "output", "output file")
 	flag.StringVar(&c.output, "o", "output", "output file")
@@ -51,8 +55,12 @@ func (c *Config) Zip() bool {
 	return c.zip
 }
 
-func (c *Config) Source() string {
-	return c.source
+func (c *Config) SourceType() string {
+	return c.sourceType
+}
+
+func (c *Config) SourceFile() string {
+	return c.sourceFile
 }
 
 func (c *Config) Output() string {

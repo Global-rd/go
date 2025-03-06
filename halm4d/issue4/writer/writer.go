@@ -15,7 +15,7 @@ type CSVWriter struct {
 	writer *csv.Writer
 }
 
-func NewCSVConverter(output io.Writer) *CSVWriter {
+func NewCSVWriter(output io.Writer) *CSVWriter {
 	csvWriter := csv.NewWriter(output)
 	csvWriter.Comma = ';'
 	return &CSVWriter{

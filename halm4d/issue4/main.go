@@ -7,81 +7,139 @@ import (
 	"csv-exporter/writer"
 	"csv-exporter/zipper"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"log"
 	"os"
 )
 
 func main() {
 
+	// Parse config
 	conf := config.NewConfig().Parse()
 	if conf.Help() {
 		conf.PrintHelp()
 		os.Exit(0)
 	}
 
-	ollamaClient := ollama.NewOllama(
-		conf.OllamaUrl(),
-		conf.OllamaModel(),
-		conf.Verbose(),
-	)
-
-	fmt.Println("Pulling model...")
-	err := ollamaClient.PullModel()
+	// Get JSON source
+	jsonSource, err := getJsonSource(conf)
 	if err != nil {
-		log.Fatalln("Error:", err)
+		log.Fatalln("Error while getting JSON source:", err)
 	}
-	fmt.Println("Model pulled successfully.")
 
-	fmt.Println("Generating response...")
-	generate, err := ollamaClient.Generate("Generate movies, books, and games, include these fields: title, type, description, genre, and release date. Return the result in JSON format. Put everything into one JSON array. Only return the JSON, do not add any other text.")
-	if err != nil {
-		log.Fatalln("Error:", err)
-	}
-	fmt.Println("Response:", generate)
-
+	// Unmarshal JSON
 	var tracks []tracker.Track
-	err = json.Unmarshal([]byte(generate), &tracks)
+	err = json.Unmarshal([]byte(jsonSource), &tracks)
 	if err != nil {
-		log.Fatalln("Error:", err)
+		log.Fatalln("Error while unmarshalling JSON:", err)
 	}
-
 	if conf.Verbose() {
 		fmt.Println("Unmarshalled tracks:", tracks)
 	}
 
-	outputFile, err := os.Create("output.csv")
+	// Create output file
+	outputFile, err := os.Create(fmt.Sprintf("%s.csv", conf.Output()))
 	if err != nil {
-		log.Fatalln("Error:", err)
+		log.Fatalln("Error while creating output file:", err)
 	}
-	defer outputFile.Close()
+	defer func() {
+		if err = outputFile.Close(); err != nil {
+			log.Fatalln("Error while closing output file:", err)
+		}
+	}()
 
-	csvConverter := writer.NewCSVConverter(outputFile)
-	defer csvConverter.Close()
+	// Write CSV file
+	err = writeCSVFile(tracks, outputFile, conf)
+	if err != nil {
+		log.Fatalln("Error while writing CSV file:", err)
+	}
+	fmt.Println("CSV file created successfully.")
 
+	// Zip CSV file if required
+	if conf.Zip() {
+		fmt.Println("Zipping CSV file...")
+		zip := zipper.NewZipper(conf)
+		err = zip.ZipFile("output.csv")
+		if err != nil {
+			log.Fatalln("Error while zipping CSV file:", err)
+		}
+		fmt.Println("CSV file zipped successfully.")
+	}
+	fmt.Println("Done.")
+}
+
+func writeCSVFile(tracks []tracker.Track, outputFile io.Writer, conf *config.Config) (err error) {
+	csvWriter := writer.NewCSVWriter(outputFile)
+	defer func() {
+		if closeErr := csvWriter.Close(); closeErr != nil {
+			err = errors.Join(err, closeErr)
+		}
+	}()
+
+	// Convert tracks to CSV format
 	convertedTracks := tracker.Convert(tracks)
 	if conf.Verbose() {
 		fmt.Println("Converted tracks:", convertedTracks)
 	}
-	err = csvConverter.Write(convertedTracks)
+
+	// Write header
+	header := []string{"Title", "Type", "Description", "Genre", "Release Date"}
+	err = csvWriter.Write([][]string{header})
 	if err != nil {
-		log.Fatalln("Error:", err)
+		return errors.New("Error writing CSV header: " + err.Error())
 	}
 
-	err = csvConverter.Close()
+	// Write tracks data
+	err = csvWriter.Write(convertedTracks)
 	if err != nil {
-		log.Fatalln("Error:", err)
+		return errors.New("Error writing CSV file: " + err.Error())
 	}
 
-	fmt.Println("CSV file created successfully.")
-
-	fmt.Println("Zipping CSV file...")
-	zip := zipper.NewZipper(conf)
-	err = zip.ZipFile("output.csv")
+	// Close CSV writer
+	err = csvWriter.Close()
 	if err != nil {
-		log.Fatalln("Error:", err)
+		return errors.New("Error closing CSV file: " + err.Error())
 	}
+	return nil
+}
 
-	fmt.Println("CSV file zipped successfully.")
-	fmt.Println("Done.")
+func getJsonSource(conf *config.Config) (string, error) {
+	if conf.SourceType() == "ollama" {
+		ollamaClient := ollama.NewOllama(
+			conf.OllamaUrl(),
+			conf.OllamaModel(),
+			conf.Verbose(),
+		)
+
+		fmt.Println("Pulling model...")
+		err := ollamaClient.PullModel()
+		if err != nil {
+			return "", errors.New("Error pulling model: " + err.Error())
+		}
+		fmt.Println("Model pulled successfully.")
+
+		fmt.Println("Generating response...")
+		generate, err := ollamaClient.Generate("Generate movies, books, and games, include these fields: title, type, description, genre, and release date. Return the result in JSON format. Put everything into one JSON array. Only return the JSON, do not add any other text.")
+		if err != nil {
+			return "", errors.New("Error generating response: " + err.Error())
+		}
+		fmt.Println("Response generated successfully.")
+		if conf.Verbose() {
+			fmt.Println("Response:", generate)
+		}
+		return generate, nil
+	} else if conf.SourceType() == "file" {
+		file, err := os.ReadFile(conf.SourceType())
+		if err != nil {
+			return "", errors.New("Error reading file: " + err.Error())
+		}
+		if conf.Verbose() {
+			fmt.Println("File content:", string(file))
+		}
+		return string(file), nil
+	} else {
+		return "", errors.New("invalid source type. Use 'ollama' or 'file'")
+	}
 }
