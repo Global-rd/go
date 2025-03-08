@@ -1,0 +1,26 @@
+{
+    "users": [
+      {"id": 1, "name": "John Doe", "email": "john.doe@example.com", "age": 30},
+      {"id": 2, "name": "Jane Smith", "email": "jane.smith@example.com", "age": 25},
+      {"id": 3, "name": "Alice Johnson", "email": "alice.johnson@example.com", "age": 28},
+      {"id": 4, "name": "Bob Brown", "email": "bob.brown@example.com", "age": 35},
+      {"id": 5, "name": "Charlie White", "email": "charlie.white@example.com", "age": 40},
+      {"id": 6, "name": "David Green", "email": "david.green@example.com", "age": 22},
+      {"id": 7, "name": "Ella Black", "email": "ella.black@example.com", "age": 27},
+      {"id": 8, "name": "Frank Harris", "email": "frank.harris@example.com", "age": 33},
+      {"id": 9, "name": "Grace Miller", "email": "grace.miller@example.com", "age": 29},
+      {"id": 10, "name": "Henry Wilson", "email": "henry.wilson@example.com", "age": 31}
+    ],
+    "products": [
+      {"id": 101, "name": "Laptop", "price": 1200.99, "stock": 10},
+      {"id": 102, "name": "Smartphone", "price": 799.49, "stock": 25},
+      {"id": 103, "name": "Tablet", "price": 499.99, "stock": 15},
+      {"id": 104, "name": "Smartwatch", "price": 199.99, "stock": 30},
+      {"id": 105, "name": "Headphones", "price": 149.99, "stock": 50},
+      {"id": 106, "name": "Monitor", "price": 299.99, "stock": 20},
+      {"id": 107, "name": "Keyboard", "price": 89.99, "stock": 40},
+      {"id": 108, "name": "Mouse", "price": 59.99, "stock": 60},
+      {"id": 109, "name": "Printer", "price": 249.99, "stock": 12},
+      {"id": 110, "name": "External Hard Drive", "price": 129.99, "stock": 18}
+    ]
+  }
