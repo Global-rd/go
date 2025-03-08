@@ -147,4 +147,5 @@ func main() {
 		panic(err.Error())
 	}
 	flush(*dat, outputFileName, zipped)
+
 }
