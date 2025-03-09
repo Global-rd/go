@@ -1,0 +1,17 @@
+[
+    {
+        "Name": "Hát Izsák",
+        "Age": 25,
+        "City": "Budapest"
+    },
+    {
+        "Name": "Matr Ica",
+        "Age": 22,
+        "City": "Salgótarján"
+    }, 
+    {
+        "Name": "Bekő Tóni",
+        "Age": 45,
+        "City": "Cegléd"
+    } 
+]
