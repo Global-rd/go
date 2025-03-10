@@ -31,53 +31,69 @@ type Data struct {
 }
 
 func flush(d Data, filename string, zipped bool) error {
-	file, err := os.Create(filename)
+	usersfilename := fmt.Sprintf("%s_users.csv", strings.Split(filename, ".")[0])
+	productsfilename := fmt.Sprintf("%s_products.csv", strings.Split(filename, ".")[0])
+	usersfile, err := os.Create(usersfilename)
 	if err != nil {
-		return err
+		return fmt.Errorf("error at creating users file: %s", err.Error())
 	}
-	defer file.Close()
-	file.Write([]byte("USERS"))
-	file.Write([]byte("\n"))
-	file.Write([]byte("Id,Name,Email,Age"))
-	file.Write([]byte("\n"))
+	defer usersfile.Close()
+	usersfile.Write([]byte("Id,Name,Email,Age"))
+	usersfile.Write([]byte("\n"))
 	for _, v := range d.Users {
 		to_save := fmt.Sprintf("%d,%s,%s,%d", v.Id, v.Name, v.Email, v.Age)
-		file.Write([]byte(to_save))
-		file.Write([]byte("\n"))
+		usersfile.Write([]byte(to_save))
+		usersfile.Write([]byte("\n"))
 	}
-	file.Write([]byte("USERS"))
-	file.Write([]byte("\n"))
-	file.Write([]byte("Id,Name,Price,Stock"))
-	file.Write([]byte("\n"))
+	productsfile, err := os.Create(productsfilename)
+	if err != nil {
+		return fmt.Errorf("error at creating products file: %s", err.Error())
+	}
+	defer productsfile.Close()
+	productsfile.Write([]byte("Id,Name,Price,Stock"))
+	productsfile.Write([]byte("\n"))
 	for _, v := range d.Products {
 		to_save := fmt.Sprintf("%d,%s,%f,%d", v.Id, v.Name, v.Price, v.Stock)
-		file.Write([]byte(to_save))
-		file.Write([]byte("\n"))
+		productsfile.Write([]byte(to_save))
+		productsfile.Write([]byte("\n"))
 	}
-
 	if zipped {
-		name := strings.TrimSpace(strings.Split(filename, ".")[0])
-		archive, err := os.Create(fmt.Sprintf("%s.zip", name))
+		zipfilename := fmt.Sprintf("%s.zip", strings.Split(filename, ".")[0])
+		archive, err := os.Create(zipfilename)
 		if err != nil {
-			return err
+			return fmt.Errorf("error at create archive: %s", err.Error())
 		}
 		defer archive.Close()
 		zipWriter := zip.NewWriter(archive)
 		defer zipWriter.Close()
-		file, err := os.Open(filename)
+
+		// Something messed up!
+		// TODO debug here!
+		zippedusers, err := zipWriter.Create(usersfile.Name())
 		if err != nil {
-			return err
+			return fmt.Errorf("error at compress users: %s", err.Error())
 		}
-		defer file.Close()
-		zipfile, err := zipWriter.Create(filename)
+		zippedproducts, err := zipWriter.Create(productsfile.Name())
 		if err != nil {
-			return err
+			return fmt.Errorf("error at compress products: %s", err.Error())
 		}
-		if _, err := io.Copy(zipfile, file); err != nil {
-			return err
+		if _, err := io.Copy(zippedusers, usersfile); err != nil {
+			return fmt.Errorf("error at copy compressed users: %s", err.Error())
 		}
-		if err := os.Remove(filename); err != nil {
-			return err
+		if _, err := io.Copy(zippedproducts, productsfile); err != nil {
+			return fmt.Errorf("error at copy compressed products: %s", err.Error())
+		}
+
+		// Remove unzipped files
+		// Close opened files
+		usersfile.Close()
+		productsfile.Close()
+		// Delete files (already closed)
+		if err := os.Remove(usersfilename); err != nil {
+			return fmt.Errorf("error at deleting plain users: %s", err.Error())
+		}
+		if err := os.Remove(productsfilename); err != nil {
+			return fmt.Errorf("error at deleting plain products: %s", err.Error())
 		}
 	}
 	return nil
@@ -87,10 +103,10 @@ func read(filename string) (*Data, error) {
 	var data Data
 	file, err := os.ReadFile(filename)
 	if err != nil {
-		return &data, err
+		return &data, fmt.Errorf("error at opening source file: %s", err.Error())
 	}
 	if err = json.Unmarshal(file, &data); err != nil {
-		return &data, err
+		return &data, fmt.Errorf("error at parsing source file: %s", err.Error())
 	}
 	return &data, nil
 }
