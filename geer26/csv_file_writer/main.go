@@ -80,7 +80,7 @@ func WrtieZip(filename string) error {
 	return nil
 }
 
-func flush(d Data, filename string) error {
+func Flush(d Data, filename string) error {
 	usersfilename := fmt.Sprintf("%s_users.csv", strings.Split(filename, ".")[0])
 	productsfilename := fmt.Sprintf("%s_products.csv", strings.Split(filename, ".")[0])
 
@@ -114,7 +114,7 @@ func flush(d Data, filename string) error {
 	return nil
 }
 
-func read(filename string) (*Data, error) {
+func Read(filename string) (*Data, error) {
 	var data Data
 	file, err := os.ReadFile(filename)
 	if err != nil {
@@ -126,7 +126,7 @@ func read(filename string) (*Data, error) {
 	return &data, nil
 }
 
-func checkParams(sourceFlagShort, sourceFlagLong, ouputFlagShort, outputeFlagLong string) error {
+func CheckParams(sourceFlagShort, sourceFlagLong, ouputFlagShort, outputeFlagLong string) error {
 	if sourceFlagShort == "" && sourceFlagLong == "" && ouputFlagShort == "" && outputeFlagLong == "" {
 		return errors.New("source and output file must be specified")
 	}
@@ -153,7 +153,7 @@ func main() {
 	zippedShort := flag.Bool("z", false, "Zip the output file")
 	zippedLong := flag.Bool("zip", false, "Zip the output file")
 	flag.Parse()
-	if err := checkParams(*sourceFlagShort, *sourceFlagLong, *ouputFlagShort, *outputeFlagLong); err != nil {
+	if err := CheckParams(*sourceFlagShort, *sourceFlagLong, *ouputFlagShort, *outputeFlagLong); err != nil {
 		panic(err.Error())
 	}
 	var sourceFileName string
@@ -173,12 +173,12 @@ func main() {
 		zipped = true
 	}
 
-	dat, err := read(sourceFileName)
+	dat, err := Read(sourceFileName)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	if err := flush(*dat, outputFileName); err != nil {
+	if err := Flush(*dat, outputFileName); err != nil {
 		panic(err.Error())
 	}
 
