@@ -1,0 +1,142 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "userName": "johndoe",
+    "phone": "555-123-4567",
+    "email": "johndoe@example.com"
+  },
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "userName": "janesmith",
+    "phone": "555-987-6543",
+    "email": "janesmith@example.com"
+  },
+  {
+    "firstName": "Michael",
+    "lastName": "Johnson",
+    "userName": "michaelj",
+    "phone": "555-234-5678",
+    "email": "michaelj@example.com"
+  },
+  {
+    "firstName": "Emily",
+    "lastName": "Brown",
+    "userName": "emilyb",
+    "phone": "555-876-5432",
+    "email": "emilyb@example.com"
+  },
+  {
+    "firstName": "David",
+    "lastName": "Wilson",
+    "userName": "davidw",
+    "phone": "555-345-6789",
+    "email": "davidw@example.com"
+  },
+  {
+    "firstName": "Sarah",
+    "lastName": "Miller",
+    "userName": "sarahm",
+    "phone": "555-765-4321",
+    "email": "sarahm@example.com"
+  },
+  {
+    "firstName": "James",
+    "lastName": "Moore",
+    "userName": "jamesm",
+    "phone": "555-456-7890",
+    "email": "jamesm@example.com"
+  },
+  {
+    "firstName": "Jessica",
+    "lastName": "Taylor",
+    "userName": "jessicat",
+    "phone": "555-654-3210",
+    "email": "jessicat@example.com"
+  },
+  {
+    "firstName": "Robert",
+    "lastName": "Anderson",
+    "userName": "roberta",
+    "phone": "555-567-8901",
+    "email": "roberta@example.com"
+  },
+  {
+    "firstName": "Laura",
+    "lastName": "Thomas",
+    "userName": "laurat",
+    "phone": "555-678-9012",
+    "email": "laurat@example.com"
+  },
+  {
+    "firstName": "Daniel",
+    "lastName": "Jackson",
+    "userName": "danielj",
+    "phone": "555-789-0123",
+    "email": "danielj@example.com"
+  },
+  {
+    "firstName": "Olivia",
+    "lastName": "White",
+    "userName": "oliviaw",
+    "phone": "555-890-1234",
+    "email": "oliviaw@example.com"
+  },
+  {
+    "firstName": "William",
+    "lastName": "Harris",
+    "userName": "williamh",
+    "phone": "555-901-2345",
+    "email": "williamh@example.com"
+  },
+  {
+    "firstName": "Sophia",
+    "lastName": "Martin",
+    "userName": "sophiam",
+    "phone": "555-012-3456",
+    "email": "sophiam@example.com"
+  },
+  {
+    "firstName": "Ethan",
+    "lastName": "Thompson",
+    "userName": "ethant",
+    "phone": "555-123-6789",
+    "email": "ethant@example.com"
+  },
+  {
+    "firstName": "Ava",
+    "lastName": "Garcia",
+    "userName": "avag",
+    "phone": "555-234-7890",
+    "email": "avag@example.com"
+  },
+  {
+    "firstName": "Alexander",
+    "lastName": "Martinez",
+    "userName": "alexm",
+    "phone": "555-345-8901",
+    "email": "alexm@example.com"
+  },
+  {
+    "firstName": "Mia",
+    "lastName": "Robinson",
+    "userName": "miar",
+    "phone": "555-456-9012",
+    "email": "miar@example.com"
+  },
+  {
+    "firstName": "Benjamin",
+    "lastName": "Clark",
+    "userName": "benjaminc",
+    "phone": "555-567-0123",
+    "email": "benjaminc@example.com"
+  },
+  {
+    "firstName": "Charlotte",
+    "lastName": "Rodriguez",
+    "userName": "charlotter",
+    "phone": "555-678-1234",
+    "email": "charlotter@example.com"
+  }
+]
