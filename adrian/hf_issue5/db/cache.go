@@ -14,13 +14,13 @@ func init() {
 	Cache = make(map[string]Book)
 	file, err := os.Open(DbFile)
 	if err != nil {
-		panic(fmt.Sprintf("Error opening file: %s, due to error: %v", DbFile, err))
+		panic(fmt.Sprintf("Initialization failed: Error opening file %s due to error: %v", DbFile, err))
 	}
 	defer file.Close()
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&Cache)
 	if err != nil {
-		panic(fmt.Sprintf("Error decoding file: %s, due to error: %v", DbFile, err))
+		panic(fmt.Sprintf("Initialization failed: Error decoding file %s due to error: %v", DbFile, err))
 	}
 }
 

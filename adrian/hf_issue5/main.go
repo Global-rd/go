@@ -12,10 +12,37 @@ func main() {
 	mux.HandleFunc("/books", handleGetAllBooks)
 	mux.HandleFunc("/books/{id}", handleGetBookById)
 
-	err := http.ListenAndServe(":8080", mux)
+	originsWrapper := allowOriginsMiddleware(mux)
+	loggingWrapper := loggingMiddleware(originsWrapper)
+
+	err := http.ListenAndServe(":8080", loggingWrapper)
 	if err != nil {
 		slog.Error(err.Error())
 	}
+}
+
+func allowOriginsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		slog.Info("Received request with",
+			"path", r.URL.Path,
+			"method", r.Method,
+			"headers", r.Header,
+		)
+		next.ServeHTTP(w, r)
+	})
 }
 
 func handleGetAllBooks(w http.ResponseWriter, r *http.Request) {
