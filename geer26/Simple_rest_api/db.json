@@ -1,0 +1,185 @@
+{
+    "books": [
+      {
+        "Id": 1,
+        "Title": "The Great Adventure",
+        "Author": "John Smith",
+        "Published": 1609459200,
+        "Introduction": "A thrilling journey through unknown lands.",
+        "Price": 15.99,
+        "Stock": 30
+      },
+      {
+        "Id": 2,
+        "Title": "Mystery of the Lost City",
+        "Author": "Jane Doe",
+        "Published": 1612137600,
+        "Introduction": "An archaeologist's quest to uncover an ancient secret.",
+        "Price": 20.50,
+        "Stock": 25
+      },
+      {
+        "Id": 3,
+        "Title": "Code Masters",
+        "Author": "Alan Turing",
+        "Published": 1625097600,
+        "Introduction": "A deep dive into the world of programming.",
+        "Price": 35.99,
+        "Stock": 15
+      },
+      {
+        "Id": 4,
+        "Title": "The Space Odyssey",
+        "Author": "Arthur Clarke",
+        "Published": 1630454400,
+        "Introduction": "A journey through the cosmos and beyond.",
+        "Price": 25.99,
+        "Stock": 40
+      },
+      {
+        "Id": 5,
+        "Title": "The Forgotten Realm",
+        "Author": "Emily Carter",
+        "Published": 1619827200,
+        "Introduction": "A fantasy epic filled with magic and mystery.",
+        "Price": 18.75,
+        "Stock": 22
+      },
+      {
+        "Id": 6,
+        "Title": "Artificial Intelligence Unleashed",
+        "Author": "Ray Kurzweil",
+        "Published": 1640995200,
+        "Introduction": "The future of AI and its impact on society.",
+        "Price": 30.99,
+        "Stock": 18
+      },
+      {
+        "Id": 7,
+        "Title": "The Last Warrior",
+        "Author": "George Miller",
+        "Published": 1606780800,
+        "Introduction": "A soldier's fight against overwhelming odds.",
+        "Price": 22.50,
+        "Stock": 20
+      },
+      {
+        "Id": 8,
+        "Title": "Secrets of the Ocean",
+        "Author": "Jacques Cousteau",
+        "Published": 1627776000,
+        "Introduction": "An exploration of the deep blue sea.",
+        "Price": 27.49,
+        "Stock": 28
+      },
+      {
+        "Id": 9,
+        "Title": "The Hacker's Handbook",
+        "Author": "Kevin Mitnick",
+        "Published": 1651363200,
+        "Introduction": "A guide to cybersecurity and ethical hacking.",
+        "Price": 40.00,
+        "Stock": 12
+      },
+      {
+        "Id": 10,
+        "Title": "Time Traveler's Guide",
+        "Author": "H.G. Wells",
+        "Published": 1598918400,
+        "Introduction": "A journey through time and space.",
+        "Price": 19.99,
+        "Stock": 35
+      },
+      {
+        "Id": 11,
+        "Title": "Cybernetic Future",
+        "Author": "Elon Musk",
+        "Published": 1664582400,
+        "Introduction": "The rise of technology in the modern world.",
+        "Price": 45.99,
+        "Stock": 10
+      },
+      {
+        "Id": 12,
+        "Title": "The Green Earth",
+        "Author": "David Attenborough",
+        "Published": 1638316800,
+        "Introduction": "A call to action for environmental protection.",
+        "Price": 23.45,
+        "Stock": 50
+      },
+      {
+        "Id": 13,
+        "Title": "The Poetry Collection",
+        "Author": "Robert Frost",
+        "Published": 1577836800,
+        "Introduction": "A collection of timeless poems.",
+        "Price": 12.99,
+        "Stock": 60
+      },
+      {
+        "Id": 14,
+        "Title": "Beyond the Horizon",
+        "Author": "Amelia Earhart",
+        "Published": 1601510400,
+        "Introduction": "The story of aviation pioneers.",
+        "Price": 29.99,
+        "Stock": 18
+      },
+      {
+        "Id": 15,
+        "Title": "The Quantum Leap",
+        "Author": "Richard Feynman",
+        "Published": 1614556800,
+        "Introduction": "An introduction to quantum mechanics.",
+        "Price": 38.99,
+        "Stock": 14
+      },
+      {
+        "Id": 16,
+        "Title": "Legends of the Wild West",
+        "Author": "Billy the Kid",
+        "Published": 1580515200,
+        "Introduction": "Tales of the old American frontier.",
+        "Price": 16.50,
+        "Stock": 30
+      },
+      {
+        "Id": 17,
+        "Title": "The Art of War",
+        "Author": "Sun Tzu",
+        "Published": -500000000,
+        "Introduction": "Ancient strategies for modern success.",
+        "Price": 9.99,
+        "Stock": 100
+      },
+      {
+        "Id": 18,
+        "Title": "Exploring the Universe",
+        "Author": "Neil deGrasse Tyson",
+        "Published": 1654041600,
+        "Introduction": "A guide to the wonders of space.",
+        "Price": 31.99,
+        "Stock": 20
+      },
+      {
+        "Id": 19,
+        "Title": "Deep Learning Simplified",
+        "Author": "Geoffrey Hinton",
+        "Published": 1672531200,
+        "Introduction": "Understanding AI and machine learning.",
+        "Price": 42.00,
+        "Stock": 15
+      },
+      {
+        "Id": 20,
+        "Title": "The Medieval Chronicles",
+        "Author": "Ken Follett",
+        "Published": 1593561600,
+        "Introduction": "Stories from the Middle Ages.",
+        "Price": 28.75,
+        "Stock": 27
+      }
+    ]
+  }
+  

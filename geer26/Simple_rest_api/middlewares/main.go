@@ -10,6 +10,7 @@ type MiddlewareStack struct {
 
 func AttachMiddlewares(f http.HandlerFunc) http.HandlerFunc {
 	stack := []Middleware{
+		MiniCORS(),
 		Logger(),
 	}
 	for _, middleware := range stack {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
+	"main/database"
 	"main/routes"
 	"net/http"
 )
@@ -10,9 +10,11 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
-	if err := routes.Attachroutes(mux); err != nil {
-		slog.Error(fmt.Sprintf("error at attaching routes: %s", err.Error()))
-		panic("Quitting...")
+	routes.Attachroutes(mux)
+
+	if _, err := database.DialStore(); err != nil {
+		slog.Error(err.Error())
+		panic("Quitting server")
 	}
 
 	slog.Info("server started at 5000")

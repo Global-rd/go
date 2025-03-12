@@ -1,6 +1,10 @@
 package database
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
 
 type Book struct {
 	Id           int
@@ -13,25 +17,42 @@ type Book struct {
 }
 
 type Store struct {
-	Books []Book
+	Books []Book `json:"books"`
 }
+
+var Books *Store
 
 func DialStore() (*Store, error) {
-	store := Store{}
-
-	if err := store.LoadStore(); err != nil {
-		return nil, fmt.Errorf("error at dialing database: %s", err.Error())
+	if Books == nil {
+		Books = &Store{}
+		if err := Books.LoadStore(); err != nil {
+			return nil, err
+		}
 	}
-
-	return &store, nil
+	return Books, nil
 }
 
-func (s Store) LoadStore() error {
-
+func (s *Store) LoadStore() error {
+	file, err := os.ReadFile("database/db.json")
+	if err != nil {
+		return fmt.Errorf("error at opening database: %s", err.Error())
+	}
+	if err = json.Unmarshal(file, &s); err != nil {
+		return fmt.Errorf("error at parsing database: %s", err.Error())
+	}
 	return nil
 }
 
 func (s Store) FlushStore() error {
+	err := os.Remove("database/db.json")
+	if err != nil {
+		return fmt.Errorf("error at flushing db: %s", err.Error())
+	}
+	jsonString, err := json.Marshal(s)
+	if err != nil {
+		return fmt.Errorf("error at encoding db: %s", err.Error())
+	}
+	os.WriteFile("database/db.json", jsonString, os.ModePerm)
 	return nil
 }
 
@@ -40,16 +61,15 @@ func (s Store) FindOne(key string, value any) (Book, error) {
 	return book, nil
 }
 
-func (s Store) FindMany(key string, value any) ([]Book, error) {
-	shelf := []Book{}
-	return shelf, nil
+func (s Store) FindAll() ([]Book, error) {
+	return s.Books, nil
 }
 
 func (s Store) DeleteOne(key string, value any) error {
 	return nil
 }
 
-func (s Store) DeleteMany(key string, value any) error {
+func (s Store) DeleteAll() error {
 	return nil
 }
 

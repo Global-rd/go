@@ -5,16 +5,10 @@ import (
 	"net/http"
 )
 
-func Attachroutes(m *http.ServeMux) error {
+func Attachroutes(m *http.ServeMux) {
 
 	m.HandleFunc("/hello_world", middlewares.AttachMiddlewares(HelloWorld))
+	m.HandleFunc("/books", middlewares.AttachMiddlewares(GetBooks))
+	m.HandleFunc("/books/{id}", middlewares.AttachMiddlewares(GetBooks))
 
-	//handleJsonFunc := http.HandlerFunc(handleJSON)
-	//handlePostFunc := http.HandlerFunc(handlePost)
-	//mux.HandleFunc("/", handleGetRoot)
-	//mux.HandleFunc("/query", handleGetQuery)
-	//mux.HandleFunc("/user/{userID}", loggingMiddleware(handlePostFunc))
-	//mux.HandleFunc("/json", loggingMiddleware(handleJsonFunc))
-
-	return nil
 }
