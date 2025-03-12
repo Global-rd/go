@@ -27,6 +27,7 @@ func DialStore() (*Store, error) {
 }
 
 func (s Store) LoadStore() error {
+
 	return nil
 }
 
