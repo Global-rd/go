@@ -14,7 +14,7 @@ func main() {
 
 	if _, err := database.DialStore(); err != nil {
 		slog.Error(err.Error())
-		panic("Quitting server")
+		panic("Quitting server...")
 	}
 
 	slog.Info("server started at 5000")

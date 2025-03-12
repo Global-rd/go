@@ -3,6 +3,7 @@ package database
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -20,16 +21,19 @@ type Store struct {
 	Books []Book `json:"books"`
 }
 
-var Books *Store
+var books *Store
 
 func DialStore() (*Store, error) {
-	if Books == nil {
-		Books = &Store{}
-		if err := Books.LoadStore(); err != nil {
+	if books == nil {
+		log.Println("No instance, create one!")
+		books = &Store{}
+		if err := books.LoadStore(); err != nil {
 			return nil, err
 		}
+		return books, nil
 	}
-	return Books, nil
+	log.Println("Has instance, return it!")
+	return books, nil
 }
 
 func (s *Store) LoadStore() error {
