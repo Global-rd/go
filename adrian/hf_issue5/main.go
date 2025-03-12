@@ -4,10 +4,18 @@ import (
 	"encoding/json"
 	"log/slog"
 	"net/http"
+	"os"
 	"webservice-std/db"
 )
 
 func main() {
+	err := db.LoadCache()
+	if err != nil {
+		slog.Error("DB Cache initialization failed",
+			"Error: ", err.Error())
+		os.Exit(1)
+	}
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/books", handleGetAllBooks)
 	mux.HandleFunc("/books/{id}", handleGetBookById)
@@ -15,7 +23,7 @@ func main() {
 	originsWrapper := allowOriginsMiddleware(mux)
 	loggingWrapper := loggingMiddleware(originsWrapper)
 
-	err := http.ListenAndServe(":8080", loggingWrapper)
+	err = http.ListenAndServe(":8080", loggingWrapper)
 	if err != nil {
 		slog.Error(err.Error())
 	}
