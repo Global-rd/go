@@ -54,10 +54,6 @@ func (s Store) FlushStore() error {
 		return fmt.Errorf("error at encoding db: %s", err.Error())
 	}
 	os.WriteFile("database/db.json", jsonString, os.ModePerm)
-	err = s.LoadStore()
-	if err != nil {
-		return err
-	}
 	return nil
 }
 
