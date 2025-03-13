@@ -50,6 +50,6 @@ func (s Server) Serve(
 		Handler: s.router,
 	}
 
-	s.logger.Info("Server started!")
+	s.logger.Info("server started!", "address", addr, "port", port)
 	return server.ListenAndServe()
 }
