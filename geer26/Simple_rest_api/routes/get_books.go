@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"main/database"
 	"net/http"
+
+	"github.com/google/uuid"
 )
 
 func HandleBooks(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +59,32 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(book)
 }
 
-func addBook(w http.ResponseWriter, r *http.Request) {}
+func addBook(w http.ResponseWriter, r *http.Request) {
+	new_id := uuid.New().String()
+	var new_book database.Book
+	err := json.NewDecoder(r.Body).Decode(&new_book)
+	if err != nil {
+		http.Error(w, "invalid json body", http.StatusBadRequest)
+	}
+	new_book.Id = string(new_id)
+	books, err := database.DialStore()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	_, err = books.CreateOne(new_book)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if err := books.LoadStore(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	b, _ := books.FindAll()
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(b)
+}
 
 func deleteBook(w http.ResponseWriter, r *http.Request) {
 	book_id := r.PathValue("id")
@@ -66,19 +93,21 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
 	if book_id == "" {
 		http.Error(w, "removing all entries is forbidden", http.StatusForbidden)
 		return
 	}
-
-	err = books.DeleteOne("Id", book_id)
+	_, err = books.DeleteOne("Id", book_id)
 	if err != nil {
 		http.Error(w, "book not found", http.StatusNotFound)
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
+	if err := books.LoadStore(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	b, _ := books.FindAll()
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(b)
 }
 

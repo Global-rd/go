@@ -2,6 +2,7 @@ package database
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 )
@@ -53,6 +54,10 @@ func (s Store) FlushStore() error {
 		return fmt.Errorf("error at encoding db: %s", err.Error())
 	}
 	os.WriteFile("database/db.json", jsonString, os.ModePerm)
+	err = s.LoadStore()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -68,7 +73,7 @@ func (s Store) FindOne(key string, value interface{}) (Book, error) {
 	return Book{}, fmt.Errorf("no Entry found with %s:%s specification", key, value)
 }
 
-func (s Store) FilterAll(key string, value interface{}) ([]Book, error) {
+func (s Store) Filter(key string, value interface{}) ([]Book, error) {
 	var retval []Book
 	for _, b := range s.Books {
 		var temp map[string]interface{}
@@ -85,22 +90,24 @@ func (s Store) FindAll() ([]Book, error) {
 	return s.Books, nil
 }
 
-func (s Store) DeleteOne(key string, value any) error {
+func (s Store) DeleteOne(key string, value any) ([]Book, error) {
 	for i, b := range s.Books {
 		var temp map[string]interface{}
 		temp_marshalled, _ := json.Marshal(b)
 		json.Unmarshal(temp_marshalled, &temp)
 		if temp[key] == value {
-			copy(s.Books[i:], s.Books[i+1:])
+			if i < len(s.Books)-1 {
+				copy(s.Books[i:], s.Books[i+1:])
+			}
 			s.Books = s.Books[:len(s.Books)-1]
 			err := s.FlushStore()
 			if err != nil {
-				return err
+				return nil, err
 			}
-			return nil
+			return s.Books, nil
 		}
 	}
-	return nil
+	return nil, errors.New("no book found")
 }
 
 func (s Store) DeleteAll() error {
@@ -112,10 +119,15 @@ func (s Store) DeleteAll() error {
 	return nil
 }
 
-func (s Store) UpdateOne(key string, value any, new_content Book) error {
-	return nil
+func (s Store) UpdateOne(old_id string, new_content Book) ([]Book, error) {
+	return s.Books, nil
 }
 
-func (s Store) CreateOne(book Book) error {
-	return nil
+func (s Store) CreateOne(book Book) ([]Book, error) {
+	books.Books = append(books.Books, book)
+	err := books.FlushStore()
+	if err != nil {
+		return nil, err
+	}
+	return s.Books, nil
 }
