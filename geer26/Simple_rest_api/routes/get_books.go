@@ -111,4 +111,25 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(b)
 }
 
-func updateBook(w http.ResponseWriter, r *http.Request) {}
+func updateBook(w http.ResponseWriter, r *http.Request) {
+	var modified_book database.Book
+	err := json.NewDecoder(r.Body).Decode(&modified_book)
+	if err != nil {
+		http.Error(w, "invalid json body", http.StatusBadRequest)
+		return
+	}
+	old_id := modified_book.Id
+	books, err := database.DialStore()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	_, err = books.UpdateOne(old_id, modified_book)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	b, _ := books.FindAll()
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(b)
+}

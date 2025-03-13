@@ -11,13 +11,13 @@ func Logger() Middleware {
 		return func(w http.ResponseWriter, r *http.Request) {
 			// BEFORE REQUEST
 			start := time.Now()
-			defer func() {
-				log.Printf("Method: %s, Path: %s, elapsed time: %s", r.Method, r.URL.Path, time.Since(start))
-			}()
+			var method = r.Method
+			var path = r.URL.Path
 
 			// Call the next middleware/handler in chain
 			f(w, r)
 			//AFTER REQUEST, BEFORE DEFERRED
+			log.Printf("Method: %s, Path: %s, Elapsed time: %s", method, path, time.Since(start))
 		}
 	}
 }

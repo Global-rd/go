@@ -119,8 +119,24 @@ func (s Store) DeleteAll() error {
 	return nil
 }
 
-func (s Store) UpdateOne(old_id string, new_content Book) ([]Book, error) {
-	return s.Books, nil
+func (s *Store) UpdateOne(old_id string, new_content Book) ([]Book, error) {
+	for _, book := range s.Books {
+		if book.Id == old_id {
+			book.Author = new_content.Author
+			book.Introduction = new_content.Introduction
+			book.Price = new_content.Price
+			book.Stock = new_content.Stock
+			book.Title = new_content.Title
+			if err := s.FlushStore(); err != nil {
+				return nil, err
+			}
+			if err := s.LoadStore(); err != nil {
+				return nil, err
+			}
+			return s.Books, nil
+		}
+	}
+	return nil, errors.New("no entry found")
 }
 
 func (s Store) CreateOne(book Book) ([]Book, error) {
