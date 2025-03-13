@@ -9,7 +9,10 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/classes/class12"
+            "program": "${workspaceFolder}/classes/webservice",
+            "env": {
+                "WEBSERVICE_PORT": "8090",
+            }
         }
     ]
 }
