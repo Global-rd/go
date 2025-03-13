@@ -116,13 +116,16 @@ func (s Store) DeleteAll() error {
 }
 
 func (s *Store) UpdateOne(old_id string, new_content Book) ([]Book, error) {
-	for _, book := range s.Books {
+	for i, book := range s.Books {
 		if book.Id == old_id {
-			book.Author = new_content.Author
-			book.Introduction = new_content.Introduction
-			book.Price = new_content.Price
-			book.Stock = new_content.Stock
-			book.Title = new_content.Title
+			s.Books[i] = Book{
+				Id:           old_id,
+				Author:       new_content.Author,
+				Introduction: new_content.Introduction,
+				Price:        new_content.Price,
+				Stock:        new_content.Stock,
+				Title:        new_content.Title,
+			}
 			if err := s.FlushStore(); err != nil {
 				return nil, err
 			}
