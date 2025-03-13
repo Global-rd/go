@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"log/slog"
+	"webservice/api"
 	"webservice/server"
 )
 
@@ -11,12 +12,13 @@ func main() {
 	logger := slog.Default()
 
 	srv := server.NewServer(
-		nil,
+		api.NewHttpApi(logger.With("name", "middleware")),
 		server.WithLogger(logger.With("name", "server")),
 	)
+
 	ctx := context.Background()
 
-	logger.Info("Server started!")
+	logger.Info("Server constracted!")
 
 	err := srv.Serve(
 		ctx,
