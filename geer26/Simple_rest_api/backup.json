@@ -1,0 +1,112 @@
+{
+  "books": [
+    {
+      "Id": "550e8400-e29b-41d4-a716-446655440000",
+      "Title": "The Great Adventure",
+      "Author": "John Doe",
+      "Published": 1625078400,
+      "Introduction": "An exhilarating journey across uncharted lands.",
+      "Price": 19.99,
+      "Stock": 15
+    },
+    {
+      "Id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+      "Title": "Mystery of the Lost City",
+      "Author": "Jane Smith",
+      "Published": 1588291200,
+      "Introduction": "A detective unravels the secrets of an ancient city.",
+      "Price": 12.50,
+      "Stock": 8
+    },
+    {
+      "Id": "7d44b456-5c91-4a3a-a4f3-26a98c7d8a6c",
+      "Title": "Cooking with Passion",
+      "Author": "Chef Marco",
+      "Published": 1609459200,
+      "Introduction": "A cookbook full of delicious and easy recipes.",
+      "Price": 25.00,
+      "Stock": 20
+    },
+    {
+      "Id": "9244c91f-ea45-4f7d-85c1-2a91ae3f4b89",
+      "Title": "The Last Warrior",
+      "Author": "Rick Harrison",
+      "Published": 1501545600,
+      "Introduction": "A tale of bravery and honor in ancient times.",
+      "Price": 17.75,
+      "Stock": 10
+    },
+    {
+      "Id": "d8c4f6e8-45c1-4c0d-a2e4-9b4d89a77bcb",
+      "Title": "Space Chronicles",
+      "Author": "Neil Carter",
+      "Published": 1559347200,
+      "Introduction": "An exploration of space and beyond.",
+      "Price": 22.99,
+      "Stock": 5
+    },
+    {
+      "Id": "45b7c4e9-2a91-4f6e-85c1-d89a77bcb924",
+      "Title": "Secrets of the Ocean",
+      "Author": "Marina Blue",
+      "Published": 1612137600,
+      "Introduction": "A deep dive into the mysteries of the sea.",
+      "Price": 18.99,
+      "Stock": 12
+    },
+    {
+      "Id": "cb9244c9-4f6e-85c1-d89a-77bcb45b7c4e",
+      "Title": "History Rewritten",
+      "Author": "Dr. Linda Scott",
+      "Published": 1593561600,
+      "Introduction": "A fresh look at pivotal historical events.",
+      "Price": 14.50,
+      "Stock": 9
+    },
+    {
+      "Id": "a98c7d8a-6c91-4a3a-5c91-4f7d45c1ea45",
+      "Title": "Artificial Minds",
+      "Author": "Sam Robertson",
+      "Published": 1630454400,
+      "Introduction": "A glimpse into the future of AI and humanity.",
+      "Price": 29.99,
+      "Stock": 6
+    },
+    {
+      "Id": "f4b8944c-91f6-e85c-1d89-a77bcb9244c9",
+      "Title": "Gardening for Beginners",
+      "Author": "Lily Green",
+      "Published": 1575158400,
+      "Introduction": "A simple guide to growing your own garden.",
+      "Price": 10.99,
+      "Stock": 25
+    },
+    {
+      "Id": "1f4b8944-6e85-c1d8-9a77-bcb9244c91f6",
+      "Title": "The Shadow's Curse",
+      "Author": "Eric Night",
+      "Published": 1527811200,
+      "Introduction": "A thrilling fantasy adventure.",
+      "Price": 21.50,
+      "Stock": 7
+    },
+    {
+      "Id": "6c914a3a-4f7d-85c1-ea45-4f6e91f6",
+      "Title": "Mind and Body Balance",
+      "Author": "Dr. Anna Fields",
+      "Published": 1619827200,
+      "Introduction": "A guide to achieving a healthier lifestyle.",
+      "Price": 16.75,
+      "Stock": 18
+    },
+    {
+      "Id": "f7d45c1e-a456-4c91-f6e8-5c1d8944c9",
+      "Title": "The Painter's Muse",
+      "Author": "Olivia Ray",
+      "Published": 1546300800,
+      "Introduction": "An inspiring story about art and passion.",
+      "Price": 19.25,
+      "Stock": 11
+    }
+  ]
+}
