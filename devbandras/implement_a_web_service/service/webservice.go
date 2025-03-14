@@ -116,7 +116,7 @@ func (s *WebService) getBookByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Kinyerjük az utvoal alapján a könyv azonosítóját
+	// Kinyerjük az útvonal alapján a könyv azonosítóját (standard könyvtár)
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) < 3 {
 		http.Error(w, "Invalid URL", http.StatusBadRequest)
