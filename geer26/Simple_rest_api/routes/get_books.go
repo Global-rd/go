@@ -15,7 +15,7 @@ func HandleBooks(w http.ResponseWriter, r *http.Request) {
 		{
 			getBook(w, r)
 		}
-	case "POST":
+	case "PUT":
 		{
 			updateBook(w, r)
 		}
@@ -23,7 +23,7 @@ func HandleBooks(w http.ResponseWriter, r *http.Request) {
 		{
 			deleteBook(w, r)
 		}
-	case "PUT":
+	case "POST":
 		{
 			addBook(w, r)
 		}
