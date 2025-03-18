@@ -1,0 +1,242 @@
+{
+  "1": {
+    "author": "F. Scott Fitzgerald",
+    "isbn": "9780743273565",
+    "pages": 180,
+    "publishedDate": 1925,
+    "publishing": "Scribner",
+    "title": "The Great Gatsby"
+  },
+  "10": {
+    "author": "J.R.R. Tolkien",
+    "isbn": "9780618640157",
+    "pages": 1137,
+    "publishedDate": 1954,
+    "publishing": "George Allen \u0026 Unwin",
+    "title": "The Lord of the Rings"
+  },
+  "11": {
+    "author": "Fyodor Dostoevsky",
+    "isbn": "9780486415871",
+    "pages": 671,
+    "publishedDate": 1925,
+    "publishing": "The Russian Messenger",
+    "title": "Crime and Punishment"
+  },
+  "12": {
+    "author": "Fyodor Dostoevsky",
+    "isbn": "9780374528379",
+    "pages": 796,
+    "publishedDate": 1960,
+    "publishing": "The Russian Messenger",
+    "title": "The Brothers Karamazov"
+  },
+  "13": {
+    "author": "Leo Tolstoy",
+    "isbn": "9781400079988",
+    "pages": 1225,
+    "publishedDate": 1949,
+    "publishing": "The Russian Messenger",
+    "title": "War and Peace"
+  },
+  "14": {
+    "author": "Leo Tolstoy",
+    "isbn": "9780143035008",
+    "pages": 864,
+    "publishedDate": 1851,
+    "publishing": "The Russian Messenger",
+    "title": "Anna Karenina"
+  },
+  "15": {
+    "author": "Victor Hugo",
+    "isbn": "9780451419439",
+    "pages": 1463,
+    "publishedDate": 1813,
+    "publishing": "A. Lacroix, Verboeckhoven \u0026 Cie.",
+    "title": "Les Misérables"
+  },
+  "16": {
+    "author": "Miguel de Cervantes",
+    "isbn": "9780060934347",
+    "pages": 1072,
+    "publishedDate": 1951,
+    "publishing": "Francisco de Robles",
+    "title": "Don Quixote"
+  },
+  "17": {
+    "author": "Homer",
+    "isbn": "9780140268867",
+    "pages": 541,
+    "publishedDate": 1937,
+    "publishing": "Ancient Greece",
+    "title": "The Odyssey"
+  },
+  "18": {
+    "author": "Homer",
+    "isbn": "9780140275360",
+    "pages": 704,
+    "publishedDate": 1953,
+    "publishing": "Ancient Greece",
+    "title": "The Iliad"
+  },
+  "19": {
+    "author": "Dante Alighieri",
+    "isbn": "9780142437223",
+    "pages": 798,
+    "publishedDate": 1932,
+    "publishing": "Italy",
+    "title": "The Divine Comedy"
+  },
+  "2": {
+    "author": "Harper Lee",
+    "isbn": "9780061120084",
+    "pages": 281,
+    "publishedDate": 1960,
+    "publishing": "J.B. Lippincott \u0026 Co.",
+    "title": "To Kill a Mockingbird"
+  },
+  "20": {
+    "author": "Alexandre Dumas",
+    "isbn": "9780140449266",
+    "pages": 1276,
+    "publishedDate": 1954,
+    "publishing": "Penguin Classics",
+    "title": "The Count of Monte Cristo"
+  },
+  "21": {
+    "author": "Mary Shelley",
+    "isbn": "9780486282114",
+    "pages": 280,
+    "publishedDate": 1925,
+    "publishing": "Lackington, Hughes, Harding, Mavor \u0026 Jones",
+    "title": "Frankenstein"
+  },
+  "22": {
+    "author": "Bram Stoker",
+    "isbn": "9780486411095",
+    "pages": 418,
+    "publishedDate": 1960,
+    "publishing": "Archibald Constable and Company",
+    "title": "Dracula"
+  },
+  "23": {
+    "author": "Charlotte Brontë",
+    "isbn": "9780141441146",
+    "pages": 507,
+    "publishedDate": 1949,
+    "publishing": "Smith, Elder \u0026 Co.",
+    "title": "Jane Eyre"
+  },
+  "24": {
+    "author": "Emily Brontë",
+    "isbn": "9780141439556",
+    "pages": 416,
+    "publishedDate": 1851,
+    "publishing": "Thomas Cautley Newby",
+    "title": "Wuthering Heights"
+  },
+  "25": {
+    "author": "Charles Dickens",
+    "isbn": "9780141439563",
+    "pages": 505,
+    "publishedDate": 1813,
+    "publishing": "Chapman \u0026 Hall",
+    "title": "Great Expectations"
+  },
+  "26": {
+    "author": "Charles Dickens",
+    "isbn": "9780140439441",
+    "pages": 882,
+    "publishedDate": 1951,
+    "publishing": "Bradbury \u0026 Evans",
+    "title": "David Copperfield"
+  },
+  "27": {
+    "author": "Charles Dickens",
+    "isbn": "9780141439600",
+    "pages": 448,
+    "publishedDate": 1937,
+    "publishing": "Chapman \u0026 Hall",
+    "title": "A Tale of Two Cities"
+  },
+  "28": {
+    "author": "Oscar Wilde",
+    "isbn": "9780141439570",
+    "pages": 254,
+    "publishedDate": 1953,
+    "publishing": "Ward, Lock and Company",
+    "title": "The Picture of Dorian Gray"
+  },
+  "29": {
+    "author": "Albert Camus",
+    "isbn": "9780679720201",
+    "pages": 123,
+    "publishedDate": 1932,
+    "publishing": "Gallimard",
+    "title": "The Stranger"
+  },
+  "3": {
+    "author": "George Orwell",
+    "isbn": "9780451524935",
+    "pages": 328,
+    "publishedDate": 1949,
+    "publishing": "Secker \u0026 Warburg",
+    "title": "1984"
+  },
+  "30": {
+    "author": "Franz Kafka",
+    "isbn": "9780553213690",
+    "pages": 201,
+    "publishedDate": 1954,
+    "publishing": "Kurt Wolff Verlag",
+    "title": "The Metamorphosis"
+  },
+  "4": {
+    "author": "Herman Melville",
+    "isbn": "9781503280786",
+    "pages": 585,
+    "publishedDate": 1851,
+    "publishing": "Harper \u0026 Brothers",
+    "title": "Moby-Dick"
+  },
+  "5": {
+    "author": "Jane Austen",
+    "isbn": "9781503290563",
+    "pages": 279,
+    "publishedDate": 1813,
+    "publishing": "T. Egerton",
+    "title": "Pride and Prejudice"
+  },
+  "6": {
+    "author": "J.D. Salinger",
+    "isbn": "9780316769488",
+    "pages": 277,
+    "publishedDate": 1951,
+    "publishing": "Little, Brown and Company",
+    "title": "The Catcher in the Rye"
+  },
+  "7": {
+    "author": "J.R.R. Tolkien",
+    "isbn": "9780547928227",
+    "pages": 310,
+    "publishedDate": 1937,
+    "publishing": "George Allen \u0026 Unwin",
+    "title": "The Hobbit"
+  },
+  "8": {
+    "author": "Ray Bradbury",
+    "isbn": "9781451673319",
+    "pages": 256,
+    "publishedDate": 1953,
+    "publishing": "Ballantine Books",
+    "title": "Fahrenheit 451"
+  },
+  "9": {
+    "author": "Aldous Huxley",
+    "isbn": "9780060850524",
+    "pages": 311,
+    "publishedDate": 1932,
+    "publishing": "Chatto \u0026 Windus",
+    "title": "Brave New World"
+  }
+}
