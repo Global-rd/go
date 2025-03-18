@@ -1,9 +1,8 @@
 package handler
 
 import (
-	"encoding/json"
-	"errors"
 	"issue5/db"
+	"issue5/httpresponse"
 	"log/slog"
 	"net/http"
 )
@@ -16,17 +15,12 @@ type BookHandler struct {
 }
 
 func NewBookHandler(opts ...Option) *BookHandler {
-	bh := &BookHandler{}
+	bh := &BookHandler{
+		logger: slog.Default(),
+		db:     db.NewInMemoryBookRepository(),
+	}
 	for _, opt := range opts {
 		opt(bh)
-	}
-	if bh.logger == nil {
-		bh.logger = slog.Default()
-		bh.logger.Info("No logger provided, using default logger")
-	}
-	if bh.db == nil {
-		bh.db = db.NewInMemoryBookRepository()
-		bh.logger.Error("No database provided, using default in-memory database")
 	}
 	return bh
 }
@@ -47,18 +41,16 @@ func (h *BookHandler) HandleBooks(w http.ResponseWriter, r *http.Request) {
 	h.logger.Info("Handling books")
 	books, err := h.db.GetAllBooks()
 	if err != nil {
-		http.Error(w, "Error fetching books", http.StatusInternalServerError)
+		httpresponse.WriteErrorResponse(w, httpresponse.ErrorResponse{
+			StatusCode: http.StatusInternalServerError,
+			Error:      "Error fetching books",
+		})
 		return
 	}
 	h.logger.Debug("Books fetched", "books", books)
 
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	err = json.NewEncoder(w).Encode(books)
-	if err != nil {
-		http.Error(w, "Error encoding books", http.StatusInternalServerError)
-		return
-	}
+	httpresponse.WriteResponseBody(w, http.StatusOK, books)
 	h.logger.Debug("Books encoded", "books", books)
 }
 
@@ -66,47 +58,21 @@ func (h *BookHandler) HandleBook(w http.ResponseWriter, r *http.Request) {
 	h.logger.Info("Handling book")
 	id := r.PathValue("id")
 	if id == "" {
-		encodeErr := json.NewEncoder(w).Encode(ErrorResponse{Error: "missing ID path variable"})
-		if encodeErr != nil {
-			http.Error(w, "Error encoding error response", http.StatusInternalServerError)
-			return
-		}
+		httpresponse.WriteErrorResponse(w, httpresponse.ErrorResponse{
+			StatusCode: http.StatusBadRequest,
+			Error:      "missing ID path variable",
+		})
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 
 	book, err := h.db.GetBookByID(id)
-	if err != nil {
-		switch {
-		case errors.Is(err, db.NotFoundError):
-			w.WriteHeader(http.StatusNotFound)
-			encodeErr := json.NewEncoder(w).Encode(ErrorResponse{Error: err.Error()})
-			if encodeErr != nil {
-				http.Error(w, "Error encoding error response", http.StatusInternalServerError)
-				return
-			}
-			return
-		default:
-			w.WriteHeader(http.StatusInternalServerError)
-			encodeErr := json.NewEncoder(w).Encode(ErrorResponse{Error: err.Error()})
-			if encodeErr != nil {
-				http.Error(w, "Error encoding error response", http.StatusInternalServerError)
-				return
-			}
-			return
-		}
+	if errorResponse, ok := httpresponse.HandleError(err); !ok {
+		httpresponse.WriteErrorResponse(w, *errorResponse)
+		return
 	}
 	h.logger.Debug("Book fetched", "book", book)
 
-	w.WriteHeader(http.StatusOK)
-	err = json.NewEncoder(w).Encode(book)
-	if err != nil {
-		http.Error(w, "Error encoding book", http.StatusInternalServerError)
-		return
-	}
+	httpresponse.WriteResponseBody(w, http.StatusOK, book)
 	h.logger.Debug("Book encoded", "book", book)
-}
-
-type ErrorResponse struct {
-	Error string `json:"error"`
 }
