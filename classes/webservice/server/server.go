@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"webservice/configs"
 )
 
 type OptionFunc func(*Server)
@@ -42,14 +43,13 @@ func NewServer(router http.Handler, opts ...Option) Server {
 
 func (s Server) Serve(
 	ctx context.Context,
-	addr string,
-	port int,
+	cfg configs.Server,
 ) error {
 	server := http.Server{
-		Addr:    fmt.Sprintf("%s:%d", addr, port),
+		Addr:    fmt.Sprintf("%s:%d", cfg.Address, cfg.Port),
 		Handler: s.router,
 	}
 
-	s.logger.Info("server started!", "address", addr, "port", port)
+	s.logger.Info("server started!", "address", cfg.Address, "port", cfg.Port)
 	return server.ListenAndServe()
 }

@@ -11,7 +11,7 @@
             "mode": "auto",
             "program": "${workspaceFolder}/classes/webservice",
             "env": {
-                "WEBSERVICE_PORT": "8090",
+                "WEBSERVICE_DB_HOST": "localhost",
             }
         }
     ]

@@ -1,2 +1,10 @@
-address: localhost
-port: 8070
+server:
+  address: localhost
+  port: 8080
+
+db:
+  host: db
+  port: 5432
+  user: dbuser
+  password: dbpass
+  db_name: gocourse

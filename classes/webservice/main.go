@@ -30,8 +30,7 @@ func main() {
 
 	err = srv.Serve(
 		ctx,
-		cfg.Address,
-		cfg.Port,
+		cfg.Server,
 	)
 
 	log.Fatal(err)
