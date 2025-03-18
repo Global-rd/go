@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    hostname: db
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: gocourse
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+    volumes:
+      - ./testdata/database.sql:/docker-entrypoint-initdb.d/database.sql
