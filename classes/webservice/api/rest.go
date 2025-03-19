@@ -2,16 +2,20 @@ package api
 
 import (
 	"fmt"
-	"log/slog"
 	"net/http"
 	"webservice/book"
+	"webservice/container"
+	"webservice/task"
 
 	"github.com/go-chi/chi"
 )
 
-func NewHttpApi(logger *slog.Logger) *chi.Mux {
+func NewHttpApi(cont container.Container) *chi.Mux {
 	router := chi.NewRouter()
-	b := book.NewController()
+	b := book.NewController(cont)
+	t := task.NewController(cont)
+
+	logger := cont.GetLogger().With("name", "middleware")
 
 	router.Use(CreateLogger(logger))
 
@@ -22,6 +26,10 @@ func NewHttpApi(logger *slog.Logger) *chi.Mux {
 
 		r.Route("/books", func(r chi.Router) {
 			book.NewRouter(r, b)
+		})
+
+		r.Route("/tasks", func(r chi.Router) {
+			task.NewRouter(r, t)
 		})
 	})
 

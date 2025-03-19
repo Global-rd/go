@@ -26,6 +26,11 @@ type DB struct {
 	DBName   string `mapstructure:"db_name"`
 }
 
+func (db DB) ConnectionString() string {
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		db.Host, db.Port, db.User, db.Password, db.DBName)
+}
+
 func (d DB) Validate() error {
 	return validation.ValidateStruct(&d,
 		validation.Field(&d.Host, validation.Required),

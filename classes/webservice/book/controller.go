@@ -1,14 +1,18 @@
 package book
 
+import "webservice/container"
+
 type Controller struct {
 	books map[string]Book
+	cont  container.Container
 }
 
-func NewController() Controller {
+func NewController(cont container.Container) Controller {
 	return Controller{
 		books: map[string]Book{
 			"id1": {ID: "test id", Title: "test title"},
 		},
+		cont: cont,
 	}
 }
 
@@ -22,10 +26,6 @@ func (c Controller) GetByID(id string) (Book, error) {
 
 func (c Controller) Get() ([]Book, error) {
 	results := make([]Book, len(c.books))
-
-	for _, book := range c.books {
-		results = append(results, book)
-	}
 
 	return results, nil
 }
