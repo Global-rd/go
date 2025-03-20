@@ -22,6 +22,8 @@ type WebService struct {
 	AppLog   *slog.Logger
 }
 
+type Option func(*WebService)
+
 // A NewWebService létrehozza a WebService struktúra új példányát.
 //
 // Parameters:
@@ -31,17 +33,34 @@ type WebService struct {
 //
 // Returns:
 // - A WebService struktúra új példány mutatója
-func NewWebService(cfg *config.ServerConfig, db *goqu.Database, appLog *slog.Logger) *WebService {
+func NewWebService(db *goqu.Database, options ...Option) *WebService {
 	ws := &WebService{
 		ServeMux: chi.NewRouter(),
-		Cfg:      cfg,
+		Cfg:      &config.ServerConfig{Host: "localhost", Port: 8080}, // Alapértelmezett konfig ha nem adunk semmit
 		DB:       db,
-		AppLog:   appLog,
+		AppLog:   slog.Default(), // alapértelmezett logger
+	}
+
+	// options patterns alkalmazása
+	for _, option := range options {
+		option(ws)
 	}
 
 	ws.configureService()
 
 	return ws
+}
+
+func WithCfg(cfg *config.ServerConfig) Option {
+	return func(ws *WebService) {
+		ws.Cfg = cfg
+	}
+}
+
+func WithLogger(logger *slog.Logger) Option {
+	return func(ws *WebService) {
+		ws.AppLog = logger
+	}
 }
 
 // A loggingMiddleware naplózza a HTTP kéréseket.

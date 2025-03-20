@@ -50,7 +50,11 @@ func main() {
 
 	// webservice indítása
 	appLog.Info("Webservice indítása", "host", config.Server.Host, "port", config.Server.Port)
-	websService := service.NewWebService(&config.Server, sqlBuilder, appLog)
+	websService := service.NewWebService(
+		sqlBuilder,
+		service.WithCfg(&config.Server),
+		service.WithLogger(appLog),
+	)
 	err = websService.Execute()
 	if err != nil {
 		appLog.Error("Hiba a webservice indítása közben", "error", err)
