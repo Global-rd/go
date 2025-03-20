@@ -1,0 +1,34 @@
+[
+    {
+        "Id": 1,
+        "Writer": "J.K. Rowling",
+        "Title": "Harry Potter and the Sorcerer's Stone",
+        "Genre": "Fantasy",
+        "Date": "1997-06-26",
+        "ISBN": "9780590353427"
+    },
+    {
+        "Id": 2,
+        "Writer": "Ernest Cline",
+        "Title": "Ready Player One",
+        "Genre": "Science Fiction",
+        "Date": "2011-08-16",
+        "ISBN": "9780307887443"
+    }, 
+    {
+        "Id": 3,
+        "Writer": "Julian Rubinstein",
+        "Title": "Ballad of the Whiskey Robber",
+        "Genre": "Non-Fiction",
+        "Date": "2004-10-14",
+        "ISBN": "9780316010733"
+    },
+    {
+        "Id": 4,
+        "Writer": "Jeremy Clarkson",
+        "Title": "The World According to Clarkson",
+        "Genre": "Non-Fiction",
+        "Date": "2004-10-14",
+        "ISBN": "9780316726055"
+    }
+]
