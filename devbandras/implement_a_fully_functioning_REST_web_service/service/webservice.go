@@ -1,38 +1,47 @@
 package service
 
-/*import (
+import (
+	"bookstore/book"
+	"bookstore/config"
 	"encoding/json"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"strconv"
-	"strings"
+
+	"github.com/doug-martin/goqu/v9"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 )
 
 // Webservice
 type WebService struct {
-	ServeMux *http.ServeMux
-	Port     int
-	//BookStore *BookStore
-	AppLog *slog.Logger
+	ServeMux *chi.Mux
+	Cfg      *config.ServerConfig
+	DB       *goqu.Database
+	AppLog   *slog.Logger
 }
 
 // A NewWebService létrehozza a WebService struktúra új példányát.
 //
 // Parameters:
-// - port: A HTTP kiszolgáló portja
-// - appLog: AppLogger példányra mutatója
-// - bookStore: BookStore példányra mutatója
+// - cfg: A HTTP kiszolgáló config struktúrája
+// - appLog: AppLogger példány mutatója
+// - db: sqlBuilder példány mutatója
 //
 // Returns:
 // - A WebService struktúra új példány mutatója
-func NewWebService(port int, bookStore *BookStore, appLog *slog.Logger) *WebService {
-	return &WebService{
-		ServeMux: http.NewServeMux(),
-		Port:     port,
-		//BookStore: bookStore,
-		AppLog: appLog,
+func NewWebService(cfg *config.ServerConfig, db *goqu.Database, appLog *slog.Logger) *WebService {
+	ws := &WebService{
+		ServeMux: chi.NewRouter(),
+		Cfg:      cfg,
+		DB:       db,
+		AppLog:   appLog,
 	}
+
+	ws.configureService()
+
+	return ws
 }
 
 // A loggingMiddleware naplózza a HTTP kéréseket.
@@ -75,6 +84,87 @@ func (s *WebService) corsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// configureService beállítja a HTTP-kezelőket és a middleware beállításokat a webszolgáltatáshoz.
+//
+// Parameters:
+// -
+//
+// Returns:
+// -
+func (s *WebService) configureService() {
+
+	// middlewares
+	s.ServeMux.Use(middleware.Recoverer)
+	s.ServeMux.Use(s.loggingMiddleware)
+	s.ServeMux.Use(s.corsMiddleware)
+
+	// handlers
+	s.ServeMux.Get("/books", s.getAllBooks)
+	s.ServeMux.Get("/book/{id}", s.getBookByID)
+	s.ServeMux.Post("/book", s.createBook)
+	s.ServeMux.Put(("/book"), s.updateBook)
+	s.ServeMux.Delete("/book/{id}", s.deleteBook)
+}
+
+// Az Execute elindítja a HTTP-kiszolgálót a ServeMux és a megadott port használatával.
+//
+// Parameters:
+// - s: WebService példány mutatója
+//
+// Returns:
+// - error: Hiba esetén a hibaüzenetet tartalmazó érték.
+func (s *WebService) Execute() error {
+	// http server indítása
+	err := http.ListenAndServe(fmt.Sprintf("%s:%d", s.Cfg.Host, s.Cfg.Port), s.ServeMux)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// sendJSONEncodeError JSON kódolás esetén küldendő hibaválasz a kliens felé
+//
+// Parameters:
+// - w: http.ResponseWriter
+// - err: a hibát tartalmazó interface
+//
+// Returns:
+// -
+func (s *WebService) sendJSONEncodeError(w http.ResponseWriter, err error) {
+	errorMessage := fmt.Sprintf("JSON encoding failed: %s", err.Error())
+	s.AppLog.Error(errorMessage)
+	http.Error(w, errorMessage, http.StatusInternalServerError)
+}
+
+// getIDFromRequest függvény kinyeri az ID a reqest url alapján
+//
+// Parameters:
+// - r:  HTTP request
+//
+// Returns:
+// - int: a kinyert ID értéke
+// - error: nil ha nincs hiba a kinyerés során, különben a hibát tartalmazó érték
+func (s *WebService) getIDFromRequest(r *http.Request) (int, error) {
+	idParam := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idParam)
+	return id, err
+}
+
+// sendHttpError HTTP hibaválaszt küld a megadott HTTP hibakóddal és hibaüzenettel.
+//
+// Parameters:
+// - w: http.ResponseWriter
+// - httpErrorCode: http hibakód
+// - err: a hibát tartalmazó érték
+//
+// Returns:
+// -
+func (s *WebService) sendHttpError(w http.ResponseWriter, httpErrorCode int, err error) {
+	errorMessage := fmt.Sprintf("%s: %d", err.Error(), httpErrorCode)
+	s.AppLog.Error(errorMessage)
+	http.Error(w, errorMessage, httpErrorCode)
+}
+
 // getAllBooks lekéri az összes könyvet s.BookStore-ból
 //
 // Parameters:
@@ -83,19 +173,21 @@ func (s *WebService) corsMiddleware(next http.Handler) http.Handler {
 //
 // Returns:
 func (s *WebService) getAllBooks(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		errorMessage := "Method not allowed"
-		http.Error(w, errorMessage, http.StatusMethodNotAllowed)
-		s.AppLog.Logger.Error(fmt.Sprintf("%s: %s", errorMessage, r.Method))
+
+	// lekérjük az adatbázisból az összes könyvet
+	bookService := book.NewBookService(s.DB)
+	books, err := bookService.GetAllBooks()
+	if err != nil {
+		s.sendHttpError(w, http.StatusInternalServerError, err)
 		return
 	}
 
+	// elküldjük az összes könyvet
 	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(s.BookStore.GetAllBooks())
+	err = json.NewEncoder(w).Encode(books)
 	if err != nil {
-		errorMessage := "JSON encoding failed"
-		s.AppLog.Logger.Error(errorMessage)
-		http.Error(w, fmt.Sprintf("%s: %s", "Internal server error", errorMessage), http.StatusInternalServerError)
+		s.sendJSONEncodeError(w, err)
+		return
 	}
 }
 
@@ -108,33 +200,19 @@ func (s *WebService) getAllBooks(w http.ResponseWriter, r *http.Request) {
 // Returns:
 // -
 func (s *WebService) getBookByID(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		errorMessage := "Method not allowed"
-		http.Error(w, errorMessage, http.StatusMethodNotAllowed)
-		s.AppLog.Logger.Error(fmt.Sprintf("%s: %s", errorMessage, r.Method))
-		return
-	}
 
-	// Kinyerjük az útvonal alapján a könyv azonosítóját (standard könyvtár)
-	parts := strings.Split(r.URL.Path, "/")
-	if len(parts) < 3 {
-		http.Error(w, "Invalid URL", http.StatusBadRequest)
-		return
-	}
-
-	// Convert to integer
-	id, err := strconv.Atoi(parts[2])
+	// Kinyerjük az útvonal alapján a könyv azonosítóját
+	id, err := s.getIDFromRequest(r)
 	if err != nil {
-		http.Error(w, "Invalid id", http.StatusBadRequest)
+		s.sendHttpError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	// lekérjük az adatbázisból az id alapján a könyvet
-	book, err := s.BookStore.GetBookByID(id)
+	bookService := book.NewBookService(s.DB)
+	book, err := bookService.GetBookByID(id)
 	if err != nil {
-		warningMessage := err.Error()
-		http.Error(w, warningMessage, http.StatusNotFound)
-		s.AppLog.Logger.Warn(warningMessage)
+		s.sendHttpError(w, http.StatusBadRequest, err)
 		return
 	}
 
@@ -142,46 +220,119 @@ func (s *WebService) getBookByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(book)
 	if err != nil {
-		errorMessage := "JSON encoding failed"
-		s.AppLog.Logger.Error(errorMessage)
-		http.Error(w, fmt.Sprintf("%s: %s", "Internal server error", errorMessage), http.StatusInternalServerError)
+		s.sendJSONEncodeError(w, err)
+		return
 	}
 }
 
-// configureService beállítja a HTTP-kezelőket és a middleware beállításokat a webszolgáltatáshoz.
+// A createBook létrehoz egy új bejegyzést a body-ban létrehozott bejegyzés alapján
 //
 // Parameters:
+// - w: a http.ResponseWriter-ben adjuk visza a megtalát könyvet tartalmazó JSON-t
+// - r: tartalmazza a http kérést
+//
+// Returns:
 // -
-//
-// Returns:
-// - http.Handler: Egy http.Handler, mely tartalmazza a regisztrált handlereket és middleware beállításokat
-func (s *WebService) configureService() http.Handler {
+func (s *WebService) createBook(w http.ResponseWriter, r *http.Request) {
 
-	// handlers
-	s.ServeMux.HandleFunc("/books", s.getAllBooks)
-	s.ServeMux.HandleFunc("/books/", s.getBookByID)
+	// body-ból lekérjük a book struktúrát a oneBook-ba
+	var oneBook book.Book
+	err := json.NewDecoder(r.Body).Decode(&oneBook)
+	if err != nil {
+		s.sendHttpError(w, http.StatusBadRequest, err)
+		return
+	}
 
-	// middlewares
-	returHandler := s.loggingMiddleware(s.ServeMux)
-	return s.corsMiddleware(returHandler)
+	// új könyv létrehozása a oneBook alapján
+	bookService := book.NewBookService(s.DB)
+	newId, err := bookService.CreateBook(oneBook)
+	if err != nil {
+		s.sendHttpError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	// visszaküldjük az új id-t
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	var resp book.BookResponseMessage
+	resp.Message = fmt.Sprintf("sikeres felvitel az adatbazisba (ID: %d)", newId)
+	err = json.NewEncoder(w).Encode(resp)
+	if err != nil {
+		s.sendJSONEncodeError(w, err)
+		return
+	}
 }
 
-// Az Execute elindítja a HTTP-kiszolgálót a ServeMux és a megadott port használatával.
+// Az updateBook módosít egy bejegyzést a body-ban létrehozott bejegyzés alapján
 //
 // Parameters:
-// - s: WebService példány mutatója
+// - w: a http.ResponseWriter-ben adjuk visza a megtalát könyvet tartalmazó JSON-t
+// - r: tartalmazza a http kérést
 //
 // Returns:
-// - error: Hiba esetén a hibaüzenetet tartalmazó érték.
-func (s *WebService) Execute() error {
+// -
+func (s *WebService) updateBook(w http.ResponseWriter, r *http.Request) {
 
-	// wrappedMux létrehozása, mely tartaslmazza a middleware-t és a handler-t
-	wrappedMux := s.configureService()
-
-	// http server indítása
-	err := http.ListenAndServe(fmt.Sprintf(":%d", s.Port), wrappedMux)
+	// body-ból lekérjük a book struktúrát a oneBook-ba
+	var oneBook book.Book
+	err := json.NewDecoder(r.Body).Decode(&oneBook)
 	if err != nil {
-		return err
+		s.sendHttpError(w, http.StatusBadRequest, err)
+		return
 	}
-	return nil
-}*/
+
+	// módosítás az adatbázisban
+	bookService := book.NewBookService(s.DB)
+	err = bookService.UpdateBook(oneBook)
+	if err != nil {
+		s.sendHttpError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	// módosítás sikerességének visszajelzése
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	var resp book.BookResponseMessage
+	resp.Message = fmt.Sprintf("sikeres módosítás az adatbazisban (ID: %d)", oneBook.ID)
+	err = json.NewEncoder(w).Encode(resp)
+	if err != nil {
+		s.sendJSONEncodeError(w, err)
+	}
+}
+
+// A deleteBook töröl egy könyvet az útvonalban megadott id azonosító alapján
+//
+// Parameters:
+// - w: a http.ResponseWriter-ben adjuk visza a megtalát könyvet tartalmazó JSON-t
+// - r: tartalmazza a http kérést
+//
+// Returns:
+// -
+func (s *WebService) deleteBook(w http.ResponseWriter, r *http.Request) {
+
+	// kinyerjük az útvonal alapján a könyv azonosítóját
+	id, err := s.getIDFromRequest(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// törlés az adatbázisból
+	bookService := book.NewBookService(s.DB)
+	err = bookService.DeleteBook(id)
+	if err != nil {
+		s.sendHttpError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	// törlés sikerességének visszajelzése
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	var resp book.BookResponseMessage
+	resp.Message = fmt.Sprintf("sikeres törlés az adatbazisban (ID: %d)", id)
+	err = json.NewEncoder(w).Encode(resp)
+	if err != nil {
+		s.sendJSONEncodeError(w, err)
+		return
+	}
+}

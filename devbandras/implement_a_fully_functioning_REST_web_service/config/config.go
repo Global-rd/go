@@ -8,21 +8,21 @@ import (
 )
 
 type ServerConfig struct {
-	Address string
-	Port    int
+	Host string
+	Port int
 }
 
-type DB struct {
-	Host         string
-	Port         int
-	DatabaseName string `mapstructure:"database_name"`
-	User         string
-	Password     string
+type DBServerConfig struct {
+	Host     string
+	Port     int
+	DBName   string `mapstructure:"db_name"`
+	User     string
+	Password string
 }
 
 type Config struct {
 	Server   ServerConfig
-	DBServer DB
+	DBServer DBServerConfig `mapstructure:"db_server"`
 }
 
 // A függvény validálja a ServerConfig struktúrát.
@@ -32,7 +32,7 @@ type Config struct {
 func (sc *ServerConfig) Validate() error {
 	return validation.ValidateStruct(
 		sc,
-		validation.Field(&sc.Address, validation.Required),
+		validation.Field(&sc.Host, validation.Required),
 		validation.Field(&sc.Port, validation.Required),
 	)
 }
@@ -43,8 +43,8 @@ func (sc *ServerConfig) Validate() error {
 //
 // Returns:
 //   - string: PostgreSQL kapcsolat formátumú connection stringet ad vissza.
-func (db *DB) GetConnectionString() string {
-	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", db.Host, db.Port, db.User, db.Password, db.DatabaseName)
+func (db *DBServerConfig) GetConnectionString() string {
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", db.Host, db.Port, db.User, db.Password, db.DBName)
 }
 
 // A függvény validálja a DBServerConfig struktúrát.
@@ -52,12 +52,12 @@ func (db *DB) GetConnectionString() string {
 //
 // Returns:
 //   - error: nil ha az érvénysítés sikeres, egyébként a hibaüzenet
-func (db *DB) Validate() error {
+func (db *DBServerConfig) Validate() error {
 	return validation.ValidateStruct(
 		db,
 		validation.Field(&db.Host, validation.Required),
 		validation.Field(&db.Port, validation.Required, validation.Min(1), validation.Max(65535)),
-		validation.Field(&db.DatabaseName, validation.Required),
+		validation.Field(&db.DBName, validation.Required),
 		validation.Field(&db.User, validation.Required),
 		validation.Field(&db.Password, validation.Required),
 	)
