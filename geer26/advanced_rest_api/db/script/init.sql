@@ -7,15 +7,15 @@ GRANT ALL PRIVILEGES ON DATABASE books TO HatakeKakashi;
 
 CREATE TABLE bookshelf (
     Id VARCHAR NOT NULL UNIQUE PRIMARY KEY,
-    Title VARCHAR NOT NULL,
-    Author VARCHAR NOT NULL,
-    Published INT NOT NULL,
+    Title VARCHAR,
+    Author VARCHAR,
+    Published INT,
     Introduction VARCHAR,
-    Price REAL NOT NULL,
+    Price REAL,
     Stock INT
 );
 
 
-INSERT INTO bookshelf
+INSERT INTO bookshelf (Id, Title, Author, Published, Introduction, Price, Stock)
 VALUES('TestID', 'TestTitle', 'TestAuthor', 2000, 'TestIntro', 123.45, 1);
 

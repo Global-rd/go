@@ -45,6 +45,7 @@ func (s *Service) Connect() *Service {
 	if s.InitError != nil {
 		return s
 	}
+
 	db, err := sql.Open("postgres", config.BuildConnectionString(s.Config.DB))
 	if err != nil {
 		s.InitError = err

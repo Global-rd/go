@@ -7,10 +7,10 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-var Database *sql.DB
+var DbConnection *sql.DB
 
 func AttachRoutes(db *sql.DB) *chi.Mux {
-	Database = db
+	DbConnection = db
 	r := chi.NewRouter()
 	middleware.AttachMiddlewares(r)
 
