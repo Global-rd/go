@@ -4,8 +4,10 @@ import (
 	"advrest/config"
 	"advrest/routes"
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -20,9 +22,7 @@ type Service struct {
 
 func ServiceBuilder() *Service {
 	service := Service{
-		Server: &http.Server{
-			Addr: ":5000",
-		},
+		Server: &http.Server{},
 	}
 	return &service
 }
@@ -59,7 +59,12 @@ func (s *Service) Run() error {
 	if s.InitError != nil {
 		return s.InitError
 	}
-	log.Println("Service started up...")
+
+	s.Server.Addr = fmt.Sprintf(":%d", s.Config.Server.Port)
+	s.Server.ReadTimeout = time.Duration(s.Config.Server.ReadTimeout * int(time.Second))
+	s.Server.WriteTimeout = time.Duration(s.Config.Server.WriteWimeout * int(time.Second))
+
+	log.Printf("Service started up on port %s...", s.Server.Addr)
 	err := s.Server.ListenAndServe()
 	if err != nil {
 		return err

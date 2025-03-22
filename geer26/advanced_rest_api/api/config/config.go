@@ -15,6 +15,9 @@ type Server struct {
 	Port         int
 	ReadTimeout  int `mapstructure:"read_timeout"`
 	WriteWimeout int `mapstructure:"write_timeout"`
+	PORT         string
+	READTIMEOUT  string
+	WRITETIMEOUT string
 }
 
 type DB struct {
@@ -102,7 +105,7 @@ func SetConfig() (*Cfg, error) {
 	}
 
 	// Set undefined variables
-	viper.SetDefault("database.dbname", "test_db")
+	viper.SetDefault("database.dbname", "books")
 
 	err := viper.Unmarshal(&configuration)
 	if err != nil {
