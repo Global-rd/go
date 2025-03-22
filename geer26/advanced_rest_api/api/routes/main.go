@@ -1,5 +1,18 @@
 package routes
 
-import "net/http"
+import (
+	"advrest/middleware"
 
-func Attachroutes(m *http.ServeMux) {}
+	"github.com/go-chi/chi/v5"
+)
+
+func AttachRoutes() *chi.Mux {
+	r := chi.NewRouter()
+	middleware.AttachMiddlewares(r)
+
+	r.Get("/", Helloroute)
+
+	r.Mount("/books", BookRoutes())
+
+	return r
+}

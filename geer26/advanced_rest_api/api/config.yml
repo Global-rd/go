@@ -1,8 +1,10 @@
 server:
-  address: localhost
   port: 5000
+  read_timeout: 10
+  write_timeout: 20
 
 db:
+  dialect: postgres
   host: localhost
   port: 5432
   user: HatakeKakashi
