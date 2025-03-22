@@ -2,11 +2,15 @@ package routes
 
 import (
 	"advrest/middleware"
+	"database/sql"
 
 	"github.com/go-chi/chi/v5"
 )
 
-func AttachRoutes() *chi.Mux {
+var Database *sql.DB
+
+func AttachRoutes(db *sql.DB) *chi.Mux {
+	Database = db
 	r := chi.NewRouter()
 	middleware.AttachMiddlewares(r)
 

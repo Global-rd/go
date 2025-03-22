@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
+	_ "github.com/lib/pq"
 )
 
 type Service struct {
@@ -44,6 +45,20 @@ func (s *Service) Connect() *Service {
 	if s.InitError != nil {
 		return s
 	}
+	db, err := sql.Open("postgres", config.BuildConnectionString(s.Config.DB))
+	if err != nil {
+		s.InitError = err
+		return s
+	}
+	//defer db.Close()
+
+	err = db.Ping()
+	if err != nil {
+		s.InitError = err
+		return s
+	}
+
+	s.Db = db
 	return s
 }
 
@@ -51,13 +66,13 @@ func (s *Service) AttachRoutes() *Service {
 	if s.InitError != nil {
 		return s
 	}
-	s.Server.Handler = routes.AttachRoutes()
+	s.Server.Handler = routes.AttachRoutes(s.Db)
 	return s
 }
 
-func (s *Service) Run() error {
+func (s *Service) Run() (*Service, error) {
 	if s.InitError != nil {
-		return s.InitError
+		return s, s.InitError
 	}
 
 	s.Server.Addr = fmt.Sprintf(":%d", s.Config.Server.Port)
@@ -67,7 +82,7 @@ func (s *Service) Run() error {
 	log.Printf("Service started up on port %s...", s.Server.Addr)
 	err := s.Server.ListenAndServe()
 	if err != nil {
-		return err
+		return s, err
 	}
-	return nil
+	return s, nil
 }
