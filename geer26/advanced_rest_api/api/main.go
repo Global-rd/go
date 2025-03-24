@@ -19,9 +19,6 @@ func main() {
 		Connect().
 		AttachRoutes()
 
-	defer service.Db.Close()
-	defer service.Logger.CloseLog()
-
 	go func() {
 		_, err := service.Run()
 		if err != nil {
@@ -32,5 +29,9 @@ func main() {
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 	<-sigChan
+
+	service.Db.Close()
+	service.Logger.INFO("Db connection closed")
+	service.Logger.CloseLog()
 
 }

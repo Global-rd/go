@@ -1,8 +1,9 @@
 package logger
 
 import (
+	"archive/zip"
 	"fmt"
-	"log"
+	"io"
 	"os"
 	"time"
 )
@@ -23,9 +24,18 @@ func WithLogfile(p string) OptionFunc {
 	})
 }
 
+func WithLogSize(s int) OptionFunc {
+	return OptionFunc(func(l *Log) {
+		if s > 1 {
+			l.MaxLogfileSize = s
+		}
+	})
+}
+
 type Log struct {
-	Logchan     chan string
-	LogfilePath string
+	Logchan        chan string
+	LogfilePath    string
+	MaxLogfileSize int
 }
 
 func (l Log) INFO(info string) {
@@ -50,7 +60,7 @@ func (l Log) WriteLog() {
 		)
 		err := l.AppendLog([]byte(fmt.Sprintf("%s :: %s\n", time, logentry)))
 		if err != nil {
-			log.Println("Error at append to logfile: ", err)
+			fmt.Println("Error at append to logfile: ", err)
 		}
 	}
 }
@@ -73,10 +83,68 @@ func (l Log) CloseLog() {
 	close(l.Logchan)
 }
 
+func (l *Log) CreateLogfile() error {
+	fmt.Println("Create logfile called")
+	info, err := os.Lstat(l.LogfilePath)
+	if err != nil {
+		file, err := os.Create(l.LogfilePath)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+	}
+	if info.Size() > int64(l.MaxLogfileSize) {
+		err := l.ArchiveLogFile()
+		if err != nil {
+			return err
+		}
+		file, err := os.Create(l.LogfilePath)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+	}
+	return nil
+}
+
+func (l *Log) ArchiveLogFile() error {
+	now := time.Now()
+	zipfilename := fmt.Sprintf("Log_%d_%s_%d_%d_%d.zip",
+		now.Year(),
+		now.Month().String(),
+		now.Day(),
+		now.Hour(),
+		now.Minute())
+	archive, err := os.Create(zipfilename)
+	if err != nil {
+		return fmt.Errorf("error at creating archive-> %s", err.Error())
+	}
+	defer archive.Close()
+	zipWriter := zip.NewWriter(archive)
+	defer zipWriter.Close()
+
+	logfile, err := os.Open(l.LogfilePath)
+	if err != nil {
+		return fmt.Errorf("error at opening logfile-> %s", err.Error())
+	}
+	defer logfile.Close()
+
+	zippedlog, err := zipWriter.Create(l.LogfilePath)
+	if err != nil {
+		return fmt.Errorf("error at compress logfile-> %s", err.Error())
+	}
+	if _, err := io.Copy(zippedlog, logfile); err != nil {
+		return fmt.Errorf("error at copy compressed users-> %s", err.Error())
+	}
+
+	return nil
+}
+
 func InitLogger(options ...Option) (*Log, error) {
 	logger := Log{
-		Logchan:     make(chan string),
-		LogfilePath: "server.log",
+		Logchan:        make(chan string),
+		LogfilePath:    "server.log",
+		MaxLogfileSize: 1024 * 1024 * 10,
 	}
 
 	for _, option := range options {
@@ -92,19 +160,4 @@ func InitLogger(options ...Option) (*Log, error) {
 	logger.INFO("Log system started")
 
 	return &logger, nil
-}
-
-func (l *Log) CreateLogfile() error {
-	if _, err := os.Lstat(l.LogfilePath); err == nil {
-		return nil
-	}
-
-	file, err := os.Create(l.LogfilePath)
-	if err != nil {
-		return err
-	}
-
-	defer file.Close()
-
-	return nil
 }
