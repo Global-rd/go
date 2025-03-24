@@ -21,12 +21,22 @@ func (l Log) ERROR(info string) {
 
 func (l Log) WriteLog() {
 	for log := range l.logchan {
-		now := time.Now().String()
-		fmt.Printf("\n%s :: %s", now, log)
+		now := time.Now()
+		time := fmt.Sprintf(
+			"%d/%s/%d, %d:%d:%d.%d", now.Year(),
+			now.Month().String(),
+			now.Day(),
+			now.Hour(),
+			now.Minute(),
+			now.Second(),
+			now.Nanosecond(),
+		)
+		fmt.Printf("\n%s :: %s", time, log)
 	}
 }
 
 func (l Log) CloseLog() {
+	l.logchan <- "INFO :: Logging service shut down"
 	close(l.logchan)
 }
 
@@ -36,6 +46,7 @@ func InitLogger() (*Log, error) {
 	}
 
 	go logger.WriteLog()
+	logger.INFO("Log system started")
 
 	return &logger, nil
 }
