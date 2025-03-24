@@ -3,18 +3,30 @@ package main
 import (
 	"advrest/service"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
 
-	service, err := service.ServiceBuilder().
+	service := service.ServiceBuilder().
 		Configure().
 		Connect().
-		AttachRoutes().
-		Run()
-	if err != nil {
-		log.Fatalf("error at service startup: %s", err.Error())
-	}
+		AttachRoutes()
+
 	defer service.Db.Close()
+
+	go func() {
+		_, err := service.Run()
+		if err != nil {
+			log.Fatalf("error at service startup: %s", service.InitError.Error())
+		}
+	}()
+
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+	<-sigChan
+	log.Println("service stopped")
 
 }
