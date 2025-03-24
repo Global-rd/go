@@ -1,6 +1,7 @@
 package main
 
 import (
+	"advrest/logger"
 	"advrest/service"
 	"log"
 	"os"
@@ -12,7 +13,9 @@ func main() {
 
 	service := service.ServiceBuilder().
 		Configure().
-		CreateLogger().
+		CreateLogger(
+			logger.WithLogfile("another_logfile.log"),
+		).
 		Connect().
 		AttachRoutes()
 

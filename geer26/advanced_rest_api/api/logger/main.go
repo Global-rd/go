@@ -2,25 +2,42 @@ package logger
 
 import (
 	"fmt"
-	"sync"
+	"log"
+	"os"
 	"time"
 )
 
+type Option interface {
+	apply(*Log)
+}
+
+type OptionFunc func(*Log)
+
+func (f OptionFunc) apply(logger *Log) {
+	f(logger)
+}
+
+func WithLogfile(p string) OptionFunc {
+	return OptionFunc(func(l *Log) {
+		l.LogfilePath = p
+	})
+}
+
 type Log struct {
-	logchan  chan string
-	Filelock sync.Mutex
+	Logchan     chan string
+	LogfilePath string
 }
 
 func (l Log) INFO(info string) {
-	l.logchan <- fmt.Sprintf("INFO :: %s", info)
+	l.Logchan <- fmt.Sprintf("INFO :: %s", info)
 }
 
 func (l Log) ERROR(info string) {
-	l.logchan <- fmt.Sprintf("ERROR :: %s", info)
+	l.Logchan <- fmt.Sprintf("ERROR :: %s", info)
 }
 
 func (l Log) WriteLog() {
-	for log := range l.logchan {
+	for logentry := range l.Logchan {
 		now := time.Now()
 		time := fmt.Sprintf(
 			"%d/%s/%d, %d:%d:%d.%d", now.Year(),
@@ -31,22 +48,63 @@ func (l Log) WriteLog() {
 			now.Second(),
 			now.Nanosecond(),
 		)
-		fmt.Printf("\n%s :: %s", time, log)
+		err := l.AppendLog([]byte(fmt.Sprintf("%s :: %s\n", time, logentry)))
+		if err != nil {
+			log.Println("Error at append to logfile: ", err)
+		}
 	}
 }
 
-func (l Log) CloseLog() {
-	l.logchan <- "INFO :: Logging service shut down"
-	close(l.logchan)
+func (l Log) AppendLog(data []byte) error {
+	file, err := os.OpenFile(l.LogfilePath, os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	_, err = file.Write(data)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
-func InitLogger() (*Log, error) {
+func (l Log) CloseLog() {
+	l.Logchan <- "INFO :: Logging service shut down"
+	close(l.Logchan)
+}
+
+func InitLogger(options ...Option) (*Log, error) {
 	logger := Log{
-		logchan: make(chan string, 100),
+		Logchan:     make(chan string),
+		LogfilePath: "server.log",
+	}
+
+	for _, option := range options {
+		option.apply(&logger)
+	}
+
+	err := logger.CreateLogfile()
+	if err != nil {
+		return &logger, err
 	}
 
 	go logger.WriteLog()
 	logger.INFO("Log system started")
 
 	return &logger, nil
+}
+
+func (l *Log) CreateLogfile() error {
+	if _, err := os.Lstat(l.LogfilePath); err == nil {
+		return nil
+	}
+
+	file, err := os.Create(l.LogfilePath)
+	if err != nil {
+		return err
+	}
+
+	defer file.Close()
+
+	return nil
 }

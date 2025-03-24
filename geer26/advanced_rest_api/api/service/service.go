@@ -30,11 +30,11 @@ func ServiceBuilder() *Service {
 	return &service
 }
 
-func (s *Service) CreateLogger() *Service {
+func (s *Service) CreateLogger(option ...logger.Option) *Service {
 	if s.InitError != nil {
 		return s
 	}
-	logger, err := logger.InitLogger()
+	logger, err := logger.InitLogger(option...)
 	if err != nil {
 		s.InitError = err
 		return s
