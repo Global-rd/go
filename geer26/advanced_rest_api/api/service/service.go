@@ -102,7 +102,7 @@ func (s *Service) Run() (*Service, error) {
 	s.Server.ReadTimeout = time.Duration(s.Config.Server.ReadTimeout * int(time.Second))
 	s.Server.WriteTimeout = time.Duration(s.Config.Server.WriteWimeout * int(time.Second))
 
-	log.Printf("Service started up on port %s...", s.Server.Addr)
+	log.Printf("\nService started up on port %s...", s.Server.Addr)
 	s.Logger.INFO("Service started up")
 	err := s.Server.ListenAndServe()
 	if err != nil {

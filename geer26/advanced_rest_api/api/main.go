@@ -17,6 +17,7 @@ func main() {
 		AttachRoutes()
 
 	defer service.Db.Close()
+	defer service.Logger.CloseLog()
 
 	go func() {
 		_, err := service.Run()
