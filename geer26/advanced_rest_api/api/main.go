@@ -12,6 +12,7 @@ func main() {
 
 	service := service.ServiceBuilder().
 		Configure().
+		CreateLogger().
 		Connect().
 		AttachRoutes()
 

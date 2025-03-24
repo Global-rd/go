@@ -21,9 +21,10 @@ func (b BookController) ListBooks(w http.ResponseWriter, r *http.Request) {
 	result, err := db.GetAllBooks(DbConnection)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		Logger.ERROR("Internal error at get all books")
 		return
 	}
-
+	Logger.INFO("Get all books served")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
 }

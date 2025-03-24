@@ -2,6 +2,7 @@ package service
 
 import (
 	"advrest/config"
+	"advrest/logger"
 	"advrest/routes"
 	"database/sql"
 	"fmt"
@@ -18,6 +19,7 @@ type Service struct {
 	Server    *http.Server
 	Config    *config.Cfg
 	Db        *sql.DB
+	Logger    *logger.Log
 	InitError error
 }
 
@@ -26,6 +28,21 @@ func ServiceBuilder() *Service {
 		Server: &http.Server{},
 	}
 	return &service
+}
+
+func (s *Service) CreateLogger() *Service {
+	if s.InitError != nil {
+		return s
+	}
+	logger, err := logger.InitLogger()
+	if err != nil {
+		s.InitError = err
+		return s
+	}
+
+	s.Logger = logger
+	s.Logger.INFO("Logger init")
+	return s
 }
 
 func (s *Service) Configure() *Service {
@@ -49,6 +66,7 @@ func (s *Service) Connect() *Service {
 	db, err := sql.Open("postgres", config.BuildConnectionString(s.Config.DB))
 	if err != nil {
 		s.InitError = err
+		s.Logger.ERROR(fmt.Sprintf("Database connection failed: %s", err))
 		return s
 	}
 	//defer db.Close()
@@ -56,10 +74,12 @@ func (s *Service) Connect() *Service {
 	err = db.Ping()
 	if err != nil {
 		s.InitError = err
+		s.Logger.ERROR(fmt.Sprintf("Database ping failed: %s", err))
 		return s
 	}
 
 	s.Db = db
+	s.Logger.INFO("Database connected")
 	return s
 }
 
@@ -67,12 +87,14 @@ func (s *Service) AttachRoutes() *Service {
 	if s.InitError != nil {
 		return s
 	}
-	s.Server.Handler = routes.AttachRoutes(s.Db)
+	s.Server.Handler = routes.AttachRoutes(s.Db, s.Logger)
+	s.Logger.INFO("Routes attached")
 	return s
 }
 
 func (s *Service) Run() (*Service, error) {
 	if s.InitError != nil {
+		s.Logger.ERROR(fmt.Sprintf("Service startup failed: %s", s.InitError))
 		return s, s.InitError
 	}
 
@@ -81,8 +103,10 @@ func (s *Service) Run() (*Service, error) {
 	s.Server.WriteTimeout = time.Duration(s.Config.Server.WriteWimeout * int(time.Second))
 
 	log.Printf("Service started up on port %s...", s.Server.Addr)
+	s.Logger.INFO("Service started up")
 	err := s.Server.ListenAndServe()
 	if err != nil {
+		s.Logger.ERROR(fmt.Sprintf("Service listen failed: %s", err))
 		return s, err
 	}
 	return s, nil
