@@ -86,34 +86,6 @@ func (b BookController) UpdateBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/*
-		ds := From("bookshelf").
-			Where(C("id").Eq(id)).
-			Update().
-			Set(
-				Record{
-					"id":           new_book.Id,
-					"title":        new_book.Title,
-					"author":       new_book.Author,
-					"published":    new_book.Published,
-					"introduction": new_book.Introduction,
-					"price":        new_book.Price,
-					"stock":        new_book.Stock,
-				},
-			)
-		expression, _, _ := ds.ToSQL()
-
-		_, err = DbConnection.Query(expression)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		response := BaseResponse{
-			Status:  1,
-			Message: fmt.Sprintf("Book %s updated", id),
-		}
-	*/
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
