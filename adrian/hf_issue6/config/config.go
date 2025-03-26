@@ -34,7 +34,7 @@ func getExecutionDir() (string, error) {
 func LoadConfig() (*Config, error) {
 	execDir, err := getExecutionDir()
 	if err != nil {
-		return nil, fmt.Errorf("failed to get executable directory: %w", err)
+		return nil, fmt.Errorf("failed to get CWD: %w", err)
 	}
 
 	v := viper.New()
