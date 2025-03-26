@@ -1,0 +1,7 @@
+db:
+  dbname: moviedb
+  user: movieadm
+  pass: moviepass
+server:
+  address: 0.0.0.0
+  port: 8080
