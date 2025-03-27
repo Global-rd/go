@@ -3,6 +3,7 @@ module full-webservice
 go 1.24.1
 
 require (
+	github.com/doug-martin/goqu/v9 v9.19.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
