@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+
+
+#< ----------- POSTGRESQL ------------ >
+
+  pg_db:
+
+    container_name: geer26_db
+
+    hostname: geer26_db
+
+    build: ./db/.
+
+#    restart: always
+
+    ports:
+      - "5432:5432"
+
+    env_file:
+      - ./envs/.env
+
+    volumes:
+      - ./db/script:/docker-entrypoint-initdb.d:ro
+      - ./db/data:/var/lib/postgresql/data:rw
+
+#    depends_on:
+#      - dependants
+#< ----------------------- >
