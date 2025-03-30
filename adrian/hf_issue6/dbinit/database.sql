@@ -26,7 +26,7 @@ CREATE TABLE movieapp.movies (
                                  imdb_id VARCHAR,
                                  director VARCHAR,
                                  writer VARCHAR,
-                                 starts VARCHAR
+                                 stars VARCHAR
 );
 
 

@@ -14,8 +14,10 @@ type Config struct {
 
 type DbCfg struct {
 	DbName string `yaml:"dbname"`
-	DbUser string `yaml:"user"`
-	DbPass string `yaml:"pass"`
+	DbUser string `yaml:"dbuser"`
+	DbPass string `yaml:"dbpass"`
+	DbHost string `yaml:"dbhost"`
+	DbPort int    `yaml:"dbport"`
 }
 
 type ServerCfg struct {
@@ -24,7 +26,12 @@ type ServerCfg struct {
 }
 
 func getExecutionDir() (string, error) {
-	execPath, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	wd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
+	var execPath string
+	execPath, err = filepath.Abs(wd)
 	if err != nil {
 		return "", err
 	}

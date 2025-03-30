@@ -51,7 +51,7 @@ func (d *DB) GetMovie(id string) (Movie, error) {
 	return movie, nil
 }
 
-func (d *DB) CreateMovie(movie Movie) error {
+func (d *DB) CreateMovie(movie Movie) (string, error) {
 	movie.ID = uuid.New().String()
 	sqlBuilderDB := goqu.New("postgres", d.db)
 
@@ -59,17 +59,18 @@ func (d *DB) CreateMovie(movie Movie) error {
 		Insert(MoviesTable).
 		Rows(movie)
 
+	//fmt.Println(ds.ToSQL())
 	result, err := ds.Executor().Exec()
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	affected, _ := result.RowsAffected()
 	if affected < 1 {
-		return errors.New("failed to create new movie")
+		return "", errors.New("failed to create new movie")
 	}
 
-	return nil
+	return movie.ID, nil
 }
 
 func (d *DB) DeleteMovie(id string) error {
