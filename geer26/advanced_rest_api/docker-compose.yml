@@ -4,21 +4,21 @@ services:
 
 #< ---------- API SERVICE ------------ >
 
-  api:
+#  api:
 
-    container_name: geer26_api
+#    container_name: geer26_api
 
-    hostname: geer26_api
+#    hostname: geer26_api
 
 #    restart: always
 
-    build: ./api/.
+#    build: ./api/.
 
-    env_file:
-      - ./envs/.env
+#    env_file:
+#      - ./envs/.env
 
-    ports:
-      - "5000:5000"
+#    ports:
+#      - "5000:5000"
 
 
 #< ----------- POSTGRESQL ------------ >

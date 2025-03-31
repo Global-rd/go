@@ -8,20 +8,20 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-var DbConnection *sql.DB
-var Logger *logger.Log
+//var DbConnection *sql.DB
+//var Logger *logger.Log
 
 func AttachRoutes(db *sql.DB, log *logger.Log) *chi.Mux {
-	DbConnection = db
-	Logger = log
+	//DbConnection = db
+	//Logger = log
 	r := chi.NewRouter()
 	middleware.AttachMiddlewares(r)
-	Logger.INFO("Middlewares attached")
+	log.INFO("Middlewares attached")
 
-	r.Get("/", Helloroute)
+	r.Get("/", Helloroute(db, log))
 
-	r.Mount("/books", BookRoutes())
-	Logger.INFO("Routes attached")
+	r.Mount("/books", BookRoutes(db, log))
+	log.INFO("Routes attached")
 
 	return r
 }

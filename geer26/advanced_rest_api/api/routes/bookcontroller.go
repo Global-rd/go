@@ -2,6 +2,8 @@ package routes
 
 import (
 	"advrest/db"
+	"advrest/logger"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -15,16 +17,18 @@ type BaseResponse struct {
 }
 
 type BookController struct {
+	DbConnection *sql.DB
+	Logger       *logger.Log
 }
 
 func (b BookController) ListBooks(w http.ResponseWriter, r *http.Request) {
-	result, err := db.GetAllBooks(DbConnection)
+	result, err := db.GetAllBooks(b.DbConnection)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		Logger.ERROR("Internal error at get all books")
+		b.Logger.ERROR("Internal error at get all books")
 		return
 	}
-	Logger.INFO("Get all books served")
+	b.Logger.INFO("Get all books served")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
 }
@@ -36,7 +40,7 @@ func (b BookController) GetBooks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := db.GetBook(DbConnection, id)
+	result, err := db.GetBook(b.DbConnection, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -54,7 +58,7 @@ func (b BookController) CreateBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := db.InsertBook(DbConnection, &new_book)
+	result, err := db.InsertBook(b.DbConnection, &new_book)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -80,7 +84,7 @@ func (b BookController) UpdateBook(w http.ResponseWriter, r *http.Request) {
 
 	new_book.Id = id
 
-	response, err := db.UpdateBook(DbConnection, &new_book)
+	response, err := db.UpdateBook(b.DbConnection, &new_book)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -97,7 +101,7 @@ func (b BookController) DeleteBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := db.DeleteBook(DbConnection, id)
+	err := db.DeleteBook(b.DbConnection, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -111,9 +115,12 @@ func (b BookController) DeleteBook(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-func BookRoutes() chi.Router {
+func BookRoutes(dbConnection *sql.DB, logger *logger.Log) chi.Router {
 	r := chi.NewRouter()
-	bookHandler := BookController{}
+	bookHandler := BookController{
+		DbConnection: dbConnection,
+		Logger:       logger,
+	}
 	r.Get("/", bookHandler.ListBooks)
 	r.Post("/", bookHandler.CreateBook)
 	r.Get("/{id}", bookHandler.GetBooks)
