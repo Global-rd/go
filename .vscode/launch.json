@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/classes/class16",
+            "program": "${workspaceFolder}/classes/class17",
             "env": {
                 "WEBSERVICE_DB_HOST": "localhost",
             }
