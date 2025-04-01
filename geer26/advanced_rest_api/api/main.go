@@ -14,7 +14,7 @@ func main() {
 	service := service.ServiceBuilder().
 		Configure().
 		CreateLogger(
-			logger.WithLogfile("another_logfile.log"),
+			logger.WithLogfile("logfile.log"),
 		).
 		Connect().
 		AttachRoutes()
@@ -32,6 +32,5 @@ func main() {
 
 	service.Db.Close()
 	service.Logger.INFO("Db connection closed")
-	service.Logger.CloseLog()
 
 }

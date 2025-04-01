@@ -1,11 +1,8 @@
 package logger
 
 import (
-	"archive/zip"
-	"fmt"
-	"io"
+	"log/slog"
 	"os"
-	"time"
 )
 
 type Option interface {
@@ -16,6 +13,12 @@ type OptionFunc func(*Log)
 
 func (f OptionFunc) apply(logger *Log) {
 	f(logger)
+}
+
+type Log struct {
+	Loghandler     *slog.Logger
+	LogfilePath    string
+	MaxLogfileSize int
 }
 
 func WithLogfile(p string) OptionFunc {
@@ -32,117 +35,42 @@ func WithLogSize(s int) OptionFunc {
 	})
 }
 
-type Log struct {
-	Logchan        chan string
-	LogfilePath    string
-	MaxLogfileSize int
-}
-
-func (l Log) INFO(info string) {
-	l.Logchan <- fmt.Sprintf("INFO :: %s", info)
-}
-
-func (l Log) ERROR(info string) {
-	l.Logchan <- fmt.Sprintf("ERROR :: %s", info)
-}
-
-func (l Log) WriteLog() {
-	for logentry := range l.Logchan {
-		now := time.Now()
-		time := fmt.Sprintf(
-			"%d/%s/%d, %d:%d:%d.%d", now.Year(),
-			now.Month().String(),
-			now.Day(),
-			now.Hour(),
-			now.Minute(),
-			now.Second(),
-			now.Nanosecond(),
-		)
-		err := l.AppendLog([]byte(fmt.Sprintf("%s :: %s\n", time, logentry)))
-		if err != nil {
-			fmt.Println("Error at append to logfile: ", err)
-		}
-	}
-}
-
-func (l Log) AppendLog(data []byte) error {
-	file, err := os.OpenFile(l.LogfilePath, os.O_APPEND|os.O_WRONLY, 0644)
+func (l Log) INFO(info string) error {
+	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
+		slog.Error("failed to open log file", "error", err)
 		return err
 	}
-	defer file.Close()
-	_, err = file.Write(data)
-	if err != nil {
-		return err
-	}
+	defer logFile.Close()
+	l.Loghandler.Info(info)
 	return nil
 }
 
-func (l Log) CloseLog() {
-	l.Logchan <- "INFO :: Logging service shut down"
-	close(l.Logchan)
-}
-
-func (l *Log) CreateLogfile() error {
-	fmt.Println("Create logfile called")
-	info, err := os.Lstat(l.LogfilePath)
+func (l Log) WARNING(info string) error {
+	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		file, err := os.Create(l.LogfilePath)
-		if err != nil {
-			return err
-		}
-		defer file.Close()
+		slog.Warn("failed to open log file", "error", err)
+		return err
 	}
-	if info.Size() > int64(l.MaxLogfileSize) {
-		err := l.ArchiveLogFile()
-		if err != nil {
-			return err
-		}
-		file, err := os.Create(l.LogfilePath)
-		if err != nil {
-			return err
-		}
-		defer file.Close()
-	}
+	defer logFile.Close()
+	l.Loghandler.Info(info)
 	return nil
 }
 
-func (l *Log) ArchiveLogFile() error {
-	now := time.Now()
-	zipfilename := fmt.Sprintf("Log_%d_%s_%d_%d_%d.zip",
-		now.Year(),
-		now.Month().String(),
-		now.Day(),
-		now.Hour(),
-		now.Minute())
-	archive, err := os.Create(zipfilename)
+func (l Log) ERROR(info string) error {
+	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		return fmt.Errorf("error at creating archive-> %s", err.Error())
+		slog.Error("failed to open log file", "error", err)
+		return err
 	}
-	defer archive.Close()
-	zipWriter := zip.NewWriter(archive)
-	defer zipWriter.Close()
-
-	logfile, err := os.Open(l.LogfilePath)
-	if err != nil {
-		return fmt.Errorf("error at opening logfile-> %s", err.Error())
-	}
-	defer logfile.Close()
-
-	zippedlog, err := zipWriter.Create(l.LogfilePath)
-	if err != nil {
-		return fmt.Errorf("error at compress logfile-> %s", err.Error())
-	}
-	if _, err := io.Copy(zippedlog, logfile); err != nil {
-		return fmt.Errorf("error at copy compressed users-> %s", err.Error())
-	}
-
+	defer logFile.Close()
+	l.Loghandler.Error(info)
 	return nil
 }
 
 func InitLogger(options ...Option) (*Log, error) {
+
 	logger := Log{
-		Logchan:        make(chan string),
 		LogfilePath:    "server.log",
 		MaxLogfileSize: 1024 * 1024 * 10,
 	}
@@ -151,13 +79,19 @@ func InitLogger(options ...Option) (*Log, error) {
 		option.apply(&logger)
 	}
 
-	err := logger.CreateLogfile()
+	logFile, err := os.OpenFile(logger.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
+		slog.Error("failed to open log file", "error", err)
 		return &logger, err
 	}
+	defer logFile.Close()
 
-	go logger.WriteLog()
-	logger.INFO("Log system started")
+	// Create a logger that writes to the file
+	l := slog.New(slog.NewTextHandler(logFile, nil))
+	logger.Loghandler = l
+
+	l.Info("Logger started")
 
 	return &logger, nil
+
 }
