@@ -42,7 +42,7 @@ func (l Log) INFO(info string) error {
 		return err
 	}
 	defer logFile.Close()
-	l.Loghandler.Info(info)
+	slog.New(slog.NewTextHandler(logFile, nil)).Info(info)
 	return nil
 }
 
@@ -53,7 +53,7 @@ func (l Log) WARNING(info string) error {
 		return err
 	}
 	defer logFile.Close()
-	l.Loghandler.Info(info)
+	slog.New(slog.NewTextHandler(logFile, nil)).Warn(info)
 	return nil
 }
 
@@ -64,7 +64,7 @@ func (l Log) ERROR(info string) error {
 		return err
 	}
 	defer logFile.Close()
-	l.Loghandler.Error(info)
+	slog.New(slog.NewTextHandler(logFile, nil)).Error(info)
 	return nil
 }
 
@@ -86,7 +86,6 @@ func InitLogger(options ...Option) (*Log, error) {
 	}
 	defer logFile.Close()
 
-	// Create a logger that writes to the file
 	l := slog.New(slog.NewTextHandler(logFile, nil))
 	logger.Loghandler = l
 
