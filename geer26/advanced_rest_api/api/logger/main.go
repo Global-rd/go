@@ -16,7 +16,6 @@ func (f OptionFunc) apply(logger *Log) {
 }
 
 type Log struct {
-	Loghandler     *slog.Logger
 	LogfilePath    string
 	MaxLogfileSize int
 }
@@ -86,10 +85,7 @@ func InitLogger(options ...Option) (*Log, error) {
 	}
 	defer logFile.Close()
 
-	l := slog.New(slog.NewTextHandler(logFile, nil))
-	logger.Loghandler = l
-
-	l.Info("Logger started")
+	slog.New(slog.NewTextHandler(logFile, nil)).Info("Logger started")
 
 	return &logger, nil
 
