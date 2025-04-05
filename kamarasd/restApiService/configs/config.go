@@ -1,4 +1,4 @@
-package configs
+package config
 
 import (
 	"fmt"
@@ -19,25 +19,31 @@ type Server struct {
 }
 
 type DB struct {
-	Host     string
-	Port     int
-	User     string
-	Password string
-	DBName   string `mapstructure:"db_name"`
+	Host   string
+	Port   int
+	User   string
+	Pass   string
+	DBName string `mapstructure:"db_name"`
 }
 
 func (db DB) ConnectionString() string {
 	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		db.Host, db.Port, db.User, db.Password, db.DBName)
+		db.Host, db.Port, db.User, db.Pass, db.DBName)
 }
 
-func (d DB) Validate() error {
-	return validation.ValidateStruct(&d,
-		validation.Field(&d.Host, validation.Required),
-		validation.Field(&d.Port, validation.Required),
-		validation.Field(&d.User, validation.Required),
-		validation.Field(&d.Password, validation.Required),
-		validation.Field(&d.DBName, validation.Required),
+func (db DB) Validate() error {
+	return validation.ValidateStruct(&db,
+		validation.Field(&db.DBName, validation.Required),
+		validation.Field(&db.User, validation.Required),
+		validation.Field(&db.Pass, validation.Required),
+		validation.Field(&db.Port, validation.Required),
+	)
+}
+
+func (cfg Cfg) Validate() error {
+	return validation.ValidateStruct(&cfg,
+		validation.Field(&cfg.Server, validation.Required),
+		validation.Field(&cfg.DB, validation.Required),
 	)
 }
 
@@ -48,14 +54,7 @@ func (s Server) Validate() error {
 	)
 }
 
-func (c Cfg) Validate() error {
-	return validation.ValidateStruct(&c,
-		validation.Field(&c.Server, validation.Required),
-		validation.Field(&c.DB, validation.Required),
-	)
-}
-
-func Parse() (result *Cfg, err error) {
+func ReadConfig() (result *Cfg, err error) {
 	viper.SetConfigName("config")
 	viper.AddConfigPath("configs")
 	viper.SetEnvPrefix("WEBSERVICE")
@@ -66,12 +65,13 @@ func Parse() (result *Cfg, err error) {
 	if err = viper.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("error reading config file, %s", err)
 	}
-	fmt.Println("Loaded configuration:", viper.AllSettings())
+	//fmt.Println("Loaded configuration:", viper.AllSettings())
 
 	err = viper.Unmarshal(&result)
 	if err != nil {
 		return nil, fmt.Errorf("unable to decode into worker, %v", err)
 	}
+	//fmt.Println("Unmarshalled struct:", result)
 
 	err = result.Validate()
 	if err != nil {
