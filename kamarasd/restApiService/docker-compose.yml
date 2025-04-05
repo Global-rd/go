@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: bookDatabase
+    ports:
+      - 5444:5432
+    environment:
+      POSTGRES_DB: bookDatabase
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+    volumes:
+      - ./data/database.sql:/docker-entrypoint-initdb.d/database.sql
