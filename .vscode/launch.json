@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch my go program",
+            "name": "Launch go course",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/kamarasd/restApiService",
+            "program": "Launch go course",
             "env": {
                 "WEBSERVICE_DB_HOST": "localhost",
             }
