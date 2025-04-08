@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    hostname: db
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: moviedb
+      POSTGRES_USER: movieadm
+      POSTGRES_PASSWORD: moviepass
+    volumes:
+      - ./dbinit/database.sql:/docker-entrypoint-initdb.d/database.sql
