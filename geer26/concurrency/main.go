@@ -8,7 +8,10 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime"
 	"syscall"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func main() {
@@ -17,22 +20,24 @@ func main() {
 	done := make(chan struct{})
 	defer close(done)
 
+	log.Println("Num of goroutines before spinup: ", runtime.NumGoroutine())
+
 	// Spin up worker goroutines
 	// Generates int endlessly and send to a channel
 	RndInt := utils.Producer(context.Background(), done, utils.GenerateInt)
 	// Filters random int tha are greate than 300.000.000 and channels to the next stage
 	Gt_3M := utils.Filter(context.Background(), done, RndInt, utils.FilterFunc)
-	// Filters out primes and redirects to a channel to consume
+	// Filters out primes and redirects to a channel for consuming
 	Primes := utils.Filter(context.Background(), done, Gt_3M, utils.CheckifPrime)
 
 	// Prepare API's
-	downstream := http.NewServeMux()
+	downstream := chi.NewRouter()
 	routes.Attachmhain(downstream)
-	api1 := http.NewServeMux()
+	api1 := chi.NewRouter()
 	routes.AttachIntFetcher(api1, RndInt)
-	api2 := http.NewServeMux()
+	api2 := chi.NewRouter()
 	routes.AttachPrimeFetcher(api2, Primes)
-	api_timeout := http.NewServeMux()
+	api_timeout := chi.NewRouter()
 	routes.AttachTimeoutFetcher(api_timeout)
 
 	//Spin up API's
@@ -71,6 +76,8 @@ func main() {
 			log.Fatal("timeout-ish endpoint start error")
 		}
 	}()
+
+	log.Println("Num of goroutines after spinup: ", runtime.NumGoroutine())
 
 	shutdownChan := make(chan os.Signal, 1)
 	signal.Notify(shutdownChan, syscall.SIGINT, syscall.SIGTERM)
