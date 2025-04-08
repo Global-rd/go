@@ -151,7 +151,7 @@ func PrimeFetcher(inbound <-chan int) http.HandlerFunc {
 }
 
 func TimeoutFetcher(w http.ResponseWriter, r *http.Request) {
-	var heavyload = rand.Intn(6000)
+	var heavyload = rand.Intn(4000)
 	time.Sleep(time.Millisecond * time.Duration(heavyload))
 	retval := ReturnString{
 		Status: 1,
