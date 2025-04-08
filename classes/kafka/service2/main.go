@@ -9,9 +9,11 @@ import (
 	"webservice/api"
 	"webservice/configs"
 	"webservice/container"
+	"webservice/payment"
 	"webservice/server"
 
 	_ "github.com/lib/pq"
+	"github.com/segmentio/kafka-go"
 )
 
 func main() {
@@ -36,9 +38,17 @@ func main() {
 		os.Exit(1)
 	}
 
+	r := kafka.NewReader(kafka.ReaderConfig{
+		Brokers:   []string{cfg.Kafka.Address},
+		Topic:     "payment",
+		Partition: 0,
+		MaxBytes:  10e6, // 10MB
+	})
+
 	cont := container.NewContainer(
 		logger,
 		db,
+		r,
 	)
 
 	srv := server.NewServer(
@@ -47,6 +57,14 @@ func main() {
 	)
 
 	ctx := context.Background()
+
+	go func() {
+		kafka := payment.NewKafka(cont)
+		err := kafka.Loop(ctx)
+		if err != nil {
+			logger.Error(err.Error())
+		}
+	}()
 
 	logger.Info("server constracted!")
 

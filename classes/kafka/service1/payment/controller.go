@@ -1,30 +1,29 @@
 package payment
 
 import (
+	"context"
 	"webservice/container"
 
 	"github.com/google/uuid"
 )
 
 type Controller struct {
-	cont container.Container
-	db   DB
+	cont  container.Container
+	kafka Kafka
 }
 
 func NewController(cont container.Container) Controller {
-	db := DB{
-		db: cont.GetDB(),
-	}
+	kafka := NewKafka(cont)
 
 	return Controller{
-		cont: cont,
-		db:   db,
+		cont:  cont,
+		kafka: kafka,
 	}
 }
 
-func (c Controller) Create(payment Payment) error {
+func (c Controller) Create(ctx context.Context, payment Payment) error {
 	payment.ID = uuid.NewString()
-	return c.db.Create(payment)
+	return c.kafka.WritePayment(ctx, payment)
 }
 
 func (c Controller) GetByID(id string) (Payment, error) {
@@ -32,7 +31,7 @@ func (c Controller) GetByID(id string) (Payment, error) {
 }
 
 func (c Controller) Get() ([]Payment, error) {
-	return c.db.Get()
+	return nil, nil
 }
 
 func (c Controller) Update(id string) error {

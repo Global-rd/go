@@ -11,11 +11,16 @@ import (
 type Cfg struct {
 	Server Server
 	DB     DB
+	Kafka  Kafka
 }
 
 type Server struct {
 	Address string
 	Port    int
+}
+
+type Kafka struct {
+	Address string
 }
 
 type DB struct {

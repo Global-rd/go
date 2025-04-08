@@ -12,6 +12,7 @@ import (
 	"webservice/server"
 
 	_ "github.com/lib/pq"
+	"github.com/segmentio/kafka-go"
 )
 
 func main() {
@@ -21,6 +22,13 @@ func main() {
 	if err != nil {
 		logger.Error("parsing config file failed", "err", err.Error())
 		os.Exit(1)
+	}
+
+	w := &kafka.Writer{
+		Addr:                   kafka.TCP(cfg.Kafka.Address),
+		Topic:                  "payment",
+		Balancer:               &kafka.LeastBytes{},
+		AllowAutoTopicCreation: true,
 	}
 
 	db, err := sql.Open("postgres", cfg.DB.ConnectionString())
@@ -39,6 +47,7 @@ func main() {
 	cont := container.NewContainer(
 		logger,
 		db,
+		w,
 	)
 
 	srv := server.NewServer(

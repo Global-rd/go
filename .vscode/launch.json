@@ -5,11 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch go course",
+            "name": "playground",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/classes/class18",
+            "program": "${workspaceFolder}/classes/class1",
+            "env": {
+                "WEBSERVICE_DB_HOST": "localhost",
+            }
+        },
+        {
+            "name": "service1 run",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/classes/kafka/service1",
+            "env": {
+                "WEBSERVICE_DB_HOST": "localhost",
+            }
+        },
+        {
+            "name": "service2 run",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/classes/kafka/service2",
             "env": {
                 "WEBSERVICE_DB_HOST": "localhost",
             }

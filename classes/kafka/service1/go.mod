@@ -8,6 +8,12 @@ require (
 )
 
 require (
+	github.com/klauspost/compress v1.17.2 // indirect
+	github.com/pierrec/lz4/v4 v4.1.15 // indirect
+	github.com/segmentio/kafka-go v0.4.47 // indirect
+)
+
+require (
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible // indirect

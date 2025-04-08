@@ -2,6 +2,8 @@ server:
   address: localhost
   port: 8080
 
+kafka:
+  address: localhost:9092
 db:
   host: db
   port: 5432

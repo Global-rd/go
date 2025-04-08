@@ -1,6 +1,9 @@
 server:
   address: localhost
-  port: 8080
+  port: 8081
+
+kafka:
+  address: localhost:9092
 
 db:
   host: db

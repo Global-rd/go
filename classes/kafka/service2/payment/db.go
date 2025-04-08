@@ -25,7 +25,7 @@ func (d DB) Get() (result []Payment, err error) {
 	for rows.Next() {
 		var payment Payment
 
-		rows.Scan(&payment.ID, &payment.Name, &payment.Description)
+		rows.Scan(&payment.ID, &payment.Name)
 		result = append(result, payment)
 	}
 
@@ -40,6 +40,7 @@ func (d DB) Create(payment Payment) error {
 		Rows(payment)
 
 	sql, _, _ := ds.ToSQL()
+
 	fmt.Println("sql", sql)
 
 	result, err := ds.Executor().Exec()

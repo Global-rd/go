@@ -18,7 +18,7 @@ func NewRouter(r chi.Router, paymentController Controller) chi.Router {
 		}
 		defer r.Body.Close()
 
-		err = paymentController.Create(payment)
+		err = paymentController.Create(r.Context(), payment)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
