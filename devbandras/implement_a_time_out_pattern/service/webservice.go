@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi"
@@ -193,17 +194,30 @@ func (s *WebService) sendHttpError(w http.ResponseWriter, httpErrorCode int, err
 // Returns:
 func (s *WebService) getAllBooks(w http.ResponseWriter, r *http.Request) {
 
-	// lekérjük az adatbázisból az összes könyvet
+	// lekérjük az adatbázisból az összes könyvet...
+
 	bookService := book.NewBookService(s.DB)
-	books, err := bookService.GetAllBooks()
-	if err != nil {
-		s.sendHttpError(w, http.StatusInternalServerError, err)
+
+	// timeout művelet létrehozása
+	op := NewTimeOutOperation(
+		r.Context(),
+		100*time.Millisecond,
+		func() ([]book.Book, error) {
+			return bookService.GetAllBooks()
+		},
+		w,
+	)
+
+	// Végrehajtjuk az op műveletet
+	books, done := op.Execute()
+	if !done {
+		//s.sendHttpError(w, http.StatusInternalServerError, err)
 		return
 	}
 
 	// elküldjük az összes könyvet
 	w.Header().Set("Content-Type", "application/json")
-	err = json.NewEncoder(w).Encode(books)
+	err := json.NewEncoder(w).Encode(books)
 	if err != nil {
 		s.sendJSONEncodeError(w, err)
 		return
@@ -227,11 +241,23 @@ func (s *WebService) getBookByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// lekérjük az adatbázisból az id alapján a könyvet
+	// lekérjük az adatbázisból az id alapján a könyvet...
+
 	bookService := book.NewBookService(s.DB)
-	book, err := bookService.GetBookByID(id)
-	if err != nil {
-		s.sendHttpError(w, http.StatusBadRequest, err)
+
+	// timeout művelet létrehozása
+	op := NewTimeOutOperation(
+		r.Context(),
+		100*time.Millisecond,
+		func() (book.Book, error) {
+			return bookService.GetBookByID(id)
+		},
+		w,
+	)
+
+	// Végrehajtjuk az op műveletet
+	book, done := op.Execute()
+	if !done {
 		return
 	}
 
@@ -262,11 +288,23 @@ func (s *WebService) createBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// új könyv létrehozása a oneBook alapján
+	// új könyv létrehozása a oneBook alapján...
+
 	bookService := book.NewBookService(s.DB)
-	newId, err := bookService.CreateBook(oneBook)
-	if err != nil {
-		s.sendHttpError(w, http.StatusInternalServerError, err)
+
+	// timeout művelet létrehozása
+	op := NewTimeOutOperation(
+		r.Context(),
+		100*time.Millisecond,
+		func() (int64, error) {
+			return bookService.CreateBook(oneBook)
+		},
+		w,
+	)
+
+	// Végrehajtjuk az op műveletet
+	newId, done := op.Execute()
+	if !done {
 		return
 	}
 
@@ -300,11 +338,22 @@ func (s *WebService) updateBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// módosítás az adatbázisban
+	// módosítás az adatbázisban...
 	bookService := book.NewBookService(s.DB)
-	err = bookService.UpdateBook(oneBook)
-	if err != nil {
-		s.sendHttpError(w, http.StatusInternalServerError, err)
+
+	// timeout művelet létrehozása
+	op := NewTimeOutOperation(
+		r.Context(),
+		100*time.Millisecond,
+		func() (bool, error) {
+			err := bookService.UpdateBook(oneBook)
+			return err == nil, err
+		},
+		w,
+	)
+
+	_, done := op.Execute()
+	if !done {
 		return
 	}
 
@@ -336,11 +385,23 @@ func (s *WebService) deleteBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// törlés az adatbázisból
+	// törlés az adatbázisból...
+
 	bookService := book.NewBookService(s.DB)
-	err = bookService.DeleteBook(id)
-	if err != nil {
-		s.sendHttpError(w, http.StatusInternalServerError, err)
+
+	// timeout művelet létrehozása
+	op := NewTimeOutOperation(
+		r.Context(),
+		100*time.Millisecond,
+		func() (bool, error) {
+			err := bookService.DeleteBook(id)
+			return err == nil, err
+		},
+		w,
+	)
+
+	_, done := op.Execute()
+	if !done {
 		return
 	}
 
