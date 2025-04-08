@@ -1,4 +1,4 @@
-package task
+package payment
 
 import (
 	"webservice/container"
@@ -22,16 +22,16 @@ func NewController(cont container.Container) Controller {
 	}
 }
 
-func (c Controller) Create(task Task) error {
-	task.ID = uuid.NewString()
-	return c.db.Create(task)
+func (c Controller) Create(payment Payment) error {
+	payment.ID = uuid.NewString()
+	return c.db.Create(payment)
 }
 
-func (c Controller) GetByID(id string) (Task, error) {
-	return Task{}, nil
+func (c Controller) GetByID(id string) (Payment, error) {
+	return Payment{}, nil
 }
 
-func (c Controller) Get() ([]Task, error) {
+func (c Controller) Get() ([]Payment, error) {
 	return c.db.Get()
 }
 

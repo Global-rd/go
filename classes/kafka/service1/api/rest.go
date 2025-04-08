@@ -3,17 +3,15 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"webservice/book"
 	"webservice/container"
-	"webservice/task"
+	"webservice/payment"
 
 	"github.com/go-chi/chi"
 )
 
 func NewHttpApi(cont container.Container) *chi.Mux {
 	router := chi.NewRouter()
-	b := book.NewController(cont)
-	t := task.NewController(cont)
+	p := payment.NewController(cont)
 
 	logger := cont.GetLogger().With("name", "middleware")
 
@@ -24,12 +22,8 @@ func NewHttpApi(cont container.Container) *chi.Mux {
 			fmt.Fprint(w, "hello")
 		})
 
-		r.Route("/books", func(r chi.Router) {
-			book.NewRouter(r, b)
-		})
-
-		r.Route("/tasks", func(r chi.Router) {
-			task.NewRouter(r, t)
+		r.Route("/payment", func(r chi.Router) {
+			payment.NewRouter(r, p)
 		})
 	})
 

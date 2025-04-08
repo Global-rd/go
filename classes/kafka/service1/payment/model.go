@@ -1,11 +1,11 @@
-package task
+package payment
 
-type Task struct {
+type Payment struct {
 	ID          string
 	Name        string
 	Description string
 }
 
-func (t *Task) SetName(name string) {
+func (t *Payment) SetName(name string) {
 	t.Name = name
 }

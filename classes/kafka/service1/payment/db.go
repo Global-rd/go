@@ -1,4 +1,4 @@
-package task
+package payment
 
 import (
 	"database/sql"
@@ -8,14 +8,14 @@ import (
 	. "github.com/doug-martin/goqu/v9"
 )
 
-var TaskTable = S("app").Table("task")
+var PaymentTable = S("app").Table("payment")
 
 type DB struct {
 	db *sql.DB
 }
 
-func (d DB) Get() (result []Task, err error) {
-	rows, err := d.db.Query(`SELECT id, name, description FROM app.task;`)
+func (d DB) Get() (result []Payment, err error) {
+	rows, err := d.db.Query(`SELECT id, name, description FROM app.payment;`)
 	if err != nil {
 		return nil, err
 	}
@@ -23,21 +23,21 @@ func (d DB) Get() (result []Task, err error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var task Task
+		var payment Payment
 
-		rows.Scan(&task.ID, &task.Name, &task.Description)
-		result = append(result, task)
+		rows.Scan(&payment.ID, &payment.Name, &payment.Description)
+		result = append(result, payment)
 	}
 
 	return result, nil
 }
 
-func (d DB) Create(task Task) error {
+func (d DB) Create(payment Payment) error {
 	sqlBuilderDB := New("postgres", d.db)
 
 	ds := sqlBuilderDB.
-		Insert(TaskTable).
-		Rows(task)
+		Insert(PaymentTable).
+		Rows(payment)
 
 	sql, _, _ := ds.ToSQL()
 	fmt.Println("sql", sql)
@@ -46,7 +46,7 @@ func (d DB) Create(task Task) error {
 
 	affected, _ := result.RowsAffected()
 	if affected < 1 {
-		return errors.New("task creation did not happen")
+		return errors.New("payment creation did not happen")
 	}
 
 	return err

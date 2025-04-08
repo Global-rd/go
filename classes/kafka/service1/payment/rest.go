@@ -1,4 +1,4 @@
-package task
+package payment
 
 import (
 	"encoding/json"
@@ -7,18 +7,18 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func NewRouter(r chi.Router, taskController Controller) chi.Router {
+func NewRouter(r chi.Router, paymentController Controller) chi.Router {
 	r.Post("/", func(w http.ResponseWriter, r *http.Request) {
-		var task Task
+		var payment Payment
 
-		err := json.NewDecoder(r.Body).Decode(&task)
+		err := json.NewDecoder(r.Body).Decode(&payment)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		defer r.Body.Close()
 
-		err = taskController.Create(task)
+		err = paymentController.Create(payment)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -30,13 +30,13 @@ func NewRouter(r chi.Router, taskController Controller) chi.Router {
 	})
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		tasks, err := taskController.Get()
+		payments, err := paymentController.Get()
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		response, err := json.Marshal(tasks)
+		response, err := json.Marshal(payments)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -48,13 +48,13 @@ func NewRouter(r chi.Router, taskController Controller) chi.Router {
 	r.Get("/{id}", func(w http.ResponseWriter, r *http.Request) {
 		id := chi.URLParam(r, "id")
 
-		task, err := taskController.GetByID(id)
+		payment, err := paymentController.GetByID(id)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		response, err := json.Marshal(task)
+		response, err := json.Marshal(payment)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

@@ -20,7 +20,7 @@ ALTER SCHEMA app OWNER TO dbuser;
 
 CREATE TABLE app.payment (
     id varchar,
-    name varchar,
+    name varchar
 );
 
 ALTER TABLE app.payment OWNER TO dbuser;
