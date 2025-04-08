@@ -82,6 +82,7 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 			retval.Status = -1
 			retval.Errors = append(retval.Errors, "timeout error")
 			retval.Timeout = ""
+			return
 		}
 	}()
 
