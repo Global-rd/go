@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"patterns/channels"
+	"patterns/client"
 	"patterns/config"
+	"patterns/model"
 	"patterns/server"
 )
 
@@ -20,7 +23,7 @@ func parseFlags() (bool, int) {
 
 func runServer(logger *slog.Logger, cfg *config.ServerCfg) {
 	router := server.NewDummyRouter(logger)
-	dummyServer, err := server.NewServer(router, *cfg, server.WithLogger(logger))
+	dummyServer, err := server.NewServer(router, cfg, server.WithLogger(logger))
 	if err != nil {
 		logger.Error(err.Error())
 		os.Exit(1)
@@ -31,8 +34,25 @@ func runServer(logger *slog.Logger, cfg *config.ServerCfg) {
 	}
 }
 
-func sendRequests(count int, cfg *config.ServerCfg) {
+func sendRequests(logger *slog.Logger, count int, cfg *config.ServerCfg) []chan model.Result {
+	requests := client.NewRequest(logger, cfg)
 
+	resultChannels := make([]chan model.Result, 0)
+	for range count {
+		resultChan := make(chan model.Result)
+		resultChannels = append(resultChannels, resultChan)
+		go requests.CallResourceWithTimeout(resultChan)
+	}
+	return resultChannels
+}
+
+func runClient(logger *slog.Logger, count int, cfg *config.ServerCfg) {
+	resultChannels := sendRequests(logger, count, cfg)
+	mergedChannel := channels.FanInChannels[model.Result](resultChannels)
+
+	for result := range mergedChannel {
+		fmt.Printf("call to resource %s ended with result: %s\n", result.ResourceId, result.Status)
+	}
 }
 
 func main() {
@@ -52,6 +72,6 @@ func main() {
 			os.Exit(1)
 		}
 
-		sendRequests(requestCount, cfg)
+		runClient(logger, requestCount, cfg)
 	}
 }

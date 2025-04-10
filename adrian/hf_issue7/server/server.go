@@ -17,7 +17,7 @@ type Server struct {
 
 type Option func(*Server)
 
-func NewServer(router http.Handler, cfg config.ServerCfg, opts ...Option) (*Server, error) {
+func NewServer(router http.Handler, cfg *config.ServerCfg, opts ...Option) (*Server, error) {
 
 	if cfg.Port == 0 || cfg.Address == "" {
 		return nil, errors.New("invalid server configuration")
