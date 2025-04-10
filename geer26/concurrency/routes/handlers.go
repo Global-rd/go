@@ -1,9 +1,10 @@
 package routes
 
 import (
+	"context"
 	"encoding/json"
-	"math/rand"
 	"net/http"
+	"sync"
 	"time"
 )
 
@@ -25,140 +26,97 @@ type ReturnString struct {
 	Result string
 }
 
-func HelloWorld(w http.ResponseWriter, r *http.Request) {
+func MultiFetch(w http.ResponseWriter, r *http.Request) {
+	//start := time.Now()
+	done := make(chan struct{})
+	ctx := context.Background()
+
 	retval := ReturnStruct{
-		Status: 1,
-	}
-	rch := make(chan int)
-	pch := make(chan int)
-	sch := make(chan string)
-	//var errs []error
-
-	go func() {
-		defer close(rch)
-		resp, err := http.Get("http://localhost:5001/")
-		if err != nil {
-			retval.Status = -1
-			retval.Random = -1
-			retval.Errors = append(retval.Errors, err.Error())
-			return
-		}
-		var randint ReturnInt
-		err = json.NewDecoder(resp.Body).Decode(&randint)
-		retval.Random = randint.Result
-	}()
-
-	go func() {
-		defer close(pch)
-		resp, err := http.Get("http://localhost:5002/")
-		if err != nil {
-			retval.Status = -1
-			retval.Prime = -1
-			retval.Errors = append(retval.Errors, err.Error())
-			return
-		}
-		var prime ReturnInt
-		err = json.NewDecoder(resp.Body).Decode(&prime)
-		retval.Prime = prime.Result
-	}()
-
-	go func() {
-		defer close(sch)
-		resp, err := http.Get("http://localhost:5003/")
-		if err != nil {
-			retval.Status = -1
-			retval.Timeout = ""
-			retval.Errors = append(retval.Errors, err.Error())
-			return
-		}
-		var str ReturnString
-		err = json.NewDecoder(resp.Body).Decode(&str)
-		retval.Timeout = str.Result
-	}()
-
-	go func() {
-		select {
-		case <-time.After(time.Millisecond * 2000):
-			retval.Status = -1
-			retval.Errors = append(retval.Errors, "timeout error")
-			retval.Timeout = ""
-			return
-		}
-	}()
-
-	<-sch
-	<-pch
-	<-rch
-
-	if retval.Status > 0 {
-		w.WriteHeader(http.StatusOK)
-	} else {
-		w.WriteHeader(http.StatusInternalServerError)
+		Random:  -1,
+		Prime:   -1,
+		Timeout: "",
+		Status:  1,
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(retval)
-}
-
-func IntFetcher(inbound <-chan int) http.HandlerFunc {
-
-	return func(w http.ResponseWriter, r *http.Request) {
-		var randint int
-		status := 1
-
-		select {
-		case v := <-inbound:
-			randint = v
-		case <-time.After(time.Millisecond * 2000):
-			status = 0
-			randint = -1
-		}
-
-		retval := ReturnInt{
-			Status: status,
-			Result: randint,
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(retval)
+	apilist := []string{
+		"http://localhost:5001",
+		"http://localhost:5002",
+		"http://localhost:5003",
 	}
-}
 
-func PrimeFetcher(inbound <-chan int) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		var prime int
-		status := 1
+	go fetchAPI(ctx, &retval, apilist, done)
 
-		select {
-		case v := <-inbound:
-			prime = v
-		case <-time.After(time.Millisecond * 2000):
-			status = 0
-			prime = -1
-		}
-
-		retval := ReturnInt{
-			Status: status,
-			Result: prime,
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(retval)
-
-	}
-}
-
-func TimeoutFetcher(w http.ResponseWriter, r *http.Request) {
-	var heavyload = rand.Intn(4000)
-	time.Sleep(time.Millisecond * time.Duration(heavyload))
-	retval := ReturnString{
-		Status: 1,
-		Result: "Generated string! All OK!",
+	select {
+	case <-done:
+		//log.Println("Early finish! - ", time.Since(start))
+	case <-time.After(time.Millisecond * 2000):
+		retval.Errors = append(retval.Errors, "timeout error")
+		retval.Status = -1
+		//log.Println("Timed out! - ", time.Since(start))
 	}
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(retval)
+}
+
+func fetchAPI(ctx context.Context, retval *ReturnStruct, apilist []string, done chan<- struct{}) {
+	wg := sync.WaitGroup{}
+
+	for _, to_fetch := range apilist {
+		wg.Add(1)
+		go func() {
+
+			defer wg.Done()
+			resp, err := http.Get(to_fetch)
+			if err != nil {
+				retval.Status = -1
+				retval.Errors = append(retval.Errors, err.Error())
+				return
+			}
+
+			if to_fetch == "http://localhost:5003" {
+				var retv ReturnString
+				err = json.NewDecoder(resp.Body).Decode(&retv)
+				if err != nil {
+					retval.Errors = append(retval.Errors, err.Error())
+					retval.Status = -1
+					retval.Timeout = ""
+					return
+				}
+				retval.Timeout = retv.Result
+				return
+			}
+
+			if to_fetch == "http://localhost:5001" {
+				var retv ReturnInt
+				err = json.NewDecoder(resp.Body).Decode(&retv)
+				if err != nil {
+					retval.Errors = append(retval.Errors, err.Error())
+					retval.Status = -1
+					return
+				}
+				retval.Random = retv.Result
+				return
+			}
+
+			if to_fetch == "http://localhost:5002" {
+				var retv ReturnInt
+				err = json.NewDecoder(resp.Body).Decode(&retv)
+				if err != nil {
+					retval.Errors = append(retval.Errors, err.Error())
+					return
+				}
+				retval.Prime = retv.Result
+				return
+			}
+
+		}()
+	}
+
+	wg.Wait()
+
+	close(done)
+
+	return
 }

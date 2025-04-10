@@ -5,7 +5,7 @@ import (
 )
 
 func Attachmhain(m *chi.Mux) {
-	m.HandleFunc("/", HelloWorld)
+	m.HandleFunc("/", MultiFetch)
 }
 
 func AttachIntFetcher(m *chi.Mux, ch <-chan int) {
