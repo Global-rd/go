@@ -42,16 +42,3 @@ services:
       - kafka
     volumes:
       - ./service1:/app
-  
-  app2:
-    image: golang:1.23.5
-    container_name: go-web-service2
-    command: bash -c "go get ./... && go run ."
-    working_dir: /app
-    ports:
-      - 8081:8081
-    depends_on:
-      - db
-      - kafka
-    volumes:
-      - ./service2:/app

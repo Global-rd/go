@@ -38,7 +38,7 @@
             }
         },
         {
-            "name": "Replica service 2 run",
+            "name": "Replica serv replica run",
             "type": "go",
             "request": "launch",
             "mode": "auto",
