@@ -21,6 +21,7 @@ type Server struct {
 
 type Kafka struct {
 	Address string
+	GroupID string
 }
 
 type DB struct {

@@ -15,12 +15,10 @@ type Container struct {
 
 func NewContainer(
 	logger *slog.Logger,
-	db *sql.DB,
 	kafka *kafka.Writer,
 ) Container {
 	return Container{
 		logger: logger,
-		db:     db,
 		kafka:  kafka,
 	}
 }

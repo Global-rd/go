@@ -1,25 +1,21 @@
 services:
   kafka:
-    image: apache/kafka-native
+    image: bitnami/kafka:3.6
+    container_name: kafka
     ports:
-      - "9092:9092"
+      - "9092:9092" # For clients on host
     environment:
-      # Configure listeners for both docker and host communication
-      KAFKA_LISTENERS: CONTROLLER://localhost:9091,HOST://0.0.0.0:9092,DOCKER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: HOST://localhost:9092,DOCKER://kafka:9093
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,DOCKER:PLAINTEXT,HOST:PLAINTEXT
-
-      # Settings required for KRaft mode
-      KAFKA_NODE_ID: 1
-      KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9091
-
-      # Listener to use for broker-to-broker communication
-      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
-
-      # Required for a single node cluster
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_CFG_GROUP_INITIAL_REBALANCE_DELAY_MS=0
 
   db:
     image: postgres:latest
@@ -34,3 +30,28 @@ services:
       POSTGRES_PASSWORD: dbpass
     volumes:
       - ./testdata/database.sql:/docker-entrypoint-initdb.d/database.sql
+  
+  app1:
+    image: golang:1.23.5
+    container_name: go-web-service1
+    command: bash -c "go get ./... && go run ."
+    working_dir: /app
+    ports:
+      - 8080:8080
+    depends_on:
+      - kafka
+    volumes:
+      - ./service1:/app
+  
+  app2:
+    image: golang:1.23.5
+    container_name: go-web-service2
+    command: bash -c "go get ./... && go run ."
+    working_dir: /app
+    ports:
+      - 8081:8081
+    depends_on:
+      - db
+      - kafka
+    volumes:
+      - ./service2:/app

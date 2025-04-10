@@ -39,10 +39,13 @@ func main() {
 	}
 
 	r := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:   []string{cfg.Kafka.Address},
-		Topic:     "payment",
-		Partition: 0,
-		MaxBytes:  10e6, // 10MB
+		Brokers:     []string{cfg.Kafka.Address},
+		Topic:       "payment",
+		Partition:   0,
+		MaxBytes:    10e6, // 10MB
+		Logger:      kafka.LoggerFunc(func(s string, i ...interface{}) { logger.Info(s, i...) }),
+		ErrorLogger: kafka.LoggerFunc(func(s string, i ...interface{}) { logger.Error(s, i...) }),
+		GroupID:     cfg.Kafka.GroupID,
 	})
 
 	cont := container.NewContainer(
