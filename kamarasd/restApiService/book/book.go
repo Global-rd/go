@@ -2,10 +2,11 @@ package book
 
 import (
 	"database/sql"
-	"fmt"
 	"log/slog"
 	"main/container"
 	"strconv"
+
+	"github.com/huandu/go-sqlbuilder"
 )
 
 type Book struct {
@@ -35,7 +36,12 @@ func (c Controller) IsItWorks() string {
 func (c Controller) HandleBooks() ([]Book, error) {
 	var books []Book
 
-	query := "SELECT id, date, genre, isbn, writer, title FROM library.book"
+	queryBuilder := sqlbuilder.NewSelectBuilder()
+	queryBuilder.Select("id", "date", "genre", "isbn", "writer", "title")
+	queryBuilder.From("library.book")
+
+	query := queryBuilder.String()
+
 	rows, err := c.container.GetDB().Query(query)
 	for rows.Next() {
 		var book Book
@@ -59,8 +65,14 @@ func (c Controller) HandleBookById(id string) Book {
 
 	var book Book
 
-	query := "SELECT id, date, genre, isbn, writer, title FROM library.book WHERE id = $1"
-	row := c.container.GetDB().QueryRow(query, bookId)
+	queryBuilder := sqlbuilder.NewSelectBuilder()
+	queryBuilder.SetFlavor(sqlbuilder.PostgreSQL)
+	queryBuilder.Select("id", "date", "genre", "isbn", "writer", "title")
+	queryBuilder.From("library.book")
+	queryBuilder.Where(queryBuilder.Equal("id", bookId))
+
+	query, args := queryBuilder.Build()
+	row := c.container.GetDB().QueryRow(query, args...)
 
 	err = row.Scan(&book.ID, &book.Date, &book.Genre, &book.ISBN, &book.Writer, &book.Title)
 	if err != nil {
@@ -84,15 +96,18 @@ func (c Controller) HandleDeleteBookById(id string) string {
 		slog.Error(err.Error())
 	}
 
+	queryBuilder := sqlbuilder.NewDeleteBuilder()
+	queryBuilder.SetFlavor(sqlbuilder.PostgreSQL)
+	queryBuilder.DeleteFrom("library.book")
+	queryBuilder.Where(queryBuilder.Equal("id", bookId))
+
+	query, args := queryBuilder.Build()
 	returnString := "Book deleted successfully"
 
-	query := "DELETE FROM library.book WHERE id = $1"
-	result, err := c.container.GetDB().Exec(query, bookId)
-
+	result, err := c.container.GetDB().Exec(query, args...)
 	if err != nil {
-		if err == sql.ErrNoRows {
-			returnString = "Error deleting"
-		}
+		slog.Error("Error executing delete query", slog.String("err", err.Error()))
+		returnString = "Error deleting book"
 	}
 
 	rowsAffected, err := result.RowsAffected()
@@ -108,27 +123,26 @@ func (c Controller) HandleDeleteBookById(id string) string {
 
 func (c Controller) HandleCreateBook(newBook Book) Book {
 
-	fmt.Println(newBook)
-	query := "INSERT INTO library.boo (date, genre, isbn, title, writer, created_at) VALUES($1, $2, $3, $4, $5, now())"
-	result, err := c.container.GetDB().Exec(query, newBook.Date, newBook.Genre, newBook.ISBN, newBook.Title, newBook.Writer)
-	fmt.Println(result)
+	queryBuilder := sqlbuilder.NewInsertBuilder()
+	queryBuilder.SetFlavor(sqlbuilder.PostgreSQL)
+	queryBuilder.InsertInto("library.book")
+	queryBuilder.Cols("date", "genre", "isbn", "title", "writer")
+	queryBuilder.Values(newBook.Date, newBook.Genre, newBook.ISBN, newBook.Title, newBook.Writer)
+
+	queryBuilder.Returning("id")
+
+	var insertedId string
+
+	query, args := queryBuilder.Build()
+	err := c.container.GetDB().QueryRow(query, args...).Scan(&insertedId)
+
 	if err != nil {
-		if err == sql.ErrNoRows {
-			slog.Error("Error inserting book", slog.String("err", err.Error()))
-		}
+		slog.Error("Error executing Insert query", slog.String("err", err.Error()))
 	}
 
-	rowsAffected, err := result.RowsAffected()
-	if err != nil {
-		slog.Error("Error retrieving rows affected", slog.String("err", err.Error()))
-		return Book{}
-	}
-	if rowsAffected == 0 {
-		slog.Error("Error inserting book - No book was inserted")
-		return Book{}
-	}
+	book := c.HandleBookById(insertedId)
 
-	return Book{}
+	return book
 
 }
 
@@ -138,28 +152,27 @@ func (c Controller) HandleUpdateBook(updateableBook Book, id string) Book {
 	if err != nil {
 		slog.Error("Error decoding request body", slog.String("err", err.Error()))
 	}
-	fmt.Println(updateableBook)
-	query := "UPDATE library.book " +
-		" SET date = $1, " +
-		" genre = $2, " +
-		" isbn = $3, " +
-		" title = $4, " +
-		" writer = $5 " +
-		" WHERE id = $6; "
 
-	result, err := c.container.GetDB().Exec(query,
-		updateableBook.Date, updateableBook.Genre, updateableBook.ISBN,
-		updateableBook.Title, updateableBook.Writer, bookId)
+	queryBuilder := sqlbuilder.NewUpdateBuilder()
+	queryBuilder.SetFlavor(sqlbuilder.PostgreSQL)
+	queryBuilder.Update("library.book")
+	queryBuilder.Set(
+		queryBuilder.Assign("date", updateableBook.Date),
+		queryBuilder.Assign("genre", updateableBook.Genre),
+		queryBuilder.Assign("isbn", updateableBook.ISBN),
+		queryBuilder.Assign("title", updateableBook.Title),
+		queryBuilder.Assign("writer", updateableBook.Writer),
+	)
+	queryBuilder.Where(queryBuilder.Equal("id", bookId))
+
+	query, args := queryBuilder.Build()
+
+	var insertedId string
+
+	err = c.container.GetDB().QueryRow(query, args...).Scan(&insertedId)
 
 	if err != nil {
 		slog.Error("Error during update", slog.String("err", err.Error()))
-	}
-
-	rowsAffected, err := result.RowsAffected()
-	if err != nil {
-		slog.Error("Error retrieving rows affected", slog.String("err", err.Error()))
-	} else if rowsAffected == 0 {
-		slog.Error("No rows affected during update")
 	}
 
 	book := c.HandleBookById(id)

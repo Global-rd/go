@@ -15,18 +15,6 @@ func NewHttpApi(container container.Container) *chi.Mux {
 		r.Route("/books", func(r chi.Router) {
 			book.NewRouter(r, bookController)
 		})
-
-		r.Route("/book", func(r chi.Router) {
-			book.NewRouter(r, bookController)
-		})
-
-		r.Route("/new_book", func(r chi.Router) {
-			book.NewRouter(r, bookController)
-		})
-
-		r.Route("/update_book", func(r chi.Router) {
-			book.NewRouter(r, bookController)
-		})
 	})
 
 	return router
