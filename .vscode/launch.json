@@ -9,7 +9,6 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "Launch go course",
             "program": "${workspaceFolder}/classes/class17",
             "env": {
                 "WEBSERVICE_DB_HOST": "localhost",
