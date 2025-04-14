@@ -1,11 +1,22 @@
 package main
 
 import (
-	"go-course/printer"
+	"fmt"
 )
 
 func main() {
-	printer.PrintInfo("Hello!")
+	var target string
+	value := "follow the pattern"
 
-	printer.PrintError("hiba")
+	Scan(&target, value)
+
+	fmt.Println("hello", target)
+}
+
+func ScanValue(target string, value string) {
+	target = value
+}
+
+func Scan(target *string, value string) {
+	*target = value
 }

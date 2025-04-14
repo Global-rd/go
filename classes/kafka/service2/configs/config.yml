@@ -1,0 +1,14 @@
+server:
+  address: 0.0.0.0
+  port: 8081
+
+kafka:
+  address: kafka:9092
+  groupid: PaymentReaderGroup
+
+db:
+  host: db
+  port: 5432
+  user: dbuser
+  password: dbpass
+  db_name: gocourse

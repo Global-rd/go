@@ -4,13 +4,19 @@ go 1.23.5
 
 require (
 	github.com/go-chi/chi v1.5.5
+	github.com/segmentio/kafka-go v0.4.47
 	github.com/spf13/viper v1.19.0
+)
+
+require (
+	github.com/klauspost/compress v1.17.2 // indirect
+	github.com/pierrec/lz4/v4 v4.1.15 // indirect
 )
 
 require (
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible // indirect
+	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/lib/pq v1.10.9
