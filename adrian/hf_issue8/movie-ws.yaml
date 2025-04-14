@@ -1,0 +1,9 @@
+db:
+  dbname: moviedb
+  dbuser: movieadm
+  dbpass: moviepass
+  dbhost: host.docker.internal
+  dbport: 5432
+server:
+  address: 0.0.0.0
+  port: 8080
