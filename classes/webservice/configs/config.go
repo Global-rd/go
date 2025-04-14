@@ -66,7 +66,6 @@ func Parse() (result *Cfg, err error) {
 	if err = viper.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("error reading config file, %s", err)
 	}
-	fmt.Println("Loaded configuration:", viper.AllSettings())
 
 	err = viper.Unmarshal(&result)
 	if err != nil {
