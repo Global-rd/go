@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/classes/class20",
+            "program": "${workspaceFolder}/classes/timeout",
             "env": {
                 "WEBSERVICE_DB_HOST": "localhost",
             }
