@@ -92,11 +92,9 @@ func UpdateBook(db *sql.DB, book *Book) (Book, error) {
 				"price":        book.Price,
 				"stock":        book.Stock,
 			},
-		)
-	expression, _, _ := ds.ToSQL()
+		).Executor()
 
-	_, err := db.Query(expression)
-	if err != nil {
+	if _, err := ds.Exec(); err != nil {
 		return *book, err
 	}
 
@@ -104,11 +102,9 @@ func UpdateBook(db *sql.DB, book *Book) (Book, error) {
 }
 
 func DeleteBook(db *sql.DB, id string) error {
-	ds := goqu.Delete("bookshelf").Where(goqu.C("id").Eq(id))
-	expression, _, _ := ds.ToSQL()
+	ds := goqu.Delete("bookshelf").Where(goqu.C("id").Eq(id)).Executor()
 
-	_, err := db.Query(expression)
-	if err != nil {
+	if _, err := ds.Exec(); err != nil {
 		return err
 	}
 
