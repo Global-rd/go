@@ -24,7 +24,9 @@ func GetAllBooks(db *sql.DB) ([]Book, error) {
 			return result, err
 		}
 		result = append(result, book)
+
 	}
+
 	return result, nil
 }
 
@@ -67,11 +69,9 @@ func InsertBook(db *sql.DB, book *Book) (Book, error) {
 			"price":        book.Price,
 			"stock":        book.Stock,
 		},
-	)
-	expression, _, _ := ds.ToSQL()
+	).Executor()
 
-	_, err := db.Query(expression)
-	if err != nil {
+	if _, err := ds.Exec(); err != nil {
 		return *book, err
 	}
 
