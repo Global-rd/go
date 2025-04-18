@@ -1,51 +1,59 @@
 package main
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"time"
 )
 
-func resourceCall(ctx context.Context, resourceName string) chan string {
+type ChuckJoke struct {
+	Value string `json:"value"`
+}
+
+const timeoutDuration = 10 * time.Second
+
+func resourceCall() chan string {
 	result := make(chan string)
 
 	go func() {
-		defer close(result)
-		select {
-		case <-ctx.Done():
-			return
-		case <-time.After(1 * time.Second):
-			result <- fmt.Sprintf("%s completed", resourceName)
+		var joke ChuckJoke
+
+		url := fmt.Sprintf("https://api.chucknorris.io/jokes/random/")
+
+		res, err := http.Get(url)
+		if err != nil {
+			result <- fmt.Sprintf("Error fetching resource %v", err)
 		}
+		//defer res.Body.Close()
+
+		body, err := io.ReadAll(res.Body)
+		if err != nil {
+			result <- fmt.Sprintf("Error reading response for resource %v", err)
+		}
+
+		err = json.Unmarshal(body, &joke)
+		if err != nil {
+			result <- fmt.Sprintf("unmarshalling json run into an error: %w", err)
+		}
+
+		time.Sleep(5 * time.Second) // Simulate a long-running operation
+
+		result <- string(joke.Value)
+		close(result)
 	}()
 
 	return result
 }
 
 func main() {
-	resources := []string{"Resource1", "Resource2", "Resource3"}
-	timeout := 3 * time.Second
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
+	response := resourceCall()
 
-	results := make(chan string)
-	for _, resource := range resources {
-		go func(resource string) {
-			for res := range resourceCall(ctx, resource) {
-				results <- res
-			}
-		}(resource)
+	select {
+	case <-time.After(timeoutDuration):
+		fmt.Println("Timeout occurred")
+	case res := <-response:
+		fmt.Println("Response received: ", res)
 	}
-
-	for i := 0; i < len(resources); i++ {
-		select {
-		case result := <-results:
-			fmt.Println(result)
-		case <-ctx.Done():
-			fmt.Println("Timeout occurred")
-			return
-		}
-	}
-
-	fmt.Println("All resource calls completed")
 }
