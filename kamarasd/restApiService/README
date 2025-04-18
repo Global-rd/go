@@ -1,0 +1,4 @@
+Simply run docker-compose up in powerShell,
+
+You can reach the API at http://localhost:8081/books
+You can reach the database at localhost:5444 
