@@ -1,7 +1,6 @@
 package timeout
 
 import (
-	"context"
 	"errors"
 	"log/slog"
 	"sync"
@@ -9,14 +8,12 @@ import (
 )
 
 type Group[T any] struct {
-	Context context.Context
 	Timeout time.Duration
 	Jobs    []AsyncJob[T]
 }
 
-func NewTimeoutGroup[T any](ctx context.Context, timeout time.Duration) *Group[T] {
+func NewTimeoutGroup[T any](timeout time.Duration) *Group[T] {
 	return &Group[T]{
-		Context: ctx,
 		Timeout: timeout,
 		Jobs:    make([]AsyncJob[T], 0),
 	}
@@ -37,6 +34,8 @@ func (st *Group[T]) AddJob(job AsyncJob[T]) {
 	st.Jobs = append(st.Jobs, job)
 }
 
+var ErrTimeout = errors.New("timeout")
+
 func (st *Group[T]) WaitAll() <-chan AsyncJobResult[T] {
 	var wg sync.WaitGroup
 	wg.Add(len(st.Jobs))
@@ -44,8 +43,6 @@ func (st *Group[T]) WaitAll() <-chan AsyncJobResult[T] {
 	results := make(chan AsyncJobResult[T], len(st.Jobs))
 	for _, job := range st.Jobs {
 		go func() {
-			ctx, cancel := context.WithTimeout(st.Context, st.Timeout)
-			defer cancel()
 			defer wg.Done()
 
 			slog.Debug("Executing job", "jobId", job.JobId)
@@ -71,18 +68,11 @@ func (st *Group[T]) WaitAll() <-chan AsyncJobResult[T] {
 			select {
 			case result := <-resultChannel:
 				results <- result
-			case <-ctx.Done():
+			case <-time.After(st.Timeout):
 				results <- AsyncJobResult[T]{
 					JobId:  job.JobId,
 					Result: nil,
-					Error:  errors.New("timeout"),
-				}
-				return
-			case <-st.Context.Done():
-				results <- AsyncJobResult[T]{
-					JobId:  job.JobId,
-					Result: nil,
-					Error:  st.Context.Err(),
+					Error:  ErrTimeout,
 				}
 				return
 			}

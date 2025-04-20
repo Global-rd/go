@@ -3,7 +3,7 @@ package main
 import (
 	"async-caller/async"
 	"async-caller/timeout"
-	"context"
+	"errors"
 	"log/slog"
 	"strconv"
 	"time"
@@ -21,7 +21,7 @@ func main() {
 		100*time.Second, // Set a longer timeout to test the timeout group
 	)
 
-	timeoutGroup := timeout.NewTimeoutGroup[async.RestApiResponseTask](context.Background(), 5*time.Second)
+	timeoutGroup := timeout.NewTimeoutGroup[async.RestApiResponseTask](5 * time.Second)
 	for i := 0; i < 10; i++ {
 		job := func() (async.RestApiResponseTask, error) {
 			return client.SimpleCallRestApi(strconv.Itoa(i))
@@ -35,8 +35,15 @@ func main() {
 	responses := timeoutGroup.WaitAll()
 
 	for response := range responses {
-		if response.Error != nil {
+		if errors.Is(response.Error, timeout.ErrTimeout) {
 			slog.Warn(
+				"Timeout calling rest api",
+				"jobId", response.JobId,
+				"error", response.Error,
+			)
+			continue
+		} else if response.Error != nil {
+			slog.Error(
 				"Error calling rest api",
 				"jobId", response.JobId,
 				"error", response.Error,
