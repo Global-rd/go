@@ -1,0 +1,12 @@
+server:
+  port: 5000
+  read_timeout: 10
+  write_timeout: 20
+
+db:
+  dialect: postgres
+  host: localhost
+  port: 5432
+  user: HatakeKakashi
+  password: YvACldNZdAGtdUNwrz12uYihpixM2Wt2Ed0NRdtpC80kKXDnQjwQCvw5ZHVl1A1B
+  db_name: books
