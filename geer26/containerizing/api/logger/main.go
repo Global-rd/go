@@ -1,92 +1,114 @@
 package logger
 
 import (
-	"log/slog"
-	"os"
+	"advrest/config"
+	"context"
+	"encoding/json"
+	"fmt"
+	"time"
+
+	"github.com/google/uuid"
+	kafka "github.com/segmentio/kafka-go"
 )
 
-type Option interface {
-	apply(*Log)
-}
-
-type OptionFunc func(*Log)
-
-func (f OptionFunc) apply(logger *Log) {
-	f(logger)
+type LogMessage struct {
+	Log       string    `json:"log"`
+	Type      string    `json:"type"`
+	Timestamp time.Time `json:"timestamp"`
+	ID        uuid.UUID `json:"id"`
 }
 
 type Log struct {
-	LogfilePath    string
-	MaxLogfileSize int
+	KafkaWriter *kafka.Writer
 }
 
-func WithLogfile(p string) OptionFunc {
-	return OptionFunc(func(l *Log) {
-		l.LogfilePath = p
-	})
-}
-
-func WithLogSize(s int) OptionFunc {
-	return OptionFunc(func(l *Log) {
-		if s > 1 {
-			l.MaxLogfileSize = s
-		}
-	})
+func newKafkaWriter(kafkaURL, topic string) *kafka.Writer {
+	return &kafka.Writer{
+		Addr:                   kafka.TCP(kafkaURL),
+		Topic:                  topic,
+		Balancer:               &kafka.LeastBytes{},
+		AllowAutoTopicCreation: true,
+	}
 }
 
 func (l Log) INFO(info string) error {
-	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	message := LogMessage{
+		ID:        uuid.New(),
+		Log:       info,
+		Type:      "INFO",
+		Timestamp: time.Now(),
+	}
+
+	bytearray, err := json.Marshal(message)
 	if err != nil {
-		slog.Error("failed to open log file", "error", err)
 		return err
 	}
-	defer logFile.Close()
-	slog.New(slog.NewTextHandler(logFile, nil)).Info(info)
+
+	msg := kafka.Message{
+		Key:   []byte(fmt.Sprint(uuid.New())),
+		Value: bytearray,
+	}
+
+	err = l.KafkaWriter.WriteMessages(context.Background(), msg)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 func (l Log) WARNING(info string) error {
-	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	message := LogMessage{
+		ID:        uuid.New(),
+		Log:       info,
+		Type:      "WARNING",
+		Timestamp: time.Now(),
+	}
+
+	bytearray, err := json.Marshal(message)
 	if err != nil {
-		slog.Warn("failed to open log file", "error", err)
 		return err
 	}
-	defer logFile.Close()
-	slog.New(slog.NewTextHandler(logFile, nil)).Warn(info)
+
+	msg := kafka.Message{
+		Key:   []byte(fmt.Sprint(uuid.New())),
+		Value: bytearray,
+	}
+
+	err = l.KafkaWriter.WriteMessages(context.Background(), msg)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 func (l Log) ERROR(info string) error {
-	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	message := LogMessage{
+		ID:        uuid.New(),
+		Log:       info,
+		Type:      "ERROR",
+		Timestamp: time.Now(),
+	}
+
+	bytearray, err := json.Marshal(message)
 	if err != nil {
-		slog.Error("failed to open log file", "error", err)
 		return err
 	}
-	defer logFile.Close()
-	slog.New(slog.NewTextHandler(logFile, nil)).Error(info)
+
+	msg := kafka.Message{
+		Key:   []byte(fmt.Sprint(uuid.New())),
+		Value: bytearray,
+	}
+
+	err = l.KafkaWriter.WriteMessages(context.Background(), msg)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-func InitLogger(options ...Option) (*Log, error) {
+func InitLogger(config config.Server) (*Log, error) {
 
-	logger := Log{
-		LogfilePath:    "server.log",
-		MaxLogfileSize: 1024 * 1024 * 10,
-	}
-
-	for _, option := range options {
-		option.apply(&logger)
-	}
-
-	logFile, err := os.OpenFile(logger.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		slog.Error("failed to open log file", "error", err)
-		return &logger, err
-	}
-	defer logFile.Close()
-
-	slog.New(slog.NewTextHandler(logFile, nil)).Info("Logger started")
-
-	return &logger, nil
-
+	writer := newKafkaWriter(config.KAFKAURL, config.LOGTOPIC)
+	//defer writer.Close()
+	return &Log{KafkaWriter: writer}, nil
 }

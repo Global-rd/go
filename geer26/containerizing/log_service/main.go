@@ -37,6 +37,19 @@ func getKafkaReader(kafkaURL, topic, groupID string) *kafka.Reader {
 
 }
 
+/*
+func (l Log) INFO(info string) error {
+	logFile, err := os.OpenFile(l.LogfilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		slog.Error("failed to open log file", "error", err)
+		return err
+	}
+	defer logFile.Close()
+	slog.New(slog.NewTextHandler(logFile, nil)).Info(info)
+	return nil
+}
+*/
+
 func main() {
 	done := make(chan struct{})
 

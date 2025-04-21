@@ -18,6 +18,8 @@ type Server struct {
 	PORT         string
 	READTIMEOUT  string
 	WRITETIMEOUT string
+	KAFKAURL     string `mapstructure:"kafkaurl"`
+	LOGTOPIC     string `mapstructure:"logtopic"`
 }
 
 type DB struct {
@@ -53,6 +55,7 @@ func SetConfig() (*Cfg, error) {
 	}
 
 	// Set undefined variables
+	viper.SetDefault("database.dbname", "books")
 	viper.SetDefault("database.dbname", "books")
 
 	err := viper.Unmarshal(&configuration)
