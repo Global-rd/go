@@ -1,0 +1,64 @@
+version: "3.9"
+services:
+
+
+#< ---------- API SERVICE ------------ >
+
+#  api:
+
+#    container_name: geer26_api
+
+#    hostname: geer26_api
+
+#    restart: always
+
+#    build: ./api/.
+
+#    env_file:
+#      - ./envs/.env
+
+#    ports:
+#      - "5000:5000"
+
+#< ------------ KAFKA -------------- >
+  kafka:
+  # kcat -b localhost:9092 -L
+    hostname: kafka
+
+  #  image: bitnami/kafka:latest
+    image: bitnami/kafka:3.6
+
+    restart: no
+
+    env_file:
+      - ./envs/.env
+
+    ports:
+      - "9092:9092"
+
+
+#< ----------- POSTGRESQL ------------ >
+
+  pg_db:
+
+    container_name: geer26_db
+
+    hostname: geer26_db
+
+    build: ./db/.
+
+    restart: no
+
+    ports:
+      - "5432:5432"
+
+    env_file:
+      - ./envs/.env
+
+    volumes:
+      - ./db/script:/docker-entrypoint-initdb.d:ro
+      - ./db/data:/var/lib/postgresql/data:rw
+
+#    depends_on:
+#      - dependants
+#< ----------------------- >
