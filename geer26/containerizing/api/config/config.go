@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/spf13/viper"
 )
@@ -62,8 +61,6 @@ func SetConfig() (*Cfg, error) {
 	if err != nil {
 		return &configuration, err
 	}
-
-	log.Println("DB HOST: ", configuration.DB.Host)
 
 	return &configuration, nil
 
