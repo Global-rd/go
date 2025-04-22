@@ -1,0 +1,104 @@
+version: "3.9"
+services:
+
+
+
+#< ---------- API SERVICE ------------ >
+
+  api:
+
+    hostname: geer26_restapi
+
+    restart: no
+
+    build: ./api/.
+
+    env_file:
+      - ./envs/.env
+
+    volumes:
+      - ./api:/app/api:ro
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      pg_db:
+        condition: service_started
+
+    networks:
+      - kafka-network
+
+
+#< ---------- LOGGER SERVICE ------------ >
+  logger:
+
+    hostname: geer26_logger
+
+    restart: no
+
+    build: ./log_service/.
+
+    env_file:
+      - ./envs/.env
+
+    volumes:
+      - ./log_service:/app/service:ro
+
+    depends_on:
+      pg_db:
+        condition: service_started
+
+    networks:
+      - kafka-network
+
+
+
+#< ------------ KAFKA -------------- >
+  kafka:
+  # kcat -b localhost:9092 -L
+    hostname: kafka
+
+    image: bitnami/kafka:3.6
+
+    restart: no
+
+    env_file:
+      - ./envs/.env
+
+    ports:
+      - "9092:9092"
+
+    networks:
+      - kafka-network
+
+
+#< ----------- POSTGRESQL ------------ >
+
+  pg_db:
+
+    hostname: geer26_db
+
+    build: ./db/.
+
+    restart: no
+
+    env_file:
+      - ./envs/.env
+
+    volumes:
+      - ./db/script:/docker-entrypoint-initdb.d:ro
+      - ./db/data:/var/lib/postgresql/data:rw
+
+    depends_on:
+      kafka:
+        condition: service_started
+
+    networks:
+      - kafka-network
+#< ----------------------- >
+
+
+networks:
+  kafka-network:
+    driver: bridge
