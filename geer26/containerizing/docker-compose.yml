@@ -16,8 +16,8 @@ services:
     env_file:
       - ./envs/.env
 
-    volumes:
-      - ./api:/app/api:ro
+#    volumes:
+#      - ./api:/app/api:ro
 
     ports:
       - "5000:5000"
@@ -42,8 +42,8 @@ services:
     env_file:
       - ./envs/.env
 
-    volumes:
-      - ./log_service:/app/service:ro
+#    volumes:
+#      - ./log_service:/app/service:ro
 
     depends_on:
       pg_db:
@@ -66,8 +66,8 @@ services:
     env_file:
       - ./envs/.env
 
-    ports:
-      - "9092:9092"
+#    ports:
+#      - "9092:9092"
 
     networks:
       - kafka-network
