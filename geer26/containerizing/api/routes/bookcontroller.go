@@ -37,34 +37,40 @@ func (b BookController) GetBooks(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		b.Logger.WARNING("Query book with empty ID")
 		return
 	}
 
 	result, err := db.GetBook(b.DbConnection, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		b.Logger.ERROR(fmt.Sprintf("Query book failed : %s", err.Error()))
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	b.Logger.INFO(fmt.Sprintf("Query book success, ID: %s", id))
 	json.NewEncoder(w).Encode(result)
 }
 
 func (b BookController) CreateBook(w http.ResponseWriter, r *http.Request) {
-	var new_book db.Book
+	var new_book = db.Book{}
 	err := json.NewDecoder(r.Body).Decode(&new_book)
 	if err != nil {
 		http.Error(w, "invalid json body", http.StatusBadRequest)
+		b.Logger.WARNING(fmt.Sprintf("Create book entry with empty invalid json : %s", err.Error()))
 		return
 	}
 
 	result, err := db.InsertBook(b.DbConnection, &new_book)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		b.Logger.ERROR(fmt.Sprintf("Create book failed : %s", err.Error()))
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	b.Logger.INFO(fmt.Sprintf("Create book success : %s", new_book.Id))
 	json.NewEncoder(w).Encode(result)
 }
 
@@ -72,6 +78,7 @@ func (b BookController) UpdateBook(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		b.Logger.WARNING("Attempt to update book with empty ID!")
 		return
 	}
 
@@ -79,6 +86,7 @@ func (b BookController) UpdateBook(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&new_book)
 	if err != nil {
 		http.Error(w, "invalid json body", http.StatusBadRequest)
+		b.Logger.ERROR(fmt.Sprintf("Attempt to update book failed : %s", err.Error()))
 		return
 	}
 
@@ -87,10 +95,12 @@ func (b BookController) UpdateBook(w http.ResponseWriter, r *http.Request) {
 	response, err := db.UpdateBook(b.DbConnection, &new_book)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		b.Logger.ERROR(fmt.Sprintf("Attempt to update book failed : %s", err.Error()))
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	b.Logger.INFO(fmt.Sprintf("Book updated : %s", new_book.Id))
 	json.NewEncoder(w).Encode(response)
 }
 
@@ -98,12 +108,14 @@ func (b BookController) DeleteBook(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		b.Logger.WARNING("Attempt to delete book with empty ID")
 		return
 	}
 
 	err := db.DeleteBook(b.DbConnection, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		b.Logger.ERROR(fmt.Sprintf("Attempt to delete book failed : %s", err.Error()))
 		return
 	}
 
@@ -112,6 +124,7 @@ func (b BookController) DeleteBook(w http.ResponseWriter, r *http.Request) {
 		Message: fmt.Sprintf("Book %s deleted", id),
 	}
 	w.Header().Set("Content-Type", "application/json")
+	b.Logger.INFO(fmt.Sprintf("Book deleted : %s", id))
 	json.NewEncoder(w).Encode(response)
 }
 

@@ -4,11 +4,18 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"log/slog"
+	"main/config"
 	"strings"
 	"time"
 
 	kafka "github.com/segmentio/kafka-go"
 )
+
+type Service struct {
+	Reader *kafka.Reader
+	Config *config.Cfg
+}
 
 type LogMessage struct {
 	Log       string    `json:"log"`
@@ -17,23 +24,30 @@ type LogMessage struct {
 	ID        string    `json:"id"`
 }
 
-const (
-	KAFKAURL = "localhost:9092"
-	TOPIC    = "log_service"
-)
+func (s *Service) Configure() *Service {
+	config, err := config.SetConfig()
+	if err != nil {
+		slog.Error(err.Error())
+		return s
+	}
+	s.Config = config
+	return s
+}
 
-func getKafkaReader(kafkaURL, topic, groupID string) *kafka.Reader {
-	brokers := strings.Split(kafkaURL, ",")
+func (s *Service) setKafkaReader() *Service {
+	brokers := strings.Split(s.Config.Kafkaurl, ",")
 
 	reader := kafka.NewReader(kafka.ReaderConfig{
 		Brokers:   brokers,
-		Topic:     topic,
+		Topic:     s.Config.Logtopic,
 		Partition: 0,
 		MaxBytes:  10e6, // 10MB
-		GroupID:   groupID,
+		GroupID:   s.Config.Groupid,
 	})
 
-	return reader
+	s.Reader = reader
+
+	return s
 
 }
 
@@ -53,16 +67,20 @@ func (l Log) INFO(info string) error {
 func main() {
 	done := make(chan struct{})
 
+	var logservice Service
+
+	logservice.Configure().setKafkaReader()
+
 	go func() {
-		reader := getKafkaReader(KAFKAURL, TOPIC, "logger_service")
-		defer reader.Close()
+		defer logservice.Reader.Close()
+		log.Println("Log service started...")
 
 		for {
-			m, err := reader.ReadMessage(context.Background())
+			m, err := logservice.Reader.ReadMessage(context.Background())
 			if err != nil {
 				log.Fatalf("error at reading queue: %s", err.Error())
 			}
-			fmt.Printf("message: %s\n", string(m.Value))
+			fmt.Printf("Log to save: %s\n", string(m.Value))
 		}
 
 	}()

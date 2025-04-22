@@ -30,5 +30,6 @@ func main() {
 	service.Db.Close()
 	service.Logger.INFO("Db connection closed")
 	service.Logger.INFO("Service shut down")
+	service.Logger.KafkaWriter.Close()
 
 }

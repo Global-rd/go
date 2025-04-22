@@ -2,12 +2,14 @@ server:
   port: 5000
   read_timeout: 10
   write_timeout: 20
-  kafkaurl: localhost:9092
+  kafkaurl: kafka:9092
+  #kafkaurl: localhost:9092 - only in dev mode - uncontainerized api and logger
   logtopic: log_service
 
 db:
   dialect: postgres
-  host: localhost
+  host: geer26_db
+  #host: localhost - only in dev mode - uncontainerized api and logger
   port: 5432
   user: HatakeKakashi
   password: YvACldNZdAGtdUNwrz12uYihpixM2Wt2Ed0NRdtpC80kKXDnQjwQCvw5ZHVl1A1B

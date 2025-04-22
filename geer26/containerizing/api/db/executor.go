@@ -59,7 +59,7 @@ func InsertBook(db *sql.DB, book *Book) (Book, error) {
 
 	book.Id = string(uuid.New().String())
 
-	ds := goqu.Insert("bookshelf").Rows(
+	ds, _, _ := goqu.Insert("bookshelf").Rows(
 		goqu.Record{
 			"id":           book.Id,
 			"title":        book.Title,
@@ -69,9 +69,10 @@ func InsertBook(db *sql.DB, book *Book) (Book, error) {
 			"price":        book.Price,
 			"stock":        book.Stock,
 		},
-	).Executor()
+	).ToSQL()
 
-	if _, err := ds.Exec(); err != nil {
+	_, err := db.Query(ds)
+	if err != nil {
 		return *book, err
 	}
 
@@ -79,7 +80,7 @@ func InsertBook(db *sql.DB, book *Book) (Book, error) {
 }
 
 func UpdateBook(db *sql.DB, book *Book) (Book, error) {
-	ds := goqu.From("bookshelf").
+	ds, _, _ := goqu.From("bookshelf").
 		Where(goqu.C("id").Eq(book.Id)).
 		Update().
 		Set(
@@ -92,9 +93,10 @@ func UpdateBook(db *sql.DB, book *Book) (Book, error) {
 				"price":        book.Price,
 				"stock":        book.Stock,
 			},
-		).Executor()
+		).ToSQL()
 
-	if _, err := ds.Exec(); err != nil {
+	_, err := db.Query(ds)
+	if err != nil {
 		return *book, err
 	}
 
@@ -102,9 +104,10 @@ func UpdateBook(db *sql.DB, book *Book) (Book, error) {
 }
 
 func DeleteBook(db *sql.DB, id string) error {
-	ds := goqu.Delete("bookshelf").Where(goqu.C("id").Eq(id)).Executor()
+	ds, _, _ := goqu.Delete("bookshelf").Where(goqu.C("id").Eq(id)).ToSQL()
 
-	if _, err := ds.Exec(); err != nil {
+	_, err := db.Query(ds)
+	if err != nil {
 		return err
 	}
 

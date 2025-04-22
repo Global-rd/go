@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/viper"
 )
@@ -56,12 +57,13 @@ func SetConfig() (*Cfg, error) {
 
 	// Set undefined variables
 	viper.SetDefault("database.dbname", "books")
-	viper.SetDefault("database.dbname", "books")
 
 	err := viper.Unmarshal(&configuration)
 	if err != nil {
 		return &configuration, err
 	}
+
+	log.Println("DB HOST: ", configuration.DB.Host)
 
 	return &configuration, nil
 

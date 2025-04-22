@@ -1,0 +1,4 @@
+
+kafkaurl: localhost:9092
+logtopic: log_service
+groupid: logger_service
