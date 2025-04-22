@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Copy the binary from the build stage
 COPY --from=build /app/api .
-COPY config.yml /app/
+COPY config.yml /app
 
 # Set the entrypoint command
 ENTRYPOINT ["/app/api"]
