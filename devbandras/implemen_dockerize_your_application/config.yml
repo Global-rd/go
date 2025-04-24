@@ -1,0 +1,10 @@
+server:
+  host: localhost
+  port: 8080
+
+db_server:
+  host: postgres
+  port: 5432
+  user: myuser
+  password: mypassword
+  db_name: mydatabase
